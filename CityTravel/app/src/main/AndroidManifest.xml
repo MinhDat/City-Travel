@@ -11,23 +11,20 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".activities.ResetPassword" />
         <activity android:name=".activities.CommentManagement" />
-
         <activity
             android:name=".activities.timkiem"
             android:theme="@style/NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".activities.Chinhsuathongtin"
-            android:theme="@style/NoActionBar">
-
-        </activity>
-
-
+            android:theme="@style/NoActionBar" />
+        <activity android:name=".activities.Themdichvu" />
+        <activity android:name=".activities.Thongtincanhan"></activity>
     </application>
 
 </manifest>
