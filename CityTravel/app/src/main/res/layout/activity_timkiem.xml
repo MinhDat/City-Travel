@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_timkiem"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    tools:context="edu.hcmus.minhdat.citytravel.activities.timkiem">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="58dp"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:titleTextColor="#ffffff">
+    </android.support.v7.widget.Toolbar>
+
+
+    <ImageButton
+        android:id="@+id/btn_seach"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/ic_search"
+        android:scaleType="centerInside"
+        android:background="#FFFFFF"
+        android:layout_below="@+id/toolbar"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_toRightOf="@id/btn_seach"
+        android:background="#EEEEEE"
+        android:layout_below="@id/toolbar" />
+
+    <RelativeLayout
+        android:id="@+id/layout_checkbox"
+        android:layout_marginTop="110dp"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@color/colorPrimary">
+
+        <CheckBox
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:id="@+id/checkBox_Nearme"
+        android:layout_marginLeft="10dp"
+        android:layout_centerVertical="true"/>
+
+        <TextView
+            android:id="@+id/textview_nearme"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:text="Near me"
+            android:textSize="25dp"
+            android:layout_toRightOf="@id/checkBox_Nearme"
+            android:layout_centerVertical="true"
+            android:textColor="#FFFFFF"/>
+
+        <CheckBox
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:id="@+id/checkBox_Ranking"
+            android:layout_marginLeft="10dp"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/textview_nearme"
+            android:layout_marginStart="50dp"/>
+
+        <TextView
+            android:id="@+id/textview_ranking"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:text="Ranking"
+            android:textSize="25dp"
+            android:layout_toRightOf="@id/checkBox_Ranking"
+            android:layout_centerVertical="true"
+            android:textColor="#FFFFFF"/>
+    </RelativeLayout>
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/layout_checkbox"
+        android:background="#3399FF">
+    </ListView>
+
+
+</RelativeLayout>
