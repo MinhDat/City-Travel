@@ -2,4 +2,7 @@
     <string name="app_name">City Travel</string>
     <string name="toolbar_seach">Tìm kiếm</string>
     <string name="title_activity_chinhsuathongtin">Chỉnh sửa thông tin</string>
+
+    <string name="textview_nearme">Near me</string>
+    <string name="textview_ranking">Ranking me</string>
 </resources>

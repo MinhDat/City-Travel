@@ -10,4 +10,14 @@
     <dimen name="adapter_text_hight">40dp</dimen>
     <dimen name="adapter_text_width">220dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+
+    <!-- Margin-->
+    <dimen name="margin10">10dp</dimen>
+    <dimen name="margin20">20dp</dimen>
+    <dimen name="margin30">30dp</dimen>
+
+    <!-- Textsize-->
+    <dimen name="textsize25">25dp</dimen>
+
+
 </resources>

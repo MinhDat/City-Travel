@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_timkiem"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="edu.hcmus.minhdat.citytravel.activities.Chinhsuathongtin"
-    android:background="#FFFFFF">
+    android:orientation="vertical"
+    android:background="#FFFFFF"
+    tools:context="edu.hcmus.minhdat.citytravel.activities.timkiem">
+
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -16,57 +19,51 @@
     </android.support.v7.widget.Toolbar>
 
     <ImageView
-        android:id="@+id/imageview_Avatar"
+        android:id="@+id/imageview_avatar"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/toolbar"
-        android:layout_marginTop="20dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/margin20"
         android:background="#FF99FF"/>
-    
+
     <EditText
         android:id="@+id/edittext_name"
         android:layout_width="300dp"
         android:layout_height="50dp"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/imageview_Avatar"
-        android:background="@drawable/boder_eddittext"
-        android:layout_marginTop="10dp"/>
+        android:layout_gravity="center"
+        android:background="@drawable/boder_edittext"
+        android:layout_marginTop="@dimen/margin30"/>
 
     <EditText
         android:id="@+id/edittext_sodienthoai"
         android:layout_width="300dp"
         android:layout_height="50dp"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/edittext_name"
-        android:background="@drawable/boder_eddittext"
-        android:layout_marginTop="10dp"/>
+        android:layout_gravity="center"
+        android:background="@drawable/boder_edittext"
+        android:layout_marginTop="@dimen/margin10"/>
 
     <EditText
         android:id="@+id/edittext_email"
         android:layout_width="300dp"
         android:layout_height="50dp"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/edittext_sodienthoai"
-        android:background="@drawable/boder_eddittext"
-        android:layout_marginTop="10dp"/>
+        android:layout_gravity="center"
+        android:background="@drawable/boder_edittext"
+        android:layout_marginTop="@dimen/margin10"/>
 
     <EditText
         android:id="@+id/edittext_gioitinh"
         android:layout_width="300dp"
         android:layout_height="50dp"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/edittext_email"
-        android:background="@drawable/boder_eddittext"
-        android:layout_marginTop="10dp"/>
+        android:layout_gravity="center"
+        android:background="@drawable/boder_edittext"
+        android:layout_marginTop="@dimen/margin10"/>
 
     <EditText
         android:id="@+id/edittext_diachi"
         android:layout_width="300dp"
         android:layout_height="50dp"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/edittext_gioitinh"
-        android:background="@drawable/boder_eddittext"
-        android:layout_marginTop="10dp"/>
+        android:layout_gravity="center"
+        android:background="@drawable/boder_edittext"
+        android:layout_marginTop="@dimen/margin10"/>
 
-</RelativeLayout>
+</LinearLayout>

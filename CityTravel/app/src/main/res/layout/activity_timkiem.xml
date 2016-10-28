@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_timkiem"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:background="#FFFFFF"
     tools:context="edu.hcmus.minhdat.citytravel.activities.timkiem">
+
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -16,73 +18,72 @@
         android:titleTextColor="#ffffff">
     </android.support.v7.widget.Toolbar>
 
-
-    <ImageButton
-        android:id="@+id/btn_seach"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:src="@drawable/ic_search"
-        android:scaleType="centerInside"
-        android:background="#FFFFFF"
-        android:layout_below="@+id/toolbar"/>
-
-    <EditText
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_toRightOf="@id/btn_seach"
-        android:background="#EEEEEE"
-        android:layout_below="@id/toolbar" />
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
-    <RelativeLayout
+        <ImageButton
+            android:id="@+id/button_seach"
+            android:layout_height="match_parent"
+            android:layout_width="50dp"
+            android:src="@drawable/ic_search"
+            android:scaleType="centerInside"
+            android:background="#FFFFFF" />
+
+        <EditText
+            android:id="@+id/edittext_seach"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#EEEEEE"
+            android:textColor="#000000"/>
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/layout_checkbox"
-        android:layout_marginTop="110dp"
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:background="@color/colorPrimary">
+        android:background="@color/colorPrimary"
+        android:orientation="horizontal">
 
         <CheckBox
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:id="@+id/checkBox_Nearme"
-        android:layout_marginLeft="10dp"
-        android:layout_centerVertical="true"/>
+            android:id="@+id/checkbox_Nearme"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="@dimen/margin10"
+            android:layout_gravity="center"/>
 
         <TextView
             android:id="@+id/textview_nearme"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
-            android:text="Near me"
-            android:textSize="25dp"
-            android:layout_toRightOf="@id/checkBox_Nearme"
-            android:layout_centerVertical="true"
+            android:text="@string/textview_nearme"
+            android:textSize="@dimen/textsize25"
+            android:layout_gravity="center"
             android:textColor="#FFFFFF"/>
 
         <CheckBox
+            android:id="@+id/checkbox_ranking"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:id="@+id/checkBox_Ranking"
             android:layout_marginLeft="10dp"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@id/textview_nearme"
-            android:layout_marginStart="50dp"/>
+            android:layout_gravity="center"/>
 
         <TextView
             android:id="@+id/textview_ranking"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
-            android:text="Ranking"
-            android:textSize="25dp"
-            android:layout_toRightOf="@id/checkBox_Ranking"
-            android:layout_centerVertical="true"
+            android:text="@string/textview_ranking"
+            android:textSize="@dimen/textsize25"
+            android:layout_gravity="center"
             android:textColor="#FFFFFF"/>
-    </RelativeLayout>
+
+    </LinearLayout>
 
     <ListView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/layout_checkbox"
-        android:background="#3399FF">
+        android:layout_height="match_parent">
     </ListView>
 
 
-</RelativeLayout>
+</LinearLayout>
