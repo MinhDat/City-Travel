@@ -8,7 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Toast;
 
-import edu.hcmus.minhdat.citytravel.R;
+//import edu.hcmus.minhdat.citytravel.R;
 
 public class timkiem extends AppCompatActivity {
 

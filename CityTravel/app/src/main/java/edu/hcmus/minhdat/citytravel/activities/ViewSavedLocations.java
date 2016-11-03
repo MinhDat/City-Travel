@@ -13,7 +13,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import edu.hcmus.minhdat.citytravel.R;
+//import edu.hcmus.minhdat.citytravel.R;
 
 public class ViewSavedLocations extends AppCompatActivity {
     TextView txtMsg;

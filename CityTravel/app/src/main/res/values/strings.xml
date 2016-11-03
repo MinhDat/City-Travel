@@ -1,12 +1,12 @@
 <resources>
     <string name="app_name">City Travel</string>
-<<<<<<< HEAD
+
     <string name="toolbar_seach">Tìm kiếm</string>
     <string name="title_activity_chinhsuathongtin">Chỉnh sửa thông tin</string>
 
     <string name="textview_nearme">Near me</string>
     <string name="textview_ranking">Ranking me</string>
-=======
+
     <string name="title_activity_login">Sign in</string>
 
     <!-- Strings related to login -->
@@ -23,8 +23,6 @@
     <string name="confirm_password">Confirm Password</string>
     <string name="sing_in_with">Sing in with</string>
     <string name="permission_rationale">"Contacts permissions are needed for providing email
-        completions."
-    </string>
+        completions."</string>
     <string name="title_activity_singup">Singup</string>
->>>>>>> origin/TND
 </resources>
