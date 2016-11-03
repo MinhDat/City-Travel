@@ -3,7 +3,7 @@ package edu.hcmus.minhdat.citytravel.activities;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import edu.hcmus.minhdat.citytravel.R;
+//import edu.hcmus.minhdat.citytravel.R;
 
 public class Themdichvu extends AppCompatActivity {
 
