@@ -13,7 +13,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:weightSum="1">
 
 
         <ImageView
@@ -25,9 +26,10 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="338dp"
+            android:layout_height="273dp"
             android:orientation="vertical"
-            android:weightSum="1">
+            android:weightSum="1"
+            android:layout_weight="1.70">
 
 
             <LinearLayout
@@ -86,7 +88,7 @@
                 android:padding="5dp" />
 
             <ImageButton
-                android:id="@+id/ibtnDiaDiem"
+                android:id="@+id/ibtnSaveLocation"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
@@ -95,7 +97,7 @@
                 android:padding="5dp" />
 
             <ImageButton
-                android:id="@+id/ibtnLichSu"
+                android:id="@+id/ibtnHistory"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
@@ -104,7 +106,7 @@
                 android:padding="5dp" />
 
             <ImageButton
-                android:id="@+id/ibtnThongTinUser"
+                android:id="@+id/ibtnUserInfo"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"

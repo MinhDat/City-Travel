@@ -19,12 +19,14 @@ import android.widget.Button;
 public class LoginActivity extends AppCompatActivity  {
 
     Button btnSingup;
+    Button btnSignin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         btnSingup = (Button)findViewById(R.id.btnSingUp);
+        btnSignin = (Button)findViewById(R.id.btnSingin);
         btnSingup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -32,6 +34,14 @@ public class LoginActivity extends AppCompatActivity  {
                 startActivity(Singup);
             }
         });
+        btnSignin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent signin = new Intent(LoginActivity.this, Manhinhchinh.class);
+                startActivity(signin);
+            }
+        });
+
         // Set up the login form.
 
     }
