@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import edu.hcmus.minhdat.citytravel.R;
+//import edu.hcmus.minhdat.citytravel.R;
 
 public class ResetPassword extends AppCompatActivity {
 

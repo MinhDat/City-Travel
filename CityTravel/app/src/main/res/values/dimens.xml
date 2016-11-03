@@ -9,7 +9,6 @@
     <dimen name="adapter_margin">80dp</dimen>
     <dimen name="adapter_text_hight">40dp</dimen>
     <dimen name="adapter_text_width">220dp</dimen>
-<<<<<<< HEAD
     <dimen name="fab_margin">16dp</dimen>
 
     <!-- Margin-->
@@ -20,7 +19,4 @@
     <!-- Textsize-->
     <dimen name="textsize25">25dp</dimen>
 
-
-=======
->>>>>>> origin/qlda_hmDat
 </resources>
