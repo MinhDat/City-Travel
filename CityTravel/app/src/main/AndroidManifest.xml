@@ -2,11 +2,17 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="edu.hcmus.minhdat.citytravel">
 
+    <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_PROFILE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
+<<<<<<< HEAD
         android:theme="@style/AppTheme">
 <<<<<<< HEAD
         <activity android:name=".MainActivity" />
@@ -17,6 +23,10 @@
             android:theme="@style/NoActionBar">
 =======
         <activity android:name=".MainActivity"></activity>
+=======
+        android:theme="@style/Theme.Design.Light.NoActionBar">
+        <activity android:name=".MainActivity" />
+>>>>>>> origin/TND
         <activity android:name=".activities.ResetPassword">
 >>>>>>> origin/qlda_hmDat
             <intent-filter>
@@ -26,6 +36,7 @@
             </intent-filter>
         </activity>
 <<<<<<< HEAD
+<<<<<<< HEAD
         <activity
             android:name=".activities.Chinhsuathongtin"
             android:theme="@style/NoActionBar" />
@@ -34,6 +45,15 @@
 =======
         <activity android:name=".activities.CommentManagement"></activity>
 >>>>>>> origin/qlda_hmDat
+=======
+        <activity android:name=".activities.CommentManagement" />
+        <activity
+            android:name=".activities.LoginActivity"
+            android:label="@string/title_activity_login" />
+        <activity
+            android:name=".activities.Singup"
+            android:label="@string/title_activity_singup"></activity>
+>>>>>>> origin/TND
     </application>
 
 </manifest>
