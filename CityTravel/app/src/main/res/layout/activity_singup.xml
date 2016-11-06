@@ -43,6 +43,7 @@
                 android:inputType="textEmailAddress"
                 android:background="@drawable/border_edt_email_reset_password"
                 android:maxLines="1" />
+
             <EditText
                 android:id="@+id/fullname"
                 android:layout_width="match_parent"
@@ -52,6 +53,7 @@
                 android:inputType="textEmailAddress"
                 android:background="@drawable/border_edt_email_reset_password"
                 android:maxLines="1" />
+
             <EditText
                 android:id="@+id/confirmpassword"
                 android:layout_width="match_parent"
