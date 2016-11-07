@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="edu.hcmus.minhdat.citytravel.activities">
-
-    <!-- To auto-complete the email text field in the login form with the user's emails -->
-    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
-    <uses-permission android:name="android.permission.READ_PROFILE" />
-    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    package="com.example.thaianhit.citytravel">
 
     <application
         android:allowBackup="true"
@@ -13,34 +8,13 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <!-- <activity android:name=".activities.ResetPassword" /> -->
-        <!-- <activity android:name=".activities.CommentManagement" /> -->
-        <!-- <activity -->
-        <!-- &lt;!&ndash;android:name=".activities.timkiem"&ndash;&gt; -->
-        <!-- android:theme="@style/NoActionBar"> -->
-        <!-- ======= -->
-        <!-- <activity android:name=".MainActivity"></activity> -->
-        <!-- ======= -->
-        <!-- android:theme="@style/Theme.Design.Light.NoActionBar"> -->
-        <!-- <activity android:name=".MainActivity" /> -->
-        <!-- &gt;>>>>>> origin/TND -->
-        <!-- <activity android:name=".activities.ResetPassword"> -->
-        <!-- &gt;>>>>>> origin/qlda_hmDat -->
-        <activity android:name=".LoginActivity">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Singup" />
-        <activity android:name=".Manhinhchinh" />
-        <activity android:name=".SaveLocation" />
-        <activity android:name=".History" />
-        <activity android:name=".Thongtincanhan" />
-        <activity android:name=".UserInfo"></activity>
-        <activity android:name=".timkiem"></activity>
     </application>
 
-</manifest> <!-- <<<<<<< HEAD --><!-- <<<<<<< HEAD --><!-- <activity --><!-- android:name=".activities.Chinhsuathongtin" --><!-- android:theme="@style/NoActionBar" /> --><!-- <activity android:name=".activities.Themdichvu" /> --><!-- <activity android:name=".activities.Thongtincanhan"></activity> --><!-- ======= --><!-- <activity android:name=".activities.CommentManagement"></activity> --><!-- &gt;>>>>>> origin/qlda_hmDat --><!-- ======= --><!-- <activity android:name=".activities.CommentManagement" /> --><!-- <activity --><!-- android:name=".activities.LoginActivity" --><!-- android:label="@string/title_activity_login" /> --><!-- <activity --><!-- android:name=".activities.Singup" --><!-- android:label="@string/title_activity_singup"></activity> --><!-- &gt;>>>>>> origin/TND --><!-- </application> --><!-- </manifest> -->
+</manifest>
