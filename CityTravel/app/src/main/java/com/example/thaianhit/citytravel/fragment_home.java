@@ -1,5 +1,6 @@
 package com.example.thaianhit.citytravel;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -8,7 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.EditText;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -19,10 +20,11 @@ import java.util.List;
 
 public class fragment_home extends AppCompatActivity {
     private RecyclerView recyclerView;
-    private CustomRecyclerAdapter adapter;
+    private CustomRecyclerAdapterHome adapter;
     private RecyclerView.LayoutManager layoutManager;
     private ImageView img_backround;
-    private List<DataRecycler> listData = new ArrayList<DataRecycler>();
+    private List<DataRecyclerHome> listData = new ArrayList<DataRecyclerHome>();
+    private FloatingActionButton Search;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,19 +32,21 @@ public class fragment_home extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         img_backround=(ImageView)findViewById(R.id.img_backround);
+        Search=(FloatingActionButton)findViewById(R.id.Search);
+
+        Search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent tempt=new Intent(fragment_home.this,fragment_search_locations.class);
+                startActivity(tempt);
+            }
+        });
         Glide.with(this).load(R.drawable.logo)
                 .thumbnail(0.5f)
                 .crossFade()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(img_backround);
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+
         recyclerView = (RecyclerView) findViewById(R.id.recycler);
 
         // If the size of views will not change as the data changes.
@@ -51,16 +55,16 @@ public class fragment_home extends AppCompatActivity {
         // Setting the LayoutManager.
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        DataRecycler a=new DataRecycler("Bệnh viện","Nodescription");
-        DataRecycler b=new DataRecycler("ATM","Nodescription");
-        DataRecycler c=new DataRecycler("Trường học","Nodescription");
-        DataRecycler d=new DataRecycler("Khách sạn","Nodescription");
+        DataRecyclerHome a=new DataRecyclerHome("Bệnh viện","Nodescription");
+        DataRecyclerHome b=new DataRecyclerHome("ATM","Nodescription");
+        DataRecyclerHome c=new DataRecyclerHome("Trường học","Nodescription");
+        DataRecyclerHome d=new DataRecyclerHome("Khách sạn","Nodescription");
         listData.add(a);
         listData.add(b);
         listData.add(c);
         listData.add(d);
         // Setting the adapter.
-        adapter = new CustomRecyclerAdapter(listData,fragment_home.this);
+        adapter = new CustomRecyclerAdapterHome(listData,fragment_home.this);
         recyclerView.setAdapter(adapter);
     }
 

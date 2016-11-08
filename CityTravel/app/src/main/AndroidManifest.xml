@@ -45,6 +45,10 @@
             android:theme="@style/AppTheme.NoActionBar">
 
         </activity>
+		 <activity android:name=".fragment_search_locations"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme">
+        </activity>
     </application>
 
 </manifest>
