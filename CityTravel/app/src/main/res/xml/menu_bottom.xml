@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tabs>
+    <tab
+        id="@+id/btn_search"
+        icon="@drawable/ic_search"
+        title="Search" />
+    <tab
+        id="@+id/btn_list"
+        icon="@drawable/ic_list"
+        title="Lists"  />
+    <tab
+        id="@+id/btn_history"
+        icon="@drawable/ic_history"
+        title="History" />
+    <tab
+        id="@+id/btn_about_me"
+        icon="@drawable/ic_about_me"
+        title="Me"  />
+</tabs>
