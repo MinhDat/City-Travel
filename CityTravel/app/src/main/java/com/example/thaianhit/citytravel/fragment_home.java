@@ -30,7 +30,7 @@ public class fragment_home extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         img_backround=(ImageView)findViewById(R.id.img_backround);
-        Glide.with(this).load(R.drawable.anh)
+        Glide.with(this).load(R.drawable.logo)
                 .thumbnail(0.5f)
                 .crossFade()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -51,10 +51,16 @@ public class fragment_home extends AppCompatActivity {
         // Setting the LayoutManager.
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        DataRecycler a=new DataRecycler("BenhVien","Nodescription");
+        DataRecycler a=new DataRecycler("Bệnh viện","Nodescription");
+        DataRecycler b=new DataRecycler("ATM","Nodescription");
+        DataRecycler c=new DataRecycler("Trường học","Nodescription");
+        DataRecycler d=new DataRecycler("Khách sạn","Nodescription");
         listData.add(a);
+        listData.add(b);
+        listData.add(c);
+        listData.add(d);
         // Setting the adapter.
-        adapter = new CustomRecyclerAdapter(listData);
+        adapter = new CustomRecyclerAdapter(listData,fragment_home.this);
         recyclerView.setAdapter(adapter);
     }
 

@@ -9,6 +9,7 @@
     tools:showIn="@layout/activity_fragment_home">
     // RecyclerView ( Tương tự như listView) chứa danh sách các mục tìm kiếm như : Bệnh viện, Cửa hàng,...
     <android.support.v7.widget.RecyclerView
+
         android:id="@+id/recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
