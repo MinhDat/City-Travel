@@ -47,13 +47,13 @@ public class LoginActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         Glide.with(this).load(R.drawable.background).asBitmap().into(new SimpleTarget<Bitmap>(400, 500) {
-            @Override
-            public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
-                Drawable drawable = new BitmapDrawable(resource);
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                    linearLayout.setBackground(drawable);
+                @Override
+                public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+                    Drawable drawable = new BitmapDrawable(resource);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                        linearLayout.setBackground(drawable);
+                    }
                 }
-            }
         });
         _loginButton.setOnClickListener(new View.OnClickListener() {
 

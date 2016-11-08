@@ -15,5 +15,6 @@
     <color name="aluminum">#999999</color>
     <color name="base">#AAAAAA</color>
     <color name="iron">#CCCCCC</color>
+    <color name="superiron">#F1F0F6</color>
     <color name="white">#FFFFFF</color>
 </resources>
