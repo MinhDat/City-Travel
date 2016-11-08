@@ -51,7 +51,7 @@ public class EditProfile extends AppCompatActivity implements DatePickerDialog.O
         setSupportActionBar(tbEdit);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setTitle("Edit Profile");
+        getSupportActionBar().setTitle("Edit profile");
         edtGender.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -65,7 +65,6 @@ public class EditProfile extends AppCompatActivity implements DatePickerDialog.O
             }
         });
     }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
