@@ -4,6 +4,9 @@ import android.app.DatePickerDialog;
 
 import android.content.DialogInterface;
 
+import android.graphics.Bitmap;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,6 +21,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.target.BitmapImageViewTarget;
 
 import java.util.Calendar;
 
@@ -43,15 +47,20 @@ public class EditProfile extends AppCompatActivity implements DatePickerDialog.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
         ButterKnife.bind(this);
-        Glide.with(this).load(R.drawable.anh)
-                .thumbnail(0.5f)
-                .crossFade()
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .into(ivEditProfile);
+        Glide.with(this).load(R.drawable.anh).asBitmap().centerCrop().into(new BitmapImageViewTarget(ivEditProfile) {
+            @Override
+            protected void setResource(Bitmap resource) {
+                RoundedBitmapDrawable circularBitmapDrawable =
+                        RoundedBitmapDrawableFactory.create(getResources(), resource);
+                circularBitmapDrawable.setCircular(true);
+                ivEditProfile.setImageDrawable(circularBitmapDrawable);
+            }
+        });
         setSupportActionBar(tbEdit);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle("Edit profile");
+
         edtGender.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

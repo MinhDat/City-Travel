@@ -15,11 +15,8 @@
             android:name=".LoginActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Dark">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
         </activity>
         <activity
             android:name=".SignupActivity"
@@ -32,11 +29,17 @@
         <activity
             android:name=".fragment_home"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+       </activity>
         <activity
             android:name=".EditProfile"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
+
 
         </activity>
         <activity

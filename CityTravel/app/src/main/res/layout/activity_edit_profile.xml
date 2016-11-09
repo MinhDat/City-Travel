@@ -23,22 +23,25 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:background="@color/colorPrimary"
+                android:gravity="center">
 
-            <ImageView
-                android:id="@+id/ivEditProfile"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="16dp"
-                android:background="@drawable/custom_imageview_profile"
-                android:scaleType="centerCrop"
-                 />
-
+                <ImageView
+                    android:id="@+id/ivEditProfile"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:scaleType="centerCrop"
+                    />
+            </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="3dp"
                 android:orientation="horizontal"
                 android:weightSum="1">
 
