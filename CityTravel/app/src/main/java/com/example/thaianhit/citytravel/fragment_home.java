@@ -2,13 +2,17 @@ package com.example.thaianhit.citytravel;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 
@@ -18,27 +22,29 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import java.util.ArrayList;
 import java.util.List;
 
-public class fragment_home extends AppCompatActivity {
+public class fragment_home extends Fragment {
     private RecyclerView recyclerView;
     private CustomRecyclerAdapterHome adapter;
     private RecyclerView.LayoutManager layoutManager;
     private ImageView img_backround;
     private List<DataRecyclerHome> listData = new ArrayList<DataRecyclerHome>();
     private FloatingActionButton Search;
+    Toolbar toolbar;
+
+    private View myFragmentView;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_fragment_home);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        img_backround=(ImageView)findViewById(R.id.img_backround);
-        Search=(FloatingActionButton)findViewById(R.id.Search);
+    public View onCreateView(LayoutInflater inflater,  ViewGroup container, Bundle savedInstanceState) {
+        myFragmentView = inflater.inflate(R.layout.activity_fragment_home, container, false);
+        toolbar = (Toolbar)myFragmentView.findViewById(R.id.toolbarHome);
+        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+        img_backround=(ImageView)myFragmentView.findViewById(R.id.img_backround);
+        Search=(FloatingActionButton)myFragmentView.findViewById(R.id.Search);
 
         Search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent tempt=new Intent(fragment_home.this,fragment_search_locations.class);
-                startActivity(tempt);
+                Intent tempt=new Intent(getActivity(),fragment_search_locations.class);
+                getActivity().startActivity(tempt);
             }
         });
         Glide.with(this).load(R.drawable.logo)
@@ -47,13 +53,13 @@ public class fragment_home extends AppCompatActivity {
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(img_backround);
 
-        recyclerView = (RecyclerView) findViewById(R.id.recycler);
+        recyclerView = (RecyclerView)myFragmentView.findViewById(R.id.recycler);
 
         // If the size of views will not change as the data changes.
         recyclerView.setHasFixedSize(true);
 
         // Setting the LayoutManager.
-        layoutManager = new LinearLayoutManager(this);
+        layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         DataRecyclerHome a=new DataRecyclerHome("Bệnh viện","Nodescription");
         DataRecyclerHome b=new DataRecyclerHome("ATM","Nodescription");
@@ -63,9 +69,10 @@ public class fragment_home extends AppCompatActivity {
         listData.add(b);
         listData.add(c);
         listData.add(d);
-        // Setting the adapter.
-        adapter = new CustomRecyclerAdapterHome(listData,fragment_home.this);
+        adapter = new CustomRecyclerAdapterHome(listData,getActivity());
         recyclerView.setAdapter(adapter);
+        return myFragmentView;
     }
+
 
 }

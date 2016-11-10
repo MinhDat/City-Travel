@@ -49,16 +49,19 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
+                    android:textSize="14sp"
                     android:background="@drawable/custom_edittext_profile"
                     android:hint="Name"
                     android:inputType="textEmailAddress"
-                    android:text="Dũng" />
+                    android:text="Dũng"
+                    android:id="@+id/editText" />
 
                 <EditText
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="3dp"
                     android:layout_weight="0.5"
+                    android:textSize="14sp"
                     android:background="@drawable/custom_edittext_profile"
                     android:hint="Name"
                     android:inputType="textEmailAddress"
@@ -67,6 +70,7 @@
             </LinearLayout>
 
             <EditText
+                android:textSize="14sp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
@@ -75,6 +79,7 @@
                 android:inputType="number" />
 
             <EditText
+                android:textSize="14sp"
                 android:id="@+id/edt_birthday"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -85,6 +90,7 @@
                 android:inputType="date" />
 
             <EditText
+                android:textSize="14sp"
                 android:id="@+id/edt_gender"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -95,6 +101,7 @@
                 android:inputType="text" />
 
             <EditText
+                android:textSize="14sp"
                 android:id="@+id/edtAddress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
