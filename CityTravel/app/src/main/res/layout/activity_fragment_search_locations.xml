@@ -23,4 +23,14 @@
         >
     </com.arlib.floatingsearchview.FloatingSearchView>
     <include  layout="@layout/content_fragment" />
+    <android.support.design.widget.FloatingActionButton
+        android:clickable="true"
+        android:id="@+id/setting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/fab_margin"
+        android:layout_gravity="bottom|end"
+        app:srcCompat="@drawable/ic_setting"
+        app:layout_anchor="@+id/include3"
+        app:layout_anchorGravity="top|right" />
 </LinearLayout>
