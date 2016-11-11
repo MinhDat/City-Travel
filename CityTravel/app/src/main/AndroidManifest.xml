@@ -48,7 +48,9 @@
             android:name=".fragment_search_locations"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
+        <activity android:name=".DetailServices">
 
+        </activity>
     </application>
 
 </manifest>

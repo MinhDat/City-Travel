@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/item_recycler"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="5dp"
+    android:paddingTop="5dp"
+    android:paddingLeft="3.5dp"
+    android:paddingRight="3.5dp">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/custom_edittext_profile"
+        android:padding="16dp">
+
+        <ImageView
+            android:id="@+id/category_photo"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="16dp"
+            app:srcCompat="@drawable/ic_account_comment" />
+
+        <TextView
+            android:id="@+id/txt_phone_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_gravity="center_vertical"
+            android:layout_toRightOf="@+id/category_photo"
+            android:text="Chỗ này mình ăn rầu! Nó dở kinh khủng lun! :)"
+            android:textSize="20dp"
+            />
+
+    </LinearLayout>
+
+</LinearLayout>

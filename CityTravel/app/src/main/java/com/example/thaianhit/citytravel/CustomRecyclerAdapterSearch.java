@@ -3,7 +3,9 @@ package com.example.thaianhit.citytravel;
 /**
  * Created by NGUYEN TUAN ANH on 11/8/2016.
  */
+
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,9 +16,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.thaianhit.citytravel.CustomRecyclerAdapterSearch.RecyclerViewHolder;
+
 import java.util.ArrayList;
 import java.util.List;
-import com.example.thaianhit.citytravel.CustomRecyclerAdapterSearch.RecyclerViewHolder;
 public class CustomRecyclerAdapterSearch extends RecyclerView.Adapter<RecyclerViewHolder>  {
     private List<DataRecyclerSearch> listData = new ArrayList<DataRecyclerSearch>();
     private int lastPosition = -1;
@@ -47,7 +50,19 @@ public class CustomRecyclerAdapterSearch extends RecyclerView.Adapter<RecyclerVi
     @Override
     public void onBindViewHolder(RecyclerViewHolder holder, int position) {
         holder.name_location.setText(listData.get(position).getName());
-       setAnimation(holder.container,position);
+        setAnimation(holder.container,position);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, DetailServices.class);
+                context.startActivity(intent);
+            }
+        });
+    }
+
+    @Override
+    public void onBindViewHolder(RecyclerViewHolder holder, int position, List<Object> payloads) {
+        super.onBindViewHolder(holder, position, payloads);
     }
 
     public void setAnimation(View viewToAnimate, int position)
