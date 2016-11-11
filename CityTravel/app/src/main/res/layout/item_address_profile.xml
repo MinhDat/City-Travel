@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:padding="16dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/custom_edittext_profile">
+        android:background="@drawable/custom_boder_edit_profile">
 
         <ImageView
             android:layout_gravity="center_vertical"

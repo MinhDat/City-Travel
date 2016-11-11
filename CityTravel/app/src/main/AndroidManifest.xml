@@ -41,11 +41,6 @@
             android:name=".fragment_search_locations"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
-        <activity android:name=".FragmentAboutMe"></activity>
-        <activity
-            android:name=".SaveLocation"
-            android:label="@string/title_activity_save_location"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
