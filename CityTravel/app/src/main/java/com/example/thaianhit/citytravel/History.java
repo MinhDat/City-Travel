@@ -65,9 +65,7 @@ public class History  extends Fragment {
         switch (item.getItemId()) {
             case R.id.miCompose :
             {
-                Toast.makeText(getActivity(),"SFsfsff",Toast.LENGTH_LONG);
-                Intent temp=new Intent(getActivity(),MapsGoogle.class);
-                startActivity(temp);
+
                 //Write here what to do you on click
                 return true;
             }
