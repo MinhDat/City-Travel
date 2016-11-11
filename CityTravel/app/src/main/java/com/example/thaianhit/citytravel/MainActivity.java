@@ -54,6 +54,17 @@ public class MainActivity extends AppCompatActivity {
                     fragmentTransaction.commit();
 
                 }
+                if(tabId==R.id.btn_history)
+                {
+
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.fragment_switch,new History(), "fragmentC");
+
+                    fragmentTransaction.addToBackStack("fragmentC");
+
+                    fragmentTransaction.commit();
+
+                }
             }
         });
     }

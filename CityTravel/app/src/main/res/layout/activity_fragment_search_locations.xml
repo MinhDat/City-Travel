@@ -5,7 +5,6 @@
     android:id="@+id/activity_fragment_search_locations"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-
     android:orientation="vertical"
     tools:context="com.example.thaianhit.citytravel.fragment_search_locations">
 
