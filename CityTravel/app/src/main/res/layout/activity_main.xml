@@ -7,7 +7,6 @@
     <!-- This could be your fragment container, or something -->
 
 
-
     <fragment
         android:id="@+id/fragment_switch"
         android:layout_width="match_parent"

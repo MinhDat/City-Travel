@@ -1,16 +1,20 @@
 package com.example.thaianhit.citytravel;
 
+import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -20,14 +24,21 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 
+import java.util.Calendar;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class SignupActivity extends AppCompatActivity {
+public class SignupActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
     private static final String TAG = "SignupActivity";
     private static final int REQUEST_SIGNUP = 0;
-    @Bind(R.id.input_name)
-    EditText _nameText;
+    CharSequence[] values = {" Male "," Female "," Non "};
+    AlertDialog alertDialog_birthday;
+    int id_choose =0;
+    @Bind(R.id.input_firstname)
+    EditText _firstnameText;
+    @Bind(R.id.input_lastname)
+    EditText _lastnameText;
     @Bind(R.id.input_address)
     EditText _addressText;
     @Bind(R.id.input_email)
@@ -42,14 +53,17 @@ public class SignupActivity extends AppCompatActivity {
     Button _signupButton;
     @Bind(R.id.link_login)
     TextView _loginLink;
+    @Bind(R.id.bgSignup)
     ScrollView scrollView;
-
+    @Bind(R.id.input_gender)
+    TextView tvGender;
+    @Bind(R.id.input_birthday)
+    TextView tvBirthday;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
         ButterKnife.bind(this);
-        scrollView = (ScrollView) findViewById(R.id.bgSignup);
         Glide.with(this).load(R.drawable.background).asBitmap().into(new SimpleTarget<Bitmap>(400, 500) {
             @Override
             public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
@@ -57,6 +71,18 @@ public class SignupActivity extends AppCompatActivity {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                     scrollView.setBackground(drawable);
                 }
+            }
+        });
+        tvGender.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                CreateAlertDialogWithRadioButtonGroup();
+            }
+        });
+        tvBirthday.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDatePickerDialog(view);
             }
         });
         _signupButton.setOnClickListener(new View.OnClickListener() {
@@ -76,6 +102,37 @@ public class SignupActivity extends AppCompatActivity {
                 overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
             }
         });
+    }
+    public void showDatePickerDialog(View v) {
+        DatePickerFragment newFragment = new DatePickerFragment();
+        newFragment.show(getFragmentManager(), "datePicker");
+    }
+    public void CreateAlertDialogWithRadioButtonGroup(){
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(SignupActivity.this);
+        builder.setTitle("Gender");
+        builder.setSingleChoiceItems(values, id_choose, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int item)
+            {
+                id_choose = item;
+                switch(item)
+                {
+                    case 0:
+                        tvGender.setText("Male");
+                        break;
+                    case 1:
+                        tvGender.setText("Female");
+                        break;
+                    case 2:
+                        tvGender.setText("Non");
+                        break;
+                }
+                alertDialog_birthday.dismiss();
+            }
+        });
+        alertDialog_birthday = builder.create();
+        alertDialog_birthday.show();
+
     }
     @Override
     public void onBackPressed() {
@@ -101,12 +158,12 @@ public class SignupActivity extends AppCompatActivity {
         progressDialog.setMessage("Creating Account...");
         progressDialog.show();
 
-        String name = _nameText.getText().toString();
-        String address = _addressText.getText().toString();
-        String email = _emailText.getText().toString();
-        String mobile = _mobileText.getText().toString();
-        String password = _passwordText.getText().toString();
-        String reEnterPassword = _reEnterPasswordText.getText().toString();
+//        String name = _firstnameText.getText().toString();
+//        String address = _addressText.getText().toString();
+//        String email = _emailText.getText().toString();
+//        String mobile = _mobileText.getText().toString();
+//        String password = _passwordText.getText().toString();
+//        String reEnterPassword = _reEnterPasswordText.getText().toString();
 
         // TODO: Implement your own signup logic here.
 
@@ -137,20 +194,27 @@ public class SignupActivity extends AppCompatActivity {
 
     public boolean validate() {
         boolean valid = true;
-
-        String name = _nameText.getText().toString();
+        String lastname = _lastnameText.getText().toString();
+        String firstname = _firstnameText.getText().toString();
         String address = _addressText.getText().toString();
         String email = _emailText.getText().toString();
         String mobile = _mobileText.getText().toString();
         String password = _passwordText.getText().toString();
         String reEnterPassword = _reEnterPasswordText.getText().toString();
 
-        if (name.isEmpty() || name.length() < 3) {
-            _nameText.setError("at least 3 characters");
+        if (firstname.isEmpty() || firstname.length() < 3) {
+            _firstnameText.setError("at least 3 characters");
             valid = false;
         } else {
-            _nameText.setError(null);
+            _firstnameText.setError(null);
         }
+        if (lastname.isEmpty() || lastname.length() < 3) {
+            _lastnameText.setError("at least 3 characters");
+            valid = false;
+        } else {
+            _lastnameText.setError(null);
+        }
+
 
         if (address.isEmpty()) {
             _addressText.setError("Enter Valid Address");
@@ -158,8 +222,6 @@ public class SignupActivity extends AppCompatActivity {
         } else {
             _addressText.setError(null);
         }
-
-
         if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             _emailText.setError("enter a valid email address");
             valid = false;
@@ -189,5 +251,15 @@ public class SignupActivity extends AppCompatActivity {
         }
 
         return valid;
+    }
+
+    @Override
+    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+        // store the values selected into a Calendar instance
+        final Calendar c = Calendar.getInstance();
+        c.set(Calendar.YEAR, year);
+        c.set(Calendar.MONTH, monthOfYear);
+        c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+        tvBirthday.setText(dayOfMonth+"/"+monthOfYear+"/"+year);
     }
 }

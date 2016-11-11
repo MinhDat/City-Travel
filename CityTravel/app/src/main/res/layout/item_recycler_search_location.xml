@@ -35,7 +35,7 @@
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentTop="true"
                     android:layout_marginRight="16dp"
-                    android:background="@drawable/ic_home"
+                    card_view:srcCompat="@drawable/ic_home"
                     />
 
                 <TextView
@@ -74,7 +74,7 @@
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentTop="true"
                     android:layout_marginRight="16dp"
-                    android:background="@drawable/ic_rating"
+                    card_view:srcCompat="@drawable/ic_rating"
                     />
 
                 <TextView
