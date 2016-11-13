@@ -2,52 +2,76 @@ package com.example.thaianhit.citytravel;
 
 import android.app.Dialog;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.FragmentActivity;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+
 import java.util.ArrayList;
 
-public class DetailServices extends AppCompatActivity {
+public class DetailServices extends FragmentActivity implements OnMapReadyCallback {
 
-    ListView lvDetailServices;
-    ArrayAdapter<Integer> adapter_detail;
-    ArrayList<Integer> arr_detail;
-    TextView txtChiTietDv;
+    TextView txt_detail_service;
+
+    ListView lv_detail_services;
+    ArrayList arr_detail_services;
+    AdapterDetailServices adapter;
+
+    private GoogleMap mMap;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_services);
-
-        txtChiTietDv = (TextView) findViewById(R.id.txt_detail_chi_tiet_dv);
-
-        txtChiTietDv.setOnClickListener(new View.OnClickListener() {
+        txt_detail_service = (TextView) findViewById(R.id.txt_chi_tiet_dv);
+        txt_detail_service.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showDialogDetail();
             }
         });
+
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
     }
 
-    private void showDialogDetail() {
-        final Dialog dialog = new Dialog(this);
-        dialog.setContentView(R.layout.custom_dialog_detail_services);
-
-        arr_detail =new ArrayList<Integer>();
-        lvDetailServices = (ListView) dialog.findViewById(R.id.lv_detail_services);
-        arr_detail.add(1600000);
-        arr_detail.add(1700000);
-        arr_detail.add(1800000);
-        arr_detail.add(1900000);
-        arr_detail.add(1600000);
-        arr_detail.add(1700000);
-        arr_detail.add(1800000);
-        arr_detail.add(1900000);
-        adapter_detail = new ArrayAdapter<Integer>(getApplicationContext(), android.R.layout.simple_list_item_1, arr_detail);
-        lvDetailServices.setAdapter(adapter_detail);
+    private void showDialogDetail(){
+        Dialog dialog = new Dialog(this);
         dialog.setTitle("Chi tiết dịch vụ");
+        dialog.setContentView(R.layout.custom_dialog_detail);
+
+        lv_detail_services = (ListView) dialog.findViewById(R.id.lv_dialog_detail);
+
+        arr_detail_services = new ArrayList();
+        arr_detail_services.add(new ClassDetailService("Loại phòng 1","500,000"));
+        arr_detail_services.add(new ClassDetailService("Loại phòng 2","400,000"));
+        arr_detail_services.add(new ClassDetailService("Loại phòng 3","300,000"));
+        arr_detail_services.add(new ClassDetailService("Loại phòng 4","200,000"));
+        arr_detail_services.add(new ClassDetailService("Loại phòng 1","500,000"));
+        arr_detail_services.add(new ClassDetailService("Loại phòng 2","400,000"));
+        arr_detail_services.add(new ClassDetailService("Loại phòng 3","300,000"));
+        arr_detail_services.add(new ClassDetailService("Loại phòng 4","200,000"));
+
+        adapter = new AdapterDetailServices(getApplicationContext(), R.layout.item_dialog_detail_service, arr_detail_services);
+        lv_detail_services.setAdapter(adapter);
+
         dialog.show();
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
+
+        // Add a marker in Sydney and move the camera
+        LatLng sydney = new LatLng(10.751242, 106.701170);
+        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
     }
 }
