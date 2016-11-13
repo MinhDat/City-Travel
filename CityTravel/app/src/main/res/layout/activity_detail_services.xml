@@ -164,7 +164,7 @@
                     android:padding="3dp">
                     <EditText
                         android:id="@+id/edt_write_comment"
-                        android:background="@drawable/custom_border_comment"
+                        android:background="@drawable/custom_boder_button_save"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:hint="Write a comment..."
