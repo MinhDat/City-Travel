@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,7 +39,7 @@ public class LoginActivity extends AppCompatActivity {
     @Bind(R.id.link_forgot)
     TextView _forgotLink;
     @Bind(R.id.bgLogin)
-    LinearLayout linearLayout;
+    ScrollView scrollViewbg;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -47,13 +48,13 @@ public class LoginActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         Glide.with(this).load(R.drawable.background).asBitmap().into(new SimpleTarget<Bitmap>(400, 500) {
-                @Override
-                public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
-                    Drawable drawable = new BitmapDrawable(resource);
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                        linearLayout.setBackground(drawable);
-                    }
+            @Override
+            public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
+                Drawable drawable = new BitmapDrawable(resource);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                    scrollViewbg.setBackground(drawable);
                 }
+            }
         });
         _loginButton.setOnClickListener(new View.OnClickListener() {
 
@@ -91,7 +92,7 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
-       _loginButton.setEnabled(false);
+        _loginButton.setEnabled(false);
 
         final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this,
                 R.style.AppTheme_Dark_Dialog);
@@ -135,7 +136,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void onLoginSuccess() {
-      _loginButton.setEnabled(true);
+        _loginButton.setEnabled(true);
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         startActivityForResult(intent, REQUEST_SIGNUP);
         finish();

@@ -3,7 +3,6 @@ package com.example.thaianhit.citytravel;
 /**
  * Created by NGUYEN TUAN ANH on 11/8/2016.
  */
-
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
@@ -16,16 +15,16 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.thaianhit.citytravel.CustomRecyclerAdapterSearch.RecyclerViewHolder;
+import com.example.thaianhit.citytravel.CustomRecyclerAdapterHistory.RecyclerViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
-public class CustomRecyclerAdapterSearch extends RecyclerView.Adapter<RecyclerViewHolder>  {
+public class CustomRecyclerAdapterHistory extends RecyclerView.Adapter<RecyclerViewHolder>  {
     private List<DataRecyclerSearch> listData = new ArrayList<DataRecyclerSearch>();
     private int lastPosition = -1;
     private Context context;
 
-    public CustomRecyclerAdapterSearch(List<DataRecyclerSearch> listData, Context context) {
+    public CustomRecyclerAdapterHistory(List<DataRecyclerSearch> listData, Context context) {
         this.listData = listData;
         this.context=context;
     }
@@ -43,7 +42,7 @@ public class CustomRecyclerAdapterSearch extends RecyclerView.Adapter<RecyclerVi
     @Override
     public RecyclerViewHolder onCreateViewHolder(ViewGroup viewGroup, int position) {
         LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
-        View itemView = inflater.inflate(R.layout.item_recycler_search_location, viewGroup, false);
+        View itemView = inflater.inflate(R.layout.item_recycler_history, viewGroup, false);
         return new RecyclerViewHolder(itemView);
     }
 
@@ -58,11 +57,6 @@ public class CustomRecyclerAdapterSearch extends RecyclerView.Adapter<RecyclerVi
                 context.startActivity(intent);
             }
         });
-    }
-
-    @Override
-    public void onBindViewHolder(RecyclerViewHolder holder, int position, List<Object> payloads) {
-        super.onBindViewHolder(holder, position, payloads);
     }
 
     public void setAnimation(View viewToAnimate, int position)

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="5dp"
+    android:id="@+id/item_recycler"
+    android:paddingLeft="3.5dp"
+    android:paddingRight="3.5dp">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:padding="16dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/custom_boder_edit_profile">
+
+        <ImageView
+            android:layout_gravity="center_vertical"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:id="@+id/category_photo"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="16dp"
+            app:srcCompat="@drawable/ic_birthday_blue"
+            />
+
+        <TextView
+            android:layout_gravity="center_vertical"
+            android:textSize="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/txt_birth_day"
+            android:layout_toRightOf="@+id/category_photo"
+            android:layout_alignParentTop="true"
+            android:text="13/12/1999"
+            />
+
+    </LinearLayout>
+
+</LinearLayout>
