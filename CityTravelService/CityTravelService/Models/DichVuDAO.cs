@@ -3,8 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Web;
 
 namespace CityTravelService.Models
 {
@@ -22,7 +20,7 @@ namespace CityTravelService.Models
             foreach(Object o in ls) {
                 arr.Add((DichVu)o);
             }
-
+            disconnect();
             return arr;
         }
 
