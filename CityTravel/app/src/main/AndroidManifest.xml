@@ -2,11 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.thaianhit.citytravel">
 
-    <!--
-         The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
-         Google Maps Android API v2, but you must specify either coarse or fine
-         location permissions for the 'MyLocation' functionality. 
-    -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
@@ -18,25 +13,20 @@
         <activity
             android:name=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
-<<<<<<< HEAD
 
         </activity>
         <activity
             android:name=".LoginActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Dark">
-=======
->>>>>>> d506d2c16f5b85e3d53083fb0fefa6c000924f07
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".LoginActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Dark" />
+
         <activity
             android:name=".SignupActivity"
             android:screenOrientation="portrait"
