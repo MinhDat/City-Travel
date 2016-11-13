@@ -5,17 +5,18 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using CityTravelService.Models;
+using CityTravelService.Entity;
 
 namespace CityTravelService.Controllers
 {
     public class DichVuController : ApiController
     {
         // GET: api/DichVu
-        public IEnumerable<DichVu> Get()
+        public IEnumerable<DICHVU> Get()
         {
             DichVuDAO dvO = new DichVuDAO();
 
-            DichVu[] dv = new DichVu[dvO.getDsDichVu().Count];
+            DICHVU[] dv = new DICHVU[dvO.getDsDichVu().Count];
             dv = dvO.getDsDichVu().ToArray();
             return dv;
         }
@@ -23,8 +24,11 @@ namespace CityTravelService.Controllers
         // GET: api/DichVu/5
         public string Get(int id)
         {
+            
             return "value";
         }
+
+       
 
         // POST: api/DichVu
         public void Post([FromBody]string value)
@@ -40,5 +44,7 @@ namespace CityTravelService.Controllers
         public void Delete(int id)
         {
         }
+
+        
     }
 }

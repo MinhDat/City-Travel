@@ -3,12 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
+using System.Web;
+using CityTravelService.Entity;
 
 namespace CityTravelService.Models
 {
     public class DichVuDAO : DataProvider
     {
-        public List<DichVu> getDsDichVu()
+        public List<DICHVU> getDsDichVu()
         {
             connect();
             string query = "SELECT * FROM DICHVU";
@@ -16,19 +19,19 @@ namespace CityTravelService.Models
             DataSet dataset = new DataSet();
             adapter.Fill(dataset);
             ArrayList ls = ConvertDataSetToArrayList(dataset);
-            List<DichVu> arr = new List<DichVu>();
+            List<DICHVU> arr = new List<DICHVU>();
             foreach(Object o in ls) {
-                arr.Add((DichVu)o);
+                arr.Add((DICHVU)o);
             }
-            disconnect();
+
             return arr;
         }
 
         protected override object GetDataFromDataRow(DataTable dt, int i)
         {
-            DichVu dv = new DichVu();
-            dv.ID = (int)dt.Rows[i]["MaDichVu"];
-            dv.Name = dt.Rows[i]["TenDichVu"].ToString();
+            DICHVU dv = new DICHVU();
+            dv.MaDichVu = (int)dt.Rows[i]["MaDichVu"];
+            dv.TenDichVu = dt.Rows[i]["TenDichVu"].ToString();
 
             return (object)dv;
         }
