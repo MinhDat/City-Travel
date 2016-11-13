@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web.Http;
 using CityTravelService.Models;
 using System.Configuration;
+using System.Net.Http.Headers;
 
 namespace CityTravelService
 {
@@ -11,6 +12,8 @@ namespace CityTravelService
     {
         public static void Register(HttpConfiguration config)
         {
+            config.Formatters.JsonFormatter.SupportedMediaTypes
+                .Add(new MediaTypeHeaderValue("text/html"));
             // Web API configuration and services
             DataProvider.ConnectionString = ConfigurationManager.ConnectionStrings["connect"].ToString();
             // Web API routes

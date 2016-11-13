@@ -7,7 +7,7 @@ namespace CityTravelService.Models
 {
     public class DichVu
     {
-        public int ID { get; set; }
+        public int ID {get; set; }
         public string Name { get; set; }
     }
 }
