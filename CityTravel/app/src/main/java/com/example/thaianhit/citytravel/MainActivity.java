@@ -1,12 +1,8 @@
 package com.example.thaianhit.citytravel;
-import android.app.Fragment;
-import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.widget.Toast;
 
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabSelectListener;
@@ -50,8 +46,8 @@ public class MainActivity extends AppCompatActivity {
                     fragmentTransaction.replace(R.id.fragment_switch,new FragmentAboutMe(), "fragmentD");
 
                     fragmentTransaction.addToBackStack("fragmentD");
-
                     fragmentTransaction.commit();
+                    overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
 
                 }
                 if(tabId==R.id.btn_history)
