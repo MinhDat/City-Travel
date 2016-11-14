@@ -1,7 +1,6 @@
 package com.example.thaianhit.citytravel;
 
 import android.content.Context;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,9 +11,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.thaianhit.citytravel.CustomRecyclerAdapterHome.RecyclerViewHolder;
+
 import java.util.ArrayList;
 import java.util.List;
-import com.example.thaianhit.citytravel.CustomRecyclerAdapterHome.RecyclerViewHolder;
 /**
  * Created by NGUYEN TUAN ANH on 11/8/2016.
  */
