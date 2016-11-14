@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_edit_profile"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.thaianhit.citytravel.EditProfile">
+
+    <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/tbEdit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        app:theme="@style/ToolBarStyle"
+        style="@style/AppTheme.TND"></android.support.v7.widget.Toolbar>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:background="@color/colorPrimary"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/ivEditProfile"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:scaleType="centerCrop"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:orientation="horizontal"
+                android:weightSum="1">
+
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:textSize="14sp"
+                    android:background="@drawable/custom_edittext_profile"
+                    android:hint="Name"
+                    android:inputType="textEmailAddress"
+                    android:text="Dũng"
+                    android:id="@+id/editText" />
+
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="3dp"
+                    android:layout_weight="0.5"
+                    android:textSize="14sp"
+                    android:background="@drawable/custom_edittext_profile"
+                    android:hint="Name"
+                    android:inputType="textEmailAddress"
+
+                    android:text="Trương Như" />
+            </LinearLayout>
+
+            <EditText
+                android:textSize="14sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:background="@drawable/custom_edittext_profile"
+                android:hint="Phone Number"
+                android:inputType="number" />
+
+            <EditText
+                android:textSize="14sp"
+                android:id="@+id/edt_birthday"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:background="@drawable/custom_edittext_profile"
+                android:focusable="false"
+                android:hint="Birthday"
+                android:inputType="date" />
+
+            <EditText
+                android:textSize="14sp"
+                android:id="@+id/edt_gender"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:background="@drawable/custom_edittext_profile"
+                android:focusable="false"
+                android:hint="Gender"
+                android:inputType="text" />
+
+            <EditText
+                android:textSize="14sp"
+                android:id="@+id/edtAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:background="@drawable/custom_edittext_profile"
+                android:gravity="top"
+                android:hint="Address"
+                android:inputType="textMultiLine"
+                android:isScrollContainer="true"
+
+                android:lines="3" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
