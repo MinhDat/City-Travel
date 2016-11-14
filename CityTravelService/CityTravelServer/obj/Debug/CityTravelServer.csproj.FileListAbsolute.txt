@@ -1,0 +1,63 @@
+D:\GK_CK_CNHD\Đồ án cuối kì\Source\CityTravelServer\CityTravelServer\bin\CityTravelServer.dll.config
+D:\GK_CK_CNHD\Đồ án cuối kì\Source\CityTravelServer\CityTravelServer\bin\CityTravelServer.dll
+D:\GK_CK_CNHD\Đồ án cuối kì\Source\CityTravelServer\CityTravelServer\bin\CityTravelServer.pdb
+D:\GK_CK_CNHD\Đồ án cuối kì\Source\CityTravelServer\CityTravelServer\bin\Antlr3.Runtime.dll
+D:\GK_CK_CNHD\Đồ án cuối kì\Source\CityTravelServer\CityTravelServer\bin\Microsoft.Web.Infrastructure.dll
+D:\GK_CK_CNHD\Đồ án cuối kì\Source\CityTravelServer\CityTravelServer\bin\Newtonsoft.Json.dll
+D:\GK_CK_CNHD\Đồ án cuối kì\Source\CityTravelServer\CityTravelServer\bin\System.Net.Http.Formatting.dll
+D:\GK_CK_CNHD\Đồ án cuối kì\Source\CityTravelServer\CityTravelServer\bin\System.Web.Helpers.dll
+D:\GK_CK_CNHD\Đồ án cuối kì\Source\CityTravelServer\CityTravelServer\bin\System.Web.Http.dll
+D:\GK_CK_CNHD\Đồ án cuối kì\Source\CityTravelServer\CityTravelServer\bin\System.Web.Http.WebHost.dll
+D:\GK_CK_CNHD\Đồ án cuối kì\Source\CityTravelServer\CityTravelServer\bin\System.Web.Mvc.dll
+D:\GK_CK_CNHD\Đồ án cuối kì\Source\CityTravelServer\CityTravelServer\bin\System.Web.Optimization.dll
+D:\GK_CK_CNHD\Đồ án cuối kì\Source\CityTravelServer\CityTravelServer\bin\System.Web.Razor.dll
+D:\GK_CK_CNHD\Đồ án cuối kì\Source\CityTravelServer\CityTravelServer\bin\System.Web.WebPages.Deployment.dll
+D:\GK_CK_CNHD\Đồ án cuối kì\Source\CityTravelServer\CityTravelServer\bin\System.Web.WebPages.dll
+D:\GK_CK_CNHD\Đồ án cuối kì\Source\CityTravelServer\CityTravelServer\bin\System.Web.WebPages.Razor.dll
+D:\GK_CK_CNHD\Đồ án cuối kì\Source\CityTravelServer\CityTravelServer\bin\WebGrease.dll
+D:\GK_CK_CNHD\Đồ án cuối kì\Source\CityTravelServer\CityTravelServer\bin\Newtonsoft.Json.xml
+D:\GK_CK_CNHD\Đồ án cuối kì\Source\CityTravelServer\CityTravelServer\bin\System.Net.Http.Formatting.xml
+D:\GK_CK_CNHD\Đồ án cuối kì\Source\CityTravelServer\CityTravelServer\bin\System.Web.Helpers.xml
+D:\GK_CK_CNHD\Đồ án cuối kì\Source\CityTravelServer\CityTravelServer\bin\System.Web.Http.xml
+D:\GK_CK_CNHD\Đồ án cuối kì\Source\CityTravelServer\CityTravelServer\bin\System.Web.Http.WebHost.xml
+D:\GK_CK_CNHD\Đồ án cuối kì\Source\CityTravelServer\CityTravelServer\bin\System.Web.Mvc.xml
+D:\GK_CK_CNHD\Đồ án cuối kì\Source\CityTravelServer\CityTravelServer\bin\System.Web.Optimization.xml
+D:\GK_CK_CNHD\Đồ án cuối kì\Source\CityTravelServer\CityTravelServer\bin\System.Web.Razor.xml
+D:\GK_CK_CNHD\Đồ án cuối kì\Source\CityTravelServer\CityTravelServer\bin\System.Web.WebPages.xml
+D:\GK_CK_CNHD\Đồ án cuối kì\Source\CityTravelServer\CityTravelServer\bin\System.Web.WebPages.Deployment.xml
+D:\GK_CK_CNHD\Đồ án cuối kì\Source\CityTravelServer\CityTravelServer\bin\System.Web.WebPages.Razor.xml
+D:\GK_CK_CNHD\Đồ án cuối kì\Source\CityTravelServer\CityTravelServer\bin\Antlr3.Runtime.pdb
+D:\GK_CK_CNHD\Đồ án cuối kì\Source\CityTravelServer\CityTravelServer\obj\Debug\CityTravelServer.dll
+D:\GK_CK_CNHD\Đồ án cuối kì\Source\CityTravelServer\CityTravelServer\obj\Debug\CityTravelServer.pdb
+C:\Users\HuuBao\Desktop\CityTravelServer\CityTravelServer\bin\CityTravelServer.dll.config
+C:\Users\HuuBao\Desktop\CityTravelServer\CityTravelServer\bin\CityTravelServer.dll
+C:\Users\HuuBao\Desktop\CityTravelServer\CityTravelServer\bin\CityTravelServer.pdb
+C:\Users\HuuBao\Desktop\CityTravelServer\CityTravelServer\bin\Antlr3.Runtime.dll
+C:\Users\HuuBao\Desktop\CityTravelServer\CityTravelServer\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\HuuBao\Desktop\CityTravelServer\CityTravelServer\bin\Newtonsoft.Json.dll
+C:\Users\HuuBao\Desktop\CityTravelServer\CityTravelServer\bin\System.Net.Http.Formatting.dll
+C:\Users\HuuBao\Desktop\CityTravelServer\CityTravelServer\bin\System.Web.Helpers.dll
+C:\Users\HuuBao\Desktop\CityTravelServer\CityTravelServer\bin\System.Web.Http.dll
+C:\Users\HuuBao\Desktop\CityTravelServer\CityTravelServer\bin\System.Web.Http.WebHost.dll
+C:\Users\HuuBao\Desktop\CityTravelServer\CityTravelServer\bin\System.Web.Mvc.dll
+C:\Users\HuuBao\Desktop\CityTravelServer\CityTravelServer\bin\System.Web.Optimization.dll
+C:\Users\HuuBao\Desktop\CityTravelServer\CityTravelServer\bin\System.Web.Razor.dll
+C:\Users\HuuBao\Desktop\CityTravelServer\CityTravelServer\bin\System.Web.WebPages.Deployment.dll
+C:\Users\HuuBao\Desktop\CityTravelServer\CityTravelServer\bin\System.Web.WebPages.dll
+C:\Users\HuuBao\Desktop\CityTravelServer\CityTravelServer\bin\System.Web.WebPages.Razor.dll
+C:\Users\HuuBao\Desktop\CityTravelServer\CityTravelServer\bin\WebGrease.dll
+C:\Users\HuuBao\Desktop\CityTravelServer\CityTravelServer\bin\Newtonsoft.Json.xml
+C:\Users\HuuBao\Desktop\CityTravelServer\CityTravelServer\bin\System.Net.Http.Formatting.xml
+C:\Users\HuuBao\Desktop\CityTravelServer\CityTravelServer\bin\System.Web.Helpers.xml
+C:\Users\HuuBao\Desktop\CityTravelServer\CityTravelServer\bin\System.Web.Http.xml
+C:\Users\HuuBao\Desktop\CityTravelServer\CityTravelServer\bin\System.Web.Http.WebHost.xml
+C:\Users\HuuBao\Desktop\CityTravelServer\CityTravelServer\bin\System.Web.Mvc.xml
+C:\Users\HuuBao\Desktop\CityTravelServer\CityTravelServer\bin\System.Web.Optimization.xml
+C:\Users\HuuBao\Desktop\CityTravelServer\CityTravelServer\bin\System.Web.Razor.xml
+C:\Users\HuuBao\Desktop\CityTravelServer\CityTravelServer\bin\System.Web.WebPages.xml
+C:\Users\HuuBao\Desktop\CityTravelServer\CityTravelServer\bin\System.Web.WebPages.Deployment.xml
+C:\Users\HuuBao\Desktop\CityTravelServer\CityTravelServer\bin\System.Web.WebPages.Razor.xml
+C:\Users\HuuBao\Desktop\CityTravelServer\CityTravelServer\bin\Antlr3.Runtime.pdb
+C:\Users\HuuBao\Desktop\CityTravelServer\CityTravelServer\obj\Debug\CityTravelServer.csprojResolveAssemblyReference.cache
+C:\Users\HuuBao\Desktop\CityTravelServer\CityTravelServer\obj\Debug\CityTravelServer.dll
+C:\Users\HuuBao\Desktop\CityTravelServer\CityTravelServer\obj\Debug\CityTravelServer.pdb
