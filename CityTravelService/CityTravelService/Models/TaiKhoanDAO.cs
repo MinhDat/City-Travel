@@ -28,6 +28,24 @@ namespace CityTravelService.Models
             return arr;
         }
 
+        public List<TaiKhoan> getDsTaiKhoan(string email)
+        {
+            connect();
+            string query = "SELECT * FROM TAIKHOAN WHERE Email = '" + email + "'";
+            adapter = new SqlDataAdapter(query, connection);
+            DataSet dataset = new DataSet();
+            adapter.Fill(dataset);
+            ArrayList ls = ConvertDataSetToArrayList(dataset);
+            List<TaiKhoan> arr = new List<TaiKhoan>();
+            foreach (Object o in ls)
+            {
+                arr.Add((TaiKhoan)o);
+            }
+
+            disconnect();
+            return arr;
+        }
+
         protected override object GetDataFromDataRow(DataTable dt, int i)
         {
             TaiKhoan tk = new TaiKhoan();
@@ -36,8 +54,8 @@ namespace CityTravelService.Models
             tk.LastName = dt.Rows[i]["Ho"].ToString();
             tk.FirtName = dt.Rows[i]["Ten"].ToString();
             tk.Phone = dt.Rows[i]["SDT"].ToString();
-            tk.Sex = (int)dt.Rows[i]["GioiTinh"];
-            tk.Birth = (DateTime)dt.Rows[i]["NgaySinh"];
+            tk.Sex = (dt.Rows[i].IsNull("GioiTinh") == true) ? 0 : (int)dt.Rows[i]["GioiTinh"];
+            tk.Birth = (dt.Rows[i].IsNull("NgaySinh") == true) ? DateTime.Now : (DateTime)dt.Rows[i]["NgaySinh"];
             tk.Address = dt.Rows[i]["DiaChi"].ToString();
             tk.Picture = dt.Rows[i]["Hinh"].ToString();
 
@@ -61,6 +79,23 @@ namespace CityTravelService.Models
             disconnect();
         }
 
+        public void updateTaiKhoan(TaiKhoan tk)
+        {
+            connect();
+            string updateCommand = "UPDATE TAIKHOAN SET Email = '" +tk.Email + 
+                "', MatKhau = '" + tk.PassWord +
+                "', Ho = N'" + tk.LastName + 
+                "', Ten = N'" + tk.FirtName + 
+                "', SDT = N'" + tk.Phone + 
+                "', GioiTinh = " + tk.Sex +
+                ", NgaySinh = '" + tk.Birth.Year + "-" + tk.Birth.Month + "-" + tk.Birth.Day + 
+                "', DiaChi = N'" + tk.Address + 
+                "', Hinh = '" + tk.Picture + 
+                "' WHERE Email = '" + tk.Email + "'";
+            executeNonQuery(updateCommand);
+            disconnect();
+        }
+        
         public void deleteTaiKhoan (string Email)
         {
             connect();

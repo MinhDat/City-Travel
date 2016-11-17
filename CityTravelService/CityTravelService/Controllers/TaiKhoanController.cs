@@ -1,50 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
+﻿using System.Collections.Generic;
 using CityTravelService.Models;
-using System.Net.Mail;
-using System.Configuration;
+using System.Web.Http;
+using System.Net.Http;
+using System.Net.Http.Formatting;
+using System.Net;
+using System;
 
 namespace CityTravelService.Controllers
 {
     public class TaiKhoanController : ApiController
     {
-        public string CreateCode()
-        {
-            string _allowedChars = "ABCDEFGHIJKMNOPQRSTUVWXYZ0123456789";
-
-            Random randNum = new Random();
-
-            char[] chars = new char[6];
-
-            int allowedCharCount = _allowedChars.Length;
-
-            for (int i = 0; i < 6; i++)
-            {
-                chars[i] = _allowedChars[(int)((_allowedChars.Length) * randNum.NextDouble())];
-                if (chars[i] == '0' || chars[i] == '1' || chars[i] == '2' || chars[i] == '3' || chars[i] == '4'
-              || chars[i] == '5' || chars[i] == '6' || chars[i] == '7' || chars[i] == '8' || chars[i] == '9')
-                {
-                    _allowedChars = "ABCDEFGHIJKMNOPQRSTUVWXYZ";
-                }
-            }
-            return new string(chars);
-        }
-        [AllowAnonymous]
-        [Route("ForgetPassword")]
-        [HttpGet]
-        public bool Main(string email)
-        {          
-            MailMessage mailMessag = new MailMessage(ConfigurationManager.AppSettings.Get("Email"), email);
-            mailMessag.Subject = "Gửi lại mật khẩu";
-            mailMessag.Body = "Mã khẩu của bạn là: " + CreateCode();
-            SmtpClient client = new SmtpClient();
-            client.Send(mailMessag);
-            return true;
-        }
+        #region GET
         // GET: api/TaiKhoan
         public IEnumerable<TaiKhoan> Get()
         {
@@ -56,26 +22,54 @@ namespace CityTravelService.Controllers
         }
 
         // GET: api/TaiKhoan/5
-        public string Get(int id)
+        public IEnumerable<TaiKhoan> Get(string id)
         {
-            return "value";
-        }
+            TaiKhoanDAO tkO = new TaiKhoanDAO();
 
+            TaiKhoan[] tk = new TaiKhoan[tkO.getDsTaiKhoan(id).Count];
+            tk = tkO.getDsTaiKhoan(id).ToArray();
+            if (tk.Length == 0)
+                throw new HttpResponseException(HttpStatusCode.NotFound);
+            return tk;
+        }
+        #endregion
+
+        #region POST
         // POST: api/TaiKhoan
-        public void Post([FromBody]TaiKhoan tk)
+        public HttpResponseMessage Post([FromBody]TaiKhoan tk)
         {
             TaiKhoanDAO tkO = new TaiKhoanDAO();
             tkO.insertTaiKhoan(tk);
+            var response = Request.CreateResponse<TaiKhoan>(HttpStatusCode.Created, tk);
+            response.Headers.Location = new System.Uri(Request.RequestUri, "/api/TaiKhoan/" + tk.Email.ToString());
+            return response;
         }
+        #endregion
 
+        #region PUT
         // PUT: api/TaiKhoan/5
-        public void Put(int id, [FromBody]string value)
+        public HttpResponseMessage Put([FromBody]TaiKhoan tk)
         {
+            TaiKhoanDAO tkO = new TaiKhoanDAO();
+            tkO.updateTaiKhoan(tk);
+            var response = Request.CreateResponse<TaiKhoan>(HttpStatusCode.Created, tk);
+            response.Headers.Location = new System.Uri(Request.RequestUri, "/api/DichVu/" + tk.Email.ToString());
+            return response;
         }
+        #endregion
 
+        #region DELETE
         // DELETE: api/TaiKhoan/5
-        public void Delete(int id)
+        public TaiKhoan Delete(string id)
         {
+            TaiKhoanDAO tkO = new TaiKhoanDAO();
+            TaiKhoan[] tk = new TaiKhoan[tkO.getDsTaiKhoan(id).Count];
+            tk = tkO.getDsTaiKhoan(id).ToArray();
+            if (tk.Length == 0)
+                throw new HttpResponseException(HttpStatusCode.NotFound);
+            tkO.deleteTaiKhoan(id);
+            return tk[0];
         }
+        #endregion
     }
 }
