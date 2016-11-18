@@ -4,7 +4,6 @@ namespace CityTravelService.Entity
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
-
     [Table("TUKHOADUONG")]
     public partial class TUKHOADUONG
     {

@@ -149,6 +149,7 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\DiaDiemController.cs" />
     <Compile Include="Controllers\DichVuController.cs" />
+    <Compile Include="Controllers\DuLieuController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
@@ -156,11 +157,13 @@
     </Compile>
     <Compile Include="Models\BINHLUAN.cs" />
     <Compile Include="Models\CHITIETDICHVU.cs" />
+    <Compile Include="Models\CHITIET_DULIEU.cs" />
     <Compile Include="Models\DataProvider.cs" />
     <Compile Include="Models\DiaDiemDAO.cs" />
     <Compile Include="Models\DICHVU.cs" />
     <Compile Include="Models\DichVuDAO.cs" />
     <Compile Include="Models\DULIEU.cs" />
+    <Compile Include="Models\DULIEU_DAO.cs" />
     <Compile Include="Models\DUONG.cs" />
     <Compile Include="Models\PHUONG.cs" />
     <Compile Include="Models\QUANHUYEN.cs" />
