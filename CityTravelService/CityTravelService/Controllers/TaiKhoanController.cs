@@ -29,46 +29,47 @@ namespace CityTravelService.Controllers
             TaiKhoan[] tk = new TaiKhoan[tkO.getDsTaiKhoan(id).Count];
             tk = tkO.getDsTaiKhoan(id).ToArray();
             if (tk.Length == 0)
-                throw new HttpResponseException(HttpStatusCode.NotFound);
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
             return tk;
         }
         #endregion
 
         #region POST
         // POST: api/TaiKhoan
-        public HttpResponseMessage Post([FromBody]TaiKhoan tk)
+        public bool Post([FromBody]TaiKhoan tk)
         {
             TaiKhoanDAO tkO = new TaiKhoanDAO();
-            tkO.insertTaiKhoan(tk);
-            var response = Request.CreateResponse<TaiKhoan>(HttpStatusCode.Created, tk);
-            response.Headers.Location = new System.Uri(Request.RequestUri, "/api/TaiKhoan/" + tk.Email.ToString());
-            return response;
+            //tkO.insertTaiKhoan(tk);
+            /*var response = Request.CreateResponse<TaiKhoan>(HttpStatusCode.Created, tk);
+            response.Headers.Location = new System.Uri(Request.RequestUri, "/api/TaiKhoan/" + tk.Email.ToString());*/
+            return tkO.insertTaiKhoan(tk);
         }
         #endregion
 
         #region PUT
         // PUT: api/TaiKhoan/5
-        public HttpResponseMessage Put([FromBody]TaiKhoan tk)
+        public bool Put([FromBody]TaiKhoan tk)
         {
             TaiKhoanDAO tkO = new TaiKhoanDAO();
-            tkO.updateTaiKhoan(tk);
-            var response = Request.CreateResponse<TaiKhoan>(HttpStatusCode.Created, tk);
-            response.Headers.Location = new System.Uri(Request.RequestUri, "/api/DichVu/" + tk.Email.ToString());
-            return response;
+            //tkO.updateTaiKhoan(tk);
+            /*var response = Request.CreateResponse<TaiKhoan>(HttpStatusCode.Created, tk);
+            response.Headers.Location = new System.Uri(Request.RequestUri, "/api/TaiKhoan/" + tk.Email.ToString());*/
+            return tkO.updateTaiKhoan(tk);
         }
         #endregion
 
         #region DELETE
         // DELETE: api/TaiKhoan/5
-        public TaiKhoan Delete(string id)
+        public bool Delete(string id)
         {
             TaiKhoanDAO tkO = new TaiKhoanDAO();
             TaiKhoan[] tk = new TaiKhoan[tkO.getDsTaiKhoan(id).Count];
             tk = tkO.getDsTaiKhoan(id).ToArray();
             if (tk.Length == 0)
-                throw new HttpResponseException(HttpStatusCode.NotFound);
+                return false;
+                /*throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));*/
             tkO.deleteTaiKhoan(id);
-            return tk[0];
+            return true;
         }
         #endregion
     }

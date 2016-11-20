@@ -62,38 +62,54 @@ namespace CityTravelService.Models
             return (object)tk;
         }
 
-        public void insertTaiKhoan(TaiKhoan tk)
+        public bool insertTaiKhoan(TaiKhoan tk)
         {
-            connect();
-            string insertCommand = "INSERT INTO TAIKHOAN VALUES('" +
-                tk.Email + "', '" +
-                tk.PassWord + "', N'" +
-                tk.LastName + "', N'" +
-                tk.FirtName + "', N'" +
-                tk.Phone + "', " +
-                tk.Sex + ", '" + 
-                tk.Birth.Year + "-" + tk.Birth.Month + "-" + tk.Birth.Day + "', N'" +
-                tk.Address + "', '" +
-                tk.Picture + "')";
-            executeNonQuery(insertCommand);
-            disconnect();
+            try
+            {
+                connect();
+                string insertCommand = "INSERT INTO TAIKHOAN VALUES('" +
+                    tk.Email + "', '" +
+                    tk.PassWord + "', N'" +
+                    tk.LastName + "', N'" +
+                    tk.FirtName + "', N'" +
+                    tk.Phone + "', " +
+                    tk.Sex + ", '" +
+                    tk.Birth.Year + "-" + tk.Birth.Month + "-" + tk.Birth.Day + "', N'" +
+                    tk.Address + "', '" +
+                    tk.Picture + "')";
+                executeNonQuery(insertCommand);
+                disconnect();
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
         }
 
-        public void updateTaiKhoan(TaiKhoan tk)
+        public bool updateTaiKhoan(TaiKhoan tk)
         {
-            connect();
-            string updateCommand = "UPDATE TAIKHOAN SET Email = '" +tk.Email + 
-                "', MatKhau = '" + tk.PassWord +
-                "', Ho = N'" + tk.LastName + 
-                "', Ten = N'" + tk.FirtName + 
-                "', SDT = N'" + tk.Phone + 
-                "', GioiTinh = " + tk.Sex +
-                ", NgaySinh = '" + tk.Birth.Year + "-" + tk.Birth.Month + "-" + tk.Birth.Day + 
-                "', DiaChi = N'" + tk.Address + 
-                "', Hinh = '" + tk.Picture + 
-                "' WHERE Email = '" + tk.Email + "'";
-            executeNonQuery(updateCommand);
-            disconnect();
+            try
+            {
+                connect();
+                string updateCommand = "UPDATE TAIKHOAN SET Email = '" + tk.Email +
+                    "', MatKhau = '" + tk.PassWord +
+                    "', Ho = N'" + tk.LastName +
+                    "', Ten = N'" + tk.FirtName +
+                    "', SDT = N'" + tk.Phone +
+                    "', GioiTinh = " + tk.Sex +
+                    ", NgaySinh = '" + tk.Birth.Year + "-" + tk.Birth.Month + "-" + tk.Birth.Day +
+                    "', DiaChi = N'" + tk.Address +
+                    "', Hinh = '" + tk.Picture +
+                    "' WHERE Email = '" + tk.Email + "'";
+                executeNonQuery(updateCommand);
+                disconnect();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
         
         public void deleteTaiKhoan (string Email)
