@@ -12,22 +12,36 @@ namespace CityTravelService.Models
     public class DiaDiemDAO : DataProvider
     {
 
-        public void insertDiaDiem(TENDIADIEM tenDD)
+        public bool insertDiaDiem(TENDIADIEM tenDD)
         {
-            connect();
-            string insertCommand = "INSERT INTO TENDIADIEM VALUES( N'" +
-                tenDD.TenDiaDiem + "')";
-            executeNonQuery(insertCommand);
-            disconnect();
+            try {
+                connect();
+                string insertCommand = "INSERT INTO TENDIADIEM VALUES( N'" +
+                    tenDD.TenDiaDiem + "')";
+                executeNonQuery(insertCommand);
+                disconnect();
+                return true;
+            }catch(Exception e) {
+                return false;
+            }
+            
         }
 
-        public void updateDiaDiem(int matenDiaDiem, string TenDiaDiemMoi)
+        public bool updateDiaDiem(int matenDiaDiem, string TenDiaDiemMoi)
         {
-            connect();
-            string updatecommand = "update TENDIADIEM set TenDiaDiem = " + " N'" 
-                                    + TenDiaDiemMoi + "' where MaTenDiaDiem = " + matenDiaDiem;
-            executeNonQuery(updatecommand);
-            disconnect();
+            try
+            {
+                connect();
+                string updatecommand = "update TENDIADIEM set TenDiaDiem = " + " N'"
+                                        + TenDiaDiemMoi + "' where MaTenDiaDiem = " + matenDiaDiem;
+                executeNonQuery(updatecommand);
+                disconnect();
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
         }
 
         protected override object GetDataFromDataRow(DataTable dt, int i)
@@ -40,20 +54,20 @@ namespace CityTravelService.Models
 
         public List<TENDIADIEM> getAllDiaDiem()
         {
+                connect();
+                string query = "select * from TENDIADIEM";
+                adapter = new SqlDataAdapter(query, connection);
+                DataSet dataset = new DataSet();
+                adapter.Fill(dataset);
+                ArrayList ls = ConvertDataSetToArrayList(dataset);
+                List<TENDIADIEM> listDD = new List<TENDIADIEM>();
+                foreach (Object o in ls)
+                {
+                    listDD.Add((TENDIADIEM)o);
+                }
+                disconnect();
+                return listDD;
             
-            connect();
-            string query = "select * from TENDIADIEM";
-            adapter = new SqlDataAdapter(query, connection);
-            DataSet dataset = new DataSet();
-            adapter.Fill(dataset);
-            ArrayList ls = ConvertDataSetToArrayList(dataset);
-            List<TENDIADIEM> listDD = new List<TENDIADIEM>();
-            foreach (Object o in ls)
-            {
-                listDD.Add((TENDIADIEM)o);
-            }
-            disconnect();
-            return listDD;
         }
 
         public TENDIADIEM getDiaDiem(int matendiadiem)
@@ -73,19 +87,27 @@ namespace CityTravelService.Models
             return dt;
         }
 
-        public void DeleteDiaDiem(int id, string tendiadiem)
+        public bool DeleteDiaDiem(int id, string tendiadiem)
         {
-            connect();
-            DULIEU_DAO dlDao = new DULIEU_DAO();
-            List<DULIEU> arr = new List<DULIEU>();
-            arr = dlDao.getDuLieu(id);
-            foreach (DULIEU i in arr)
+            try
             {
-                dlDao.delete_DuLieu(i.MaDuLieu);
+                connect();
+                DULIEU_DAO dlDao = new DULIEU_DAO();
+                List<DULIEU> arr = new List<DULIEU>();
+                arr = dlDao.getDuLieu(id);
+                foreach (DULIEU i in arr)
+                {
+                    dlDao.delete_DuLieu(i.MaDuLieu);
+                }
+                string deleteCommand = "DELETE FROM TENDIADIEM WHERE TenDiaDiem = N'" + tendiadiem + "'";
+                executeNonQuery(deleteCommand);
+                disconnect();
+                return true;
             }
-            string deleteCommand = "DELETE FROM TENDIADIEM WHERE TenDiaDiem = N'" + tendiadiem + "'";
-            executeNonQuery(deleteCommand);
-            disconnect();
+            catch (Exception e)
+            {
+                return false;
+            }
 
         }
     }

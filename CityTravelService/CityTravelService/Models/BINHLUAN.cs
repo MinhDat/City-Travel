@@ -4,6 +4,7 @@ namespace CityTravelService.Entity
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+    using CityTravelService.Models;
 
     [Table("BINHLUAN")]
     public partial class BINHLUAN
@@ -26,7 +27,7 @@ namespace CityTravelService.Entity
 
         public DateTime? ThoiGian { get; set; }
 
-        public virtual TAIKHOAN TAIKHOAN { get; set; }
+        public virtual TaiKhoan TAIKHOAN { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DULIEU> DULIEUx { get; set; }

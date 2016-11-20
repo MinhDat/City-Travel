@@ -13,35 +13,50 @@ namespace CityTravelService.Controllers
     {
         // POST: api/DiaDiem
         //Them dia diem
-        public void Post([FromBody]TENDIADIEM tenDD)
+        public HttpResponseMessage Post([FromBody]TENDIADIEM tenDD)
         {
             DiaDiemDAO ddO = new DiaDiemDAO();
-            ddO.insertDiaDiem(tenDD);
+            bool result = ddO.insertDiaDiem(tenDD);
+            var response = Request.CreateResponse<bool>(HttpStatusCode.Created, result);
+               // response.Headers.Location = new System.Uri(Request.RequestUri, "/api/DiaDiem/" + tenDD.MaTenDiaDiem.ToString());
+            return response;
         }
 
-        // PUT: api/DIADIEM/{id}?value={value}
+        // PUT: api/DIADIEM/{id}
         //chinh sua ten dia diem
-        public void Put(int id, [FromBody]string value)
+        public HttpResponseMessage Put(int id, [FromBody]string value)
         {
             DiaDiemDAO ddO = new DiaDiemDAO();
-            ddO.updateDiaDiem(id, value);
+            bool result = ddO.updateDiaDiem(id, value);
+            var response = Request.CreateResponse<bool>(HttpStatusCode.Created, result);
+            return response;
         }
 
 
         // GET: api/DiaDiem
-        public IEnumerable<TENDIADIEM> Get()
+        public HttpResponseMessage Get()
         {
-            DiaDiemDAO ddO = new DiaDiemDAO();
-            TENDIADIEM[] result = new TENDIADIEM[ddO.getAllDiaDiem().Count];
-            result = ddO.getAllDiaDiem().ToArray();
-            return result;
+            try
+            {
+                DiaDiemDAO ddO = new DiaDiemDAO();
+                TENDIADIEM[] result = new TENDIADIEM[ddO.getAllDiaDiem().Count];
+                result = ddO.getAllDiaDiem().ToArray();
+                var response = Request.CreateResponse<IEnumerable<TENDIADIEM>>(HttpStatusCode.Created, result);
+                return response;
+            }
+            catch (Exception e)
+            {
+                throw new HttpResponseException(HttpStatusCode.NotFound);
+            }
         }
 
         //GET: api/DiaDiem/5
-        public void Delete(int id, [FromBody]string tendiadiem)
+        public HttpResponseMessage Delete(int id, [FromBody]string tendiadiem)
         {
             DiaDiemDAO ddO = new DiaDiemDAO();
-            ddO.DeleteDiaDiem(id, tendiadiem);
+            bool result = ddO.DeleteDiaDiem(id, tendiadiem);
+            var response = Request.CreateResponse<bool>(HttpStatusCode.Created, result);
+            return response;
         }
     }
 }
