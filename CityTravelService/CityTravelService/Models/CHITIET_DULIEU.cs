@@ -20,8 +20,7 @@ namespace CityTravelService.Models
         public string tenquanhuyen { get; set; }
         public string tentinhthanh { get; set; }
 
-
-        public CHITIET_DULIEU get_DuLieu_ChiTiet(int ma_dulieu)
+        public List<CHITIET_DULIEU> get_DuLieu_ChiTiet(int ma_dulieu)
         {
             connect();
             string query = @"select dl.MaDuLieu, dv.TenDichVu, tdd.TenDiaDiem, dl.SoNha, d.TenDuong, p.TenPhuong, qh.TenQuanHuyen, tt.TenTinhThanh
@@ -38,8 +37,7 @@ namespace CityTravelService.Models
             {
                 arr.Add((CHITIET_DULIEU)o);
             }
-            CHITIET_DULIEU ct = arr[0];
-            return ct;
+            return arr;
         }
 
         protected override object GetDataFromDataRow(DataTable dt, int i)
@@ -55,6 +53,7 @@ namespace CityTravelService.Models
             chitiet_dulieu.tentinhthanh = dt.Rows[i]["TenTinhThanh"].ToString();
             return (object)chitiet_dulieu;
         }
+        
 
 
     }

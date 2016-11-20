@@ -7,11 +7,7 @@ namespace CityTravelService.Entity
     [Table("DULIEU")]
     public partial class DULIEU
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public DULIEU()
-        {
-            CHITIETDICHVUs = new HashSet<CHITIETDICHVU>();
-        }
+        
 
         [Key]
         public int MaDuLieu { get; set; }
@@ -43,21 +39,6 @@ namespace CityTravelService.Entity
         [StringLength(20)]
         public string MaBinhLuan { get; set; }
 
-        public virtual BINHLUAN BINHLUAN { get; set; }
-
-        public virtual DICHVU DICHVU { get; set; }
-
-        public virtual DUONG DUONG { get; set; }
-
-        public virtual PHUONG PHUONG { get; set; }
-
-        public virtual QUANHUYEN QUANHUYEN { get; set; }
-
-        public virtual TENDIADIEM TENDIADIEM { get; set; }
-
-        public virtual TINHTHANH TINHTHANH { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CHITIETDICHVU> CHITIETDICHVUs { get; set; }
+       
     }
 }

@@ -28,7 +28,23 @@ namespace CityTravelService.Models
             return arr;
         }
 
-        public DULIEU get_DuLieu(int ma_dulieu)
+        public List<DULIEU> getDuLieu(int MaTenDiaDiem)
+        {
+            connect();
+            string query = "SELECT * FROM DULIEU WHERE MaTenDiaDiem = " + MaTenDiaDiem;
+            adapter = new SqlDataAdapter(query, connection);
+            DataSet dataset = new DataSet();
+            adapter.Fill(dataset);
+            ArrayList ls = ConvertDataSetToArrayList(dataset);
+            List<DULIEU> arr = new List<DULIEU>();
+            foreach (Object o in ls)
+            {
+                arr.Add((DULIEU)o);
+            }
+            return arr;
+        }
+
+        public List<DULIEU> get_DuLieu(int ma_dulieu)
         {
             connect();
             string query = "SELECT * FROM DULIEU where MaDuLieu = " + ma_dulieu;
@@ -41,8 +57,7 @@ namespace CityTravelService.Models
             {
                 arr.Add((DULIEU)o);
             }
-            DULIEU dt = arr[0];
-            return dt;
+            return arr;
         }
         
         protected override object GetDataFromDataRow(DataTable dt, int i)
@@ -69,30 +84,54 @@ namespace CityTravelService.Models
             return (object)dl;
         }
 
-        public void insert_DuLieu(DULIEU dl)
+        public bool insert_DuLieu(DULIEU dl)
         {
             connect();
-            string insertCommand = @"INSERT INTO DULIEU (MaDichVu, MaTenDiaDiem, SoNha, MaDuong, MaPhuong, MaQuanHuyen, MaTinhThanh, KinhDo, ViDo, ChuThich)
+            try
+            {
+                string insertCommand = @"INSERT INTO DULIEU (MaDichVu, MaTenDiaDiem, SoNha, MaDuong, MaPhuong, MaQuanHuyen, MaTinhThanh, KinhDo, ViDo, ChuThich)
                                     VALUES (" + dl.MaDichVu + "," + dl.MaTenDiaDiem + ", N'" + dl.SoNha + "'," + dl.MaDuong + "," + dl.MaPhuong + "," + dl.MaQuanHuyen + "," + dl.MaTinhThanh + "," + dl.KinhDo + "," + dl.ViDo + ", N'" + dl.ChuThich + "')";
-            
-            executeNonQuery(insertCommand);
-            disconnect();
+
+                executeNonQuery(insertCommand);
+                disconnect();
+                return true;
+            }
+            catch(Exception e)
+            {
+                return false;
+            }
         }
 
-        public void delete_DuLieu(int ma_dulieu)
+        public bool delete_DuLieu(int ma_dulieu)
         {
-            connect();
-            string deleteCommand = "DELETE FROM DULIEU WHERE MaDuLieu = '" + ma_dulieu + "'";
-            executeNonQuery(deleteCommand);
-            disconnect();
+            try
+            {
+                connect();
+                string deleteCommand = "DELETE FROM DULIEU WHERE MaDuLieu = '" + ma_dulieu + "'";
+                executeNonQuery(deleteCommand);
+                disconnect();
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
         }
 
-        public void update_DuLieu(int ma_dulieu, string sonha)
+        public bool update_DuLieu(int ma_dulieu, string sonha)
         {
-            connect();
-            string deleteCommand = "UPDATE DULIEU SET SoNha = N'" + sonha + "' WHERE MaDuLieu = " + ma_dulieu;
-            executeNonQuery(deleteCommand);
-            disconnect();
+            try
+            {
+                connect();
+                string deleteCommand = "UPDATE DULIEU SET SoNha = N'" + sonha + "' WHERE MaDuLieu = " + ma_dulieu;
+                executeNonQuery(deleteCommand);
+                disconnect();
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
         }
     }
 }

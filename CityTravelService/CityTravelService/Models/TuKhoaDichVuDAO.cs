@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CityTravelService.Models;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
@@ -6,38 +7,39 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 
-namespace CityTravelService.Models
+namespace CityTravelServer.Models
 {
-    public class DichVuDAO : DataProvider
+    public class TuKhoaDichVuDAO : DataProvider
     {
-        public List<DichVu> getDsDichVu()
+        public List<TuKhoaDichVu> getDsTuKhoaDichVu()
         {
             connect();
-            string query = "SELECT * FROM DICHVU";
+            string query = "SELECT * FROM TUKHOADICHVU";
             adapter = new SqlDataAdapter(query, connection);
             DataSet dataset = new DataSet();
             adapter.Fill(dataset);
             ArrayList ls = ConvertDataSetToArrayList(dataset);
-            List<DichVu> arr = new List<DichVu>();
-            foreach(Object o in ls) {
-                arr.Add((DichVu)o);
+            List<TuKhoaDichVu> arr = new List<TuKhoaDichVu>();
+            foreach (Object o in ls)
+            {
+                arr.Add((TuKhoaDichVu)o);
             }
-
+            disconnect();
             return arr;
         }
 
-        public List<DichVu> getDsDichVu(int id)
+        public List<TuKhoaDichVu> getDsTuKhoaDichVu(int id)
         {
             connect();
-            string query = "SELECT * FROM DICHVU WHERE MaDichVu = " + id;
+            string query = string.Format("SELECT * FROM TUKHOADICHVU WHERE [MaTuKhoaDichVu]= '{0}'", id);
             adapter = new SqlDataAdapter(query, connection);
             DataSet dataset = new DataSet();
             adapter.Fill(dataset);
             ArrayList ls = ConvertDataSetToArrayList(dataset);
-            List<DichVu> arr = new List<DichVu>();
+            List<TuKhoaDichVu> arr = new List<TuKhoaDichVu>();
             foreach (Object o in ls)
             {
-                arr.Add((DichVu)o);
+                arr.Add((TuKhoaDichVu)o);
             }
 
             disconnect();
@@ -46,22 +48,22 @@ namespace CityTravelService.Models
 
         protected override object GetDataFromDataRow(DataTable dt, int i)
         {
-            DichVu dv = new DichVu();
-            dv.ID = (int)dt.Rows[i]["MaDichVu"];
-            dv.Name = dt.Rows[i]["TenDichVu"].ToString();
-            dv.Hinh = dt.Rows[i]["Hinh"].ToString();
+            TuKhoaDichVu tkdv = new TuKhoaDichVu();
+            tkdv.MaTuKhoaDichVu = (int)dt.Rows[i]["MaTuKhoaDichVu"];
+            tkdv.TenTuKhoaDichVu = dt.Rows[i]["TenTuKhoaDichVu"].ToString();
+            tkdv.MaDichVu = (int)dt.Rows[i]["MaDichVu"];
 
-            return (object)dv;
+            return (object)tkdv;
         }
 
-        public bool insertDichVu(DichVu dv)
+        public bool insertTuKhoaDichVu(TuKhoaDichVu bl)
         {
             try
             {
                 connect();
-                string insertCommand = "INSERT INTO DICHVU VALUES(N'" +
-                    dv.Name + "', '" +
-                    dv.Hinh + "')";
+                string insertCommand = "INSERT INTO TUKHOADICHVU VALUES(N'" +
+                    bl.TenTuKhoaDichVu + "', '" +
+                    bl.MaDichVu + "')";
                 executeNonQuery(insertCommand);
                 disconnect();
                 return true;
@@ -70,43 +72,38 @@ namespace CityTravelService.Models
             {
                 return false;
             }
-
         }
 
-        public bool updateDichVu(DichVu dv)
+        public bool updateTuKhoaDichVu(TuKhoaDichVu tkdv)
         {
             try
             {
                 connect();
-                //string updateCommand = "UPDATE DICHVU SET TenDichVu = N'" + dv.Name +
-                //    "', Hinh = '" + dv.Hinh + "' WHERE MaDichVu = " + dv.ID;
 
-                string updateCommand = string.Format("UPDATE DICHVU SET TenDichVu = N'" + dv.Name +
-                    "', Hinh = '" + dv.Hinh + "' WHERE MaDichVu = " + dv.ID);
+                string updateCommand = string.Format("UPDATE TUKHOADICHVU SET TenTuKhoaDichVu = N'" + tkdv.TenTuKhoaDichVu +
+                    "' WHERE MaTuKhoaDichVu = " + tkdv.MaTuKhoaDichVu);
 
                 executeNonQuery(updateCommand);
                 disconnect();
                 return true;
-
             }
             catch (Exception e)
             {
                 return false;
             }
+
         }
 
-        public bool deleteDichVu(int id)
+        public bool deleteTuKhoaDichVu(int id)
         {
             try
             {
                 connect();
-                //string deleteCommand = "DELETE FROM DICHVU WHERE MaDichVu=" + id;
-                string deleteCommand = string.Format("DELETE FROM DICHVU WHERE [MaDichVu]= '{0}'", id);
+                string deleteCommand = string.Format("DELETE FROM TUKHOADICHVU WHERE [MaTuKhoaDichVu]= '{0}'", id);
                 executeNonQuery(deleteCommand);
                 disconnect();
                 return true;
             }
-
             catch (Exception e)
             {
                 return false;
