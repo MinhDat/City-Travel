@@ -22,39 +22,39 @@ namespace CityTravelService.Controllers
         }
 
         // GET: api/TaiKhoan/5
-        public IEnumerable<TaiKhoan> Get(string id)
+        public IEnumerable<TaiKhoan> Get(string email)
         {
             TaiKhoanDAO tkO = new TaiKhoanDAO();
 
-            TaiKhoan[] tk = new TaiKhoan[tkO.getDsTaiKhoan(id).Count];
-            tk = tkO.getDsTaiKhoan(id).ToArray();
-            if (tk.Length == 0)
-                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
+            TaiKhoan[] tk = new TaiKhoan[tkO.getTaiKhoan(email).Count];
+            tk = tkO.getTaiKhoan(email).ToArray();
+            //if (tk.Length == 0)
+            //    throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
             return tk;
         }
 
         // api đăng nhập
         // GET: 
-        public HttpResponseMessage Get(string email, string password)
+        public TaiKhoan Get(string email, string password)
         {
             TaiKhoanDAO tkO = new TaiKhoanDAO();
 
-            TaiKhoan[] tk = new TaiKhoan[tkO.getDsTaiKhoan(email).Count];
-            tk = tkO.getDsTaiKhoan(email).ToArray();
-            if (tk.Length == 0)
-                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
-            if (tk[0].MatKhau == password)
-            {
-                var response = Request.CreateResponse<bool>(HttpStatusCode.Created, true);
-                return response;
-            }
-            else
-            {
-                var response = Request.CreateResponse<bool>(HttpStatusCode.Created, false);
-                return response;
-            }
-           
-          
+            TaiKhoan[] tk = new TaiKhoan[tkO.getTaiKhoan(email, password).Count];
+            tk = tkO.getTaiKhoan(email, password).ToArray();
+            return tk[0];
+            //if (tk.Length == 0)
+            //    throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
+            //if (tk[0].PassWord == password)
+            //{
+            //    var response = Request.CreateResponse<bool>(HttpStatusCode.Created, true);
+            //    return response;
+            //}
+            //else
+            //{
+            //    var response = Request.CreateResponse<bool>(HttpStatusCode.Created, false);
+            //    return response;
+            //}
+
         }
         #endregion
 
@@ -87,13 +87,12 @@ namespace CityTravelService.Controllers
         public bool Delete(string id)
         {
             TaiKhoanDAO tkO = new TaiKhoanDAO();
-            TaiKhoan[] tk = new TaiKhoan[tkO.getDsTaiKhoan(id).Count];
-            tk = tkO.getDsTaiKhoan(id).ToArray();
+            TaiKhoan[] tk = new TaiKhoan[tkO.getTaiKhoan(id).Count];
+            tk = tkO.getTaiKhoan(id).ToArray();
             if (tk.Length == 0)
                 return false;
             /*throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));*/
-            tkO.deleteTaiKhoan(id);
-            return true;
+            return tkO.deleteTaiKhoan(id); //False: Khi no la khoa ngoại.
         }
         #endregion
     }

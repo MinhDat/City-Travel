@@ -28,10 +28,28 @@ namespace CityTravelService.Models
             return arr;
         }
 
-        public List<TaiKhoan> getDsTaiKhoan(string email)
+        public List<TaiKhoan> getTaiKhoan(string email)
         {
             connect();
             string query = "SELECT * FROM TAIKHOAN WHERE Email = '" + email + "'";
+            adapter = new SqlDataAdapter(query, connection);
+            DataSet dataset = new DataSet();
+            adapter.Fill(dataset);
+            ArrayList ls = ConvertDataSetToArrayList(dataset);
+            List<TaiKhoan> arr = new List<TaiKhoan>();
+            foreach (Object o in ls)
+            {
+                arr.Add((TaiKhoan)o);
+            }
+
+            disconnect();
+            return arr;
+        }
+
+        public List<TaiKhoan> getTaiKhoan(string email, string password)
+        {
+            connect();
+            string query = "SELECT * FROM TAIKHOAN WHERE Email = '" + email + "' AND MatKhau = '" + password + "'";
             adapter = new SqlDataAdapter(query, connection);
             DataSet dataset = new DataSet();
             adapter.Fill(dataset);
@@ -50,7 +68,7 @@ namespace CityTravelService.Models
         {
             TaiKhoan tk = new TaiKhoan();
             tk.Email = dt.Rows[i]["Email"].ToString();
-            tk.MatKhau = dt.Rows[i]["MatKhau"].ToString();
+            tk.PassWord = dt.Rows[i]["MatKhau"].ToString();
             tk.LastName = dt.Rows[i]["Ho"].ToString();
             tk.FirtName = dt.Rows[i]["Ten"].ToString();
             tk.Phone = dt.Rows[i]["SDT"].ToString();
@@ -69,7 +87,7 @@ namespace CityTravelService.Models
                 connect();
                 string insertCommand = "INSERT INTO TAIKHOAN VALUES('" +
                     tk.Email + "', '" +
-                    tk.MatKhau + "', N'" +
+                    tk.PassWord + "', N'" +
                     tk.LastName + "', N'" +
                     tk.FirtName + "', N'" +
                     tk.Phone + "', " +
@@ -93,7 +111,7 @@ namespace CityTravelService.Models
             {
                 connect();
                 string updateCommand = "UPDATE TAIKHOAN SET Email = '" + tk.Email +
-                    "', MatKhau = '" + tk.MatKhau +
+                    "', MatKhau = '" + tk.PassWord +
                     "', Ho = N'" + tk.LastName +
                     "', Ten = N'" + tk.FirtName +
                     "', SDT = N'" + tk.Phone +
@@ -112,12 +130,19 @@ namespace CityTravelService.Models
             }
         }
 
-        public void deleteTaiKhoan(string Email)
+        public bool deleteTaiKhoan(string Email)
         {
-            connect();
-            string deleteCommand = "DELETE FROM TAIKHOAN WHERE Email = '" + Email + "'";
-            executeNonQuery(deleteCommand);
-            disconnect();
+            try
+            {
+                connect();
+                string deleteCommand = "DELETE FROM TAIKHOAN WHERE Email = '" + Email + "'";
+                executeNonQuery(deleteCommand);
+                disconnect();
+                return true;
+            } catch (Exception)
+            {
+                return false;
+            }
         }
     }
 }
