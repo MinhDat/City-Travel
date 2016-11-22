@@ -167,6 +167,7 @@
     <Compile Include="Models\TaiKhoanDAO.cs" />
     <Compile Include="Models\TenDiaDiem.cs" />
     <Compile Include="Models\TinhThanh.cs" />
+    <Compile Include="Models\TuKhoaTinhThanhDAO.cs" />
     <Compile Include="Models\TuKhoaDiaDiem.cs" />
     <Compile Include="Models\TuKhoaDichVu.cs" />
     <Compile Include="Models\TuKhoaDichVuDAO.cs" />

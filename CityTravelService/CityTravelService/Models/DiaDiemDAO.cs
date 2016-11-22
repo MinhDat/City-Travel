@@ -27,6 +27,30 @@ namespace CityTravelService.Models
             return arr;
         }
 
+        public List<DiaDiem> getDsDiaDiem(string str)
+        {
+            List<DiaDiem> diadiem = getDsDiaDiem();
+            List<DiaDiem> arr = new List<DiaDiem>();
+            string[] arrListStr = str.Split(',');
+            for (int i = 0; i < arrListStr.Length; i++)
+            {
+                arrListStr[i] = arrListStr[i].Trim();
+                try {
+                    TuKhoaTinhThanhDAO ttO = new TuKhoaTinhThanhDAO();
+                    int maTT = ttO.getMaTinhThanh(arrListStr[i]);
+                    if (maTT == -1) return null;
+                    foreach (DiaDiem o in diadiem)
+                    {
+                        if (o.tinhthanh.MaTinhThanh == maTT)
+                            arr.Add(o);
+                    }
+
+                }
+                catch (Exception e) { }
+            }
+            return arr;
+        }
+
         protected override object GetDataFromDataRow(DataTable dt, int i)
         {
             DiaDiem dd = new DiaDiem();
