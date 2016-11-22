@@ -2,18 +2,16 @@ package com.example.thaianhit.citytravel;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -22,15 +20,18 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class fragment_home extends Fragment {
     private RecyclerView recyclerView;
     private CustomRecyclerAdapterHome adapter;
     private RecyclerView.LayoutManager layoutManager;
     private ImageView img_backround;
-    private List<DataRecyclerHome> listData = new ArrayList<DataRecyclerHome>();
+    private List<Category> listData = new ArrayList<Category>();
     private FloatingActionButton Search;
     Toolbar toolbar;
-
     private View myFragmentView;
     @Override
     public View onCreateView(LayoutInflater inflater,  ViewGroup container, Bundle savedInstanceState) {
@@ -60,17 +61,24 @@ public class fragment_home extends Fragment {
 
         // Setting the LayoutManager.
         layoutManager = new LinearLayoutManager(getActivity());
-        recyclerView.setLayoutManager(layoutManager);
-        DataRecyclerHome a=new DataRecyclerHome("Bệnh viện","Nodescription");
-        DataRecyclerHome b=new DataRecyclerHome("ATM","Nodescription");
-        DataRecyclerHome c=new DataRecyclerHome("Trường học","Nodescription");
-        DataRecyclerHome d=new DataRecyclerHome("Khách sạn","Nodescription");
-        listData.add(a);
-        listData.add(b);
-        listData.add(c);
-        listData.add(d);
-        adapter = new CustomRecyclerAdapterHome(listData,getActivity());
-        recyclerView.setAdapter(adapter);
+
+        APIInterface apiService = ApiClient.getClient().create(APIInterface.class);
+        Call<List<Category>> call = apiService.getCategory();
+        call.enqueue(new Callback<List<Category>>() {
+            @Override
+            public void onResponse(Call<List<Category>> call, Response<List<Category>> response)
+            {
+                List<Category> movies =new ArrayList<Category>();
+                movies.addAll(response.body()) ;
+                recyclerView.setLayoutManager(layoutManager);
+                recyclerView.setAdapter(new CustomRecyclerAdapterHome(movies, getActivity().getApplicationContext()));
+                Log.d("TAG1",response.body().toString());
+            }
+            @Override
+            public void onFailure(Call<List<Category>> call, Throwable t) {
+                Log.d("TAG1","2");
+            }
+        });
         return myFragmentView;
     }
 

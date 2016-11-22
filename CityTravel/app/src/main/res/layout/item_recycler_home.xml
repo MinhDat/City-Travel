@@ -44,16 +44,7 @@
                 android:textStyle="bold"
                 />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/category_description"
-                android:layout_toRightOf="@+id/category_photo"
-                android:layout_below="@+id/category_name"
-                android:text="No description"
-                android:textSize="12sp"
-                android:textStyle="italic"
-                />
+
 
         </RelativeLayout>
 

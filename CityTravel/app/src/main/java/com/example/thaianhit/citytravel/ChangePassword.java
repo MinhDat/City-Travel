@@ -20,6 +20,7 @@ public class ChangePassword extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle("Change password");
+
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
