@@ -28,10 +28,28 @@ namespace CityTravelService.Models
             return arr;
         }
 
-        public List<TaiKhoan> getDsTaiKhoan(string email)
+        public List<TaiKhoan> getTaiKhoan(string email)
         {
             connect();
             string query = "SELECT * FROM TAIKHOAN WHERE Email = '" + email + "'";
+            adapter = new SqlDataAdapter(query, connection);
+            DataSet dataset = new DataSet();
+            adapter.Fill(dataset);
+            ArrayList ls = ConvertDataSetToArrayList(dataset);
+            List<TaiKhoan> arr = new List<TaiKhoan>();
+            foreach (Object o in ls)
+            {
+                arr.Add((TaiKhoan)o);
+            }
+
+            disconnect();
+            return arr;
+        }
+
+        public List<TaiKhoan> getTaiKhoan(string email, string password)
+        {
+            connect();
+            string query = "SELECT * FROM TAIKHOAN WHERE Email = '" + email + "' AND MatKhau = '" + password + "'";
             adapter = new SqlDataAdapter(query, connection);
             DataSet dataset = new DataSet();
             adapter.Fill(dataset);
@@ -111,13 +129,20 @@ namespace CityTravelService.Models
                 return false;
             }
         }
-        
-        public void deleteTaiKhoan (string Email)
+
+        public bool deleteTaiKhoan(string Email)
         {
-            connect();
-            string deleteCommand = "DELETE FROM TAIKHOAN WHERE Email = '" + Email + "'";
-            executeNonQuery(deleteCommand);
-            disconnect();
+            try
+            {
+                connect();
+                string deleteCommand = "DELETE FROM TAIKHOAN WHERE Email = '" + Email + "'";
+                executeNonQuery(deleteCommand);
+                disconnect();
+                return true;
+            } catch (Exception)
+            {
+                return false;
+            }
         }
     }
 }
