@@ -10,6 +10,7 @@ namespace CityTravelService.Models
 {
     public class DanhGiaDAO : DataProvider
     {
+        
         public List<DanhGia> getDsDanhGia()
         {
             connect();
@@ -114,5 +115,7 @@ namespace CityTravelService.Models
             executeNonQuery(deleteCommand);
             disconnect();
         }
+
+        
     }
 }

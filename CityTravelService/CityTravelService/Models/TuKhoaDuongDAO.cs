@@ -8,32 +8,32 @@ using System.Web;
 
 namespace CityTravelService.Models
 {
-    public class TuKhoaTinhThanhDAO: DataProvider
+    public class TuKhoaDuongDAO: DataProvider
     {
-        public List<TuKhoaTinhThanh> getDsTuKhoaTinhThanh()
+        public List<TuKhoaDuong> getDsTuKhoaDuong()
         {
             connect();
-            string query = "SELECT * FROM TUKHOATINHTHANH";
+            string query = "SELECT * FROM TUKHOADUONG";
             adapter = new SqlDataAdapter(query, connection);
             DataSet dataset = new DataSet();
             adapter.Fill(dataset);
             ArrayList ls = ConvertDataSetToArrayList(dataset);
-            List<TuKhoaTinhThanh> arr = new List<TuKhoaTinhThanh>();
+            List<TuKhoaDuong> arr = new List<TuKhoaDuong>();
             foreach (Object o in ls)
             {
-                arr.Add((TuKhoaTinhThanh)o);
+                arr.Add((TuKhoaDuong)o);
             }
             disconnect();
             return arr;
         }
 
-        public List<TuKhoaTraVe> getTuKhoaTinhThanh(string tukhoa)
+        public List<TuKhoaTraVe> getTuKhoaMaDuong(string tukhoa)
         {
             try
             {
                 connect();
-                
-                string query = "SELECT * FROM TUKHOATINHTHANH";
+
+                string query = "SELECT * FROM TUKHOADUONG";
                 adapter = new SqlDataAdapter(query, connection);
                 DataSet dataset = new DataSet();
                 adapter.Fill(dataset);
@@ -44,17 +44,17 @@ namespace CityTravelService.Models
                 foreach (Object o in ls)
                 {
                     TuKhoaTraVe tk = new TuKhoaTraVe();
-                    TuKhoaTinhThanh tt = (TuKhoaTinhThanh)o;
-                    ApproximatString A = new ApproximatString(tt.TuKhoaTinhThanh1);
+                    TuKhoaDuong tt = (TuKhoaDuong)o;
+                    ApproximatString A = new ApproximatString(tt.TuKhoaDuong1);
                     int C = A.SoSanh(tukhoa);
                     if (C != -1)
                     {
                         if (arr.Count == 0)
                         {
 
-                            tk.ma =tt.MaTinhThanh;
+                            tk.ma = tt.MaDuong;
                             tk.saiso = C;
-                            tk.bang = 6;
+                            tk.bang = 3;
                             arr.Add(tk);
                         }
                         else
@@ -63,10 +63,10 @@ namespace CityTravelService.Models
                             {
                                 if (arr[i].saiso > C)
                                 {
-                                    tk.ma = tt.MaTinhThanh;
+                                    tk.ma = tt.MaDuong;
                                     tk.saiso = C;
-                                    tk.bang = 6;
-                                    if (arr[i].ma != tt.MaTinhThanh)
+                                    tk.bang = 3;
+                                    if (arr[i].ma != tt.MaDuong)
                                     {
                                         arr.Insert(i, tk);
                                     }
@@ -89,24 +89,26 @@ namespace CityTravelService.Models
             }
         }
 
+
+
         protected override object GetDataFromDataRow(DataTable dt, int i)
         {
-            TuKhoaTinhThanh tk = new TuKhoaTinhThanh();
-            tk.MaTuKhoaTinhThanh = dt.Rows[i].IsNull("MaTuKhoaTinhThanh") == true ? 0 : (int)dt.Rows[i]["MaTuKhoaTinhThanh"];
-            tk.TuKhoaTinhThanh1 = dt.Rows[i]["TuKhoaTinhThanh"].ToString();
-            tk.MaTinhThanh = dt.Rows[i].IsNull("MaTinhThanh") == true ? 0 : (int)dt.Rows[i]["MaTinhThanh"];
-
-            return (object)tk;
+            TuKhoaDuong dl = new TuKhoaDuong();
+            dl.MaTuKhoaDuong = (int)dt.Rows[i]["MaTuKhoaDuong"];
+            dl.TuKhoaDuong1 = dt.Rows[i]["TuKhoaDuong"].ToString();
+            dl.MaDuong = dt.Rows[i].IsNull("MaDuong")? 0 : (int)dt.Rows[i]["MaDuong"];
+            return (object)dl;
         }
 
-        public bool updateTuKhoaTinhThanh(TuKhoaTinhThanh tk)
+        public bool insertTuKhoaDuong(TuKhoaDuong dl)
         {
+            connect();
             try
             {
-                connect();
-                string updateCommand = "UPDATE TUKHOATINHTHANH SET TuKhoaTinhThanh = '" + tk.TuKhoaTinhThanh1 +
-                    "', MaTinhThanh = " + tk.MaTinhThanh + " WHERE MaTuKhoaTinhThanh = " + tk.MaTuKhoaTinhThanh;
-                executeNonQuery(updateCommand);
+                string insertCommand = @"INSERT INTO TUKHOADUONG (TuKhoaDuong, MaDuong)
+                                    VALUES (N'" + dl.TuKhoaDuong1 + "'," + dl.MaDuong + ")";
+
+                executeNonQuery(insertCommand);
                 disconnect();
                 return true;
             }
@@ -116,13 +118,36 @@ namespace CityTravelService.Models
             }
         }
 
-        public void deleteTuKhoaTinhThanh(int id)
+        public bool deleteTuKhoaDuong(int matukhoa)
         {
-            connect();
-            string deleteCommand = "DELETE FROM TUKHOATINHTHANH WHERE MaTuKhoaTinhThanh = " + id;
-            executeNonQuery(deleteCommand);
-            disconnect();
+            try
+            {
+                connect();
+                string deleteCommand = "DELETE FROM TUKHOADUONG WHERE MaDuLieu = '" + matukhoa + "'";
+                executeNonQuery(deleteCommand);
+                disconnect();
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
         }
 
+        public bool update_DuLieu(string tentukhoa, int matukhoa)
+        {
+            try
+            {
+                connect();
+                string deleteCommand = "UPDATE TUKHOADUONG SET TuKhoaDuong = N'" + tentukhoa + "' WHERE MaTuKhoaDuong = " + matukhoa;
+                executeNonQuery(deleteCommand);
+                disconnect();
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
     }
 }

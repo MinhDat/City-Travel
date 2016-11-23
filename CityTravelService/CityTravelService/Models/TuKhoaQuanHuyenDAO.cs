@@ -8,32 +8,32 @@ using System.Web;
 
 namespace CityTravelService.Models
 {
-    public class TuKhoaTinhThanhDAO: DataProvider
+    public class TuKhoaQuanHuyenDAO: DataProvider
     {
-        public List<TuKhoaTinhThanh> getDsTuKhoaTinhThanh()
+        public List<TuKhoaQuanHuyen> getDsTuKhoaQuanHuyen()
         {
             connect();
-            string query = "SELECT * FROM TUKHOATINHTHANH";
+            string query = "SELECT * FROM TUKHOAQUANHUYEN";
             adapter = new SqlDataAdapter(query, connection);
             DataSet dataset = new DataSet();
             adapter.Fill(dataset);
             ArrayList ls = ConvertDataSetToArrayList(dataset);
-            List<TuKhoaTinhThanh> arr = new List<TuKhoaTinhThanh>();
+            List<TuKhoaQuanHuyen> arr = new List<TuKhoaQuanHuyen>();
             foreach (Object o in ls)
             {
-                arr.Add((TuKhoaTinhThanh)o);
+                arr.Add((TuKhoaQuanHuyen)o);
             }
             disconnect();
             return arr;
         }
 
-        public List<TuKhoaTraVe> getTuKhoaTinhThanh(string tukhoa)
+        public List<TuKhoaTraVe> getTuKhoaQuanHuyen(string tukhoa)
         {
             try
             {
                 connect();
-                
-                string query = "SELECT * FROM TUKHOATINHTHANH";
+
+                string query = "SELECT * FROM TUKHOAQUANHUYEN";
                 adapter = new SqlDataAdapter(query, connection);
                 DataSet dataset = new DataSet();
                 adapter.Fill(dataset);
@@ -44,17 +44,17 @@ namespace CityTravelService.Models
                 foreach (Object o in ls)
                 {
                     TuKhoaTraVe tk = new TuKhoaTraVe();
-                    TuKhoaTinhThanh tt = (TuKhoaTinhThanh)o;
-                    ApproximatString A = new ApproximatString(tt.TuKhoaTinhThanh1);
+                    TuKhoaQuanHuyen tt = (TuKhoaQuanHuyen)o;
+                    ApproximatString A = new ApproximatString(tt.TuKhoaQuanHuyen1);
                     int C = A.SoSanh(tukhoa);
                     if (C != -1)
                     {
                         if (arr.Count == 0)
                         {
 
-                            tk.ma =tt.MaTinhThanh;
+                            tk.ma = tt.MaQuanHuyen;
                             tk.saiso = C;
-                            tk.bang = 6;
+                            tk.bang = 5;
                             arr.Add(tk);
                         }
                         else
@@ -63,10 +63,10 @@ namespace CityTravelService.Models
                             {
                                 if (arr[i].saiso > C)
                                 {
-                                    tk.ma = tt.MaTinhThanh;
+                                    tk.ma = tt.MaQuanHuyen;
                                     tk.saiso = C;
-                                    tk.bang = 6;
-                                    if (arr[i].ma != tt.MaTinhThanh)
+                                    tk.bang = 5;
+                                    if (arr[i].ma != tt.MaQuanHuyen)
                                     {
                                         arr.Insert(i, tk);
                                     }
@@ -91,21 +91,21 @@ namespace CityTravelService.Models
 
         protected override object GetDataFromDataRow(DataTable dt, int i)
         {
-            TuKhoaTinhThanh tk = new TuKhoaTinhThanh();
-            tk.MaTuKhoaTinhThanh = dt.Rows[i].IsNull("MaTuKhoaTinhThanh") == true ? 0 : (int)dt.Rows[i]["MaTuKhoaTinhThanh"];
-            tk.TuKhoaTinhThanh1 = dt.Rows[i]["TuKhoaTinhThanh"].ToString();
-            tk.MaTinhThanh = dt.Rows[i].IsNull("MaTinhThanh") == true ? 0 : (int)dt.Rows[i]["MaTinhThanh"];
+            TuKhoaQuanHuyen tk = new TuKhoaQuanHuyen();
+            tk.MaTuKhoaQuanHuyen = dt.Rows[i].IsNull("MaTuKhoaQuanHuyen") == true ? 0 : (int)dt.Rows[i]["MaTuKhoaQuanHuyen"];
+            tk.TuKhoaQuanHuyen1 = dt.Rows[i]["TuKhoaQuanHuyen"].ToString();
+            tk.MaQuanHuyen = dt.Rows[i].IsNull("MaQuanHuyen") == true ? 0 : (int)dt.Rows[i]["MaQuanHuyen"];
 
             return (object)tk;
         }
 
-        public bool updateTuKhoaTinhThanh(TuKhoaTinhThanh tk)
+        public bool updateTuKhoaQuanHuyen(TuKhoaQuanHuyen tk)
         {
             try
             {
                 connect();
-                string updateCommand = "UPDATE TUKHOATINHTHANH SET TuKhoaTinhThanh = '" + tk.TuKhoaTinhThanh1 +
-                    "', MaTinhThanh = " + tk.MaTinhThanh + " WHERE MaTuKhoaTinhThanh = " + tk.MaTuKhoaTinhThanh;
+                string updateCommand = "UPDATE TUKHOAQUANHUYEN SET TuKhoaQuanHuyen = '" + tk.TuKhoaQuanHuyen1 +
+                    "', MaQuanHuyen = " + tk.MaQuanHuyen + " WHERE MaTuKhoaQuanHuyen = " + tk.MaTuKhoaQuanHuyen;
                 executeNonQuery(updateCommand);
                 disconnect();
                 return true;
@@ -116,10 +116,10 @@ namespace CityTravelService.Models
             }
         }
 
-        public void deleteTuKhoaTinhThanh(int id)
+        public void deleteTuKhoaQuanHuyen(int id)
         {
             connect();
-            string deleteCommand = "DELETE FROM TUKHOATINHTHANH WHERE MaTuKhoaTinhThanh = " + id;
+            string deleteCommand = "DELETE FROM TUKHOAQUANHUYEN WHERE MaTuKhoaQuanHuyen = " + id;
             executeNonQuery(deleteCommand);
             disconnect();
         }

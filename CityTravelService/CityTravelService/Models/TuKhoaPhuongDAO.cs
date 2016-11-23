@@ -8,32 +8,32 @@ using System.Web;
 
 namespace CityTravelService.Models
 {
-    public class TuKhoaTinhThanhDAO: DataProvider
+    public class TuKhoaPhuongDAO: DataProvider
     {
-        public List<TuKhoaTinhThanh> getDsTuKhoaTinhThanh()
+        public List<TuKhoaPhuong> getDsTuKhoaPhuong()
         {
             connect();
-            string query = "SELECT * FROM TUKHOATINHTHANH";
+            string query = "select * from TUKHOAPHUONG";
             adapter = new SqlDataAdapter(query, connection);
             DataSet dataset = new DataSet();
             adapter.Fill(dataset);
             ArrayList ls = ConvertDataSetToArrayList(dataset);
-            List<TuKhoaTinhThanh> arr = new List<TuKhoaTinhThanh>();
+            List<TuKhoaPhuong> listDD = new List<TuKhoaPhuong>();
             foreach (Object o in ls)
             {
-                arr.Add((TuKhoaTinhThanh)o);
+                listDD.Add((TuKhoaPhuong)o);
             }
             disconnect();
-            return arr;
+            return listDD;
         }
 
-        public List<TuKhoaTraVe> getTuKhoaTinhThanh(string tukhoa)
+        public List<TuKhoaTraVe> getTuKhoaPhuong(string tukhoa)
         {
             try
             {
                 connect();
-                
-                string query = "SELECT * FROM TUKHOATINHTHANH";
+
+                string query = "SELECT * FROM TUKHOAPHUONG";
                 adapter = new SqlDataAdapter(query, connection);
                 DataSet dataset = new DataSet();
                 adapter.Fill(dataset);
@@ -44,17 +44,17 @@ namespace CityTravelService.Models
                 foreach (Object o in ls)
                 {
                     TuKhoaTraVe tk = new TuKhoaTraVe();
-                    TuKhoaTinhThanh tt = (TuKhoaTinhThanh)o;
-                    ApproximatString A = new ApproximatString(tt.TuKhoaTinhThanh1);
+                    TuKhoaPhuong tt = (TuKhoaPhuong)o;
+                    ApproximatString A = new ApproximatString(tt.TuKhoaPhuong1);
                     int C = A.SoSanh(tukhoa);
                     if (C != -1)
                     {
                         if (arr.Count == 0)
                         {
 
-                            tk.ma =tt.MaTinhThanh;
+                            tk.ma = tt.MaPhuong;
                             tk.saiso = C;
-                            tk.bang = 6;
+                            tk.bang = 4;
                             arr.Add(tk);
                         }
                         else
@@ -63,10 +63,10 @@ namespace CityTravelService.Models
                             {
                                 if (arr[i].saiso > C)
                                 {
-                                    tk.ma = tt.MaTinhThanh;
+                                    tk.ma = tt.MaPhuong;
                                     tk.saiso = C;
-                                    tk.bang = 6;
-                                    if (arr[i].ma != tt.MaTinhThanh)
+                                    tk.bang = 4;
+                                    if (arr[i].ma != tt.MaPhuong)
                                     {
                                         arr.Insert(i, tk);
                                     }
@@ -87,26 +87,34 @@ namespace CityTravelService.Models
             {
                 return null;
             }
+
         }
-
-        protected override object GetDataFromDataRow(DataTable dt, int i)
-        {
-            TuKhoaTinhThanh tk = new TuKhoaTinhThanh();
-            tk.MaTuKhoaTinhThanh = dt.Rows[i].IsNull("MaTuKhoaTinhThanh") == true ? 0 : (int)dt.Rows[i]["MaTuKhoaTinhThanh"];
-            tk.TuKhoaTinhThanh1 = dt.Rows[i]["TuKhoaTinhThanh"].ToString();
-            tk.MaTinhThanh = dt.Rows[i].IsNull("MaTinhThanh") == true ? 0 : (int)dt.Rows[i]["MaTinhThanh"];
-
-            return (object)tk;
-        }
-
-        public bool updateTuKhoaTinhThanh(TuKhoaTinhThanh tk)
+        public bool insertTuKhoaPhuong(TuKhoaPhuong tkp)
         {
             try
             {
                 connect();
-                string updateCommand = "UPDATE TUKHOATINHTHANH SET TuKhoaTinhThanh = '" + tk.TuKhoaTinhThanh1 +
-                    "', MaTinhThanh = " + tk.MaTinhThanh + " WHERE MaTuKhoaTinhThanh = " + tk.MaTuKhoaTinhThanh;
-                executeNonQuery(updateCommand);
+                string insertCommand = "INSERT INTO TUKHOAPHUONG VALUES( N'" +
+                    tkp.TuKhoaPhuong1 + "'," + tkp.MaPhuong + ")";
+                executeNonQuery(insertCommand);
+                disconnect();
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+
+        }
+
+        public bool updateTuKhoaPhuong(int matukhoaphuong, string tukhoaphuong)
+        {
+            try
+            {
+                connect();
+                string updatecommand = "update TUKHOAPHUONG set TuKhoaPhuong = " + " N'"
+                                        + tukhoaphuong + "' where MaTuKhoaPhuong = " + matukhoaphuong;
+                executeNonQuery(updatecommand);
                 disconnect();
                 return true;
             }
@@ -116,13 +124,28 @@ namespace CityTravelService.Models
             }
         }
 
-        public void deleteTuKhoaTinhThanh(int id)
+        public bool deleteTuKhoaPhuong(int id)
         {
-            connect();
-            string deleteCommand = "DELETE FROM TUKHOATINHTHANH WHERE MaTuKhoaTinhThanh = " + id;
-            executeNonQuery(deleteCommand);
-            disconnect();
+            try
+            {
+                connect();
+                string updatecommand = "DELETE FROM TUKHOAPHUONG WHERE MaTuKhoaPhuong = " + id;
+                executeNonQuery(updatecommand);
+                disconnect();
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
         }
-
+        protected override object GetDataFromDataRow(DataTable dt, int i)
+        {
+            TuKhoaPhuong tkp = new TuKhoaPhuong();
+            tkp.MaTuKhoaPhuong = (int)dt.Rows[i]["MaTuKhoaPhuong"];
+            tkp.TuKhoaPhuong1 = dt.Rows[i]["TuKhoaPhuong"].ToString();
+            tkp.MaPhuong = (int)dt.Rows[i]["MaPhuong"];
+            return (object)tkp;
+        }
     }
 }

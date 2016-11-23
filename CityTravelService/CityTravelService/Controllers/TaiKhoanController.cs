@@ -1,17 +1,19 @@
 ﻿using System.Collections.Generic;
 using CityTravelService.Models;
 using System.Web.Http;
-using System.Net.Http;
-using System.Net.Http.Formatting;
-using System.Net;
 using System;
+using System.Net.Mail;
+using System.Configuration;
 
 namespace CityTravelService.Controllers
 {
+    [RoutePrefix("api/TaiKhoan")]
     public class TaiKhoanController : ApiController
     {
         #region GET
         // GET: api/TaiKhoan
+        [Route("")]
+        [HttpGet]
         public IEnumerable<TaiKhoan> Get()
         {
             TaiKhoanDAO tkO = new TaiKhoanDAO();
@@ -22,12 +24,13 @@ namespace CityTravelService.Controllers
         }
 
         // GET: api/TaiKhoan/5
-        public IEnumerable<TaiKhoan> Get(string email)
+        [Route("")]
+        [HttpGet]
+        public TaiKhoan Get(string email)
         {
             TaiKhoanDAO tkO = new TaiKhoanDAO();
-
-            TaiKhoan[] tk = new TaiKhoan[tkO.getTaiKhoan(email).Count];
-            tk = tkO.getTaiKhoan(email).ToArray();
+            TaiKhoan tk = new TaiKhoan();
+            tk = tkO.getTaiKhoan(email);
             //if (tk.Length == 0)
             //    throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
             return tk;
@@ -35,31 +38,30 @@ namespace CityTravelService.Controllers
 
         // api đăng nhập
         // GET: 
-        public TaiKhoan Get(string email, string password)
+        [Route("")]
+        [HttpGet]
+        public bool Get(string email, string password)
         {
             TaiKhoanDAO tkO = new TaiKhoanDAO();
 
-            TaiKhoan[] tk = new TaiKhoan[tkO.getTaiKhoan(email, password).Count];
-            tk = tkO.getTaiKhoan(email, password).ToArray();
-            return tk[0];
-            //if (tk.Length == 0)
-            //    throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
-            //if (tk[0].PassWord == password)
-            //{
-            //    var response = Request.CreateResponse<bool>(HttpStatusCode.Created, true);
-            //    return response;
-            //}
-            //else
-            //{
-            //    var response = Request.CreateResponse<bool>(HttpStatusCode.Created, false);
-            //    return response;
-            //}
+            TaiKhoan tk;
+            tk = tkO.getTaiKhoan(email, password);
+            if (tk.Email == null)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
 
         }
         #endregion
 
         #region POST
         // POST: api/TaiKhoan
+        [Route("")]
+        [HttpPost]
         public bool Post([FromBody]TaiKhoan tk)
         {
             TaiKhoanDAO tkO = new TaiKhoanDAO();
@@ -72,6 +74,8 @@ namespace CityTravelService.Controllers
 
         #region PUT
         // PUT: api/TaiKhoan/5
+        [Route("")]
+        [HttpPut]
         public bool Put([FromBody]TaiKhoan tk)
         {
             TaiKhoanDAO tkO = new TaiKhoanDAO();
@@ -84,16 +88,61 @@ namespace CityTravelService.Controllers
 
         #region DELETE
         // DELETE: api/TaiKhoan/5
+        [Route("")]
+        [HttpDelete]
         public bool Delete(string id)
         {
             TaiKhoanDAO tkO = new TaiKhoanDAO();
-            TaiKhoan[] tk = new TaiKhoan[tkO.getTaiKhoan(id).Count];
-            tk = tkO.getTaiKhoan(id).ToArray();
-            if (tk.Length == 0)
+            TaiKhoan tk = new TaiKhoan();
+            tk = tkO.getTaiKhoan(id);
+            if (tk == null)
                 return false;
             /*throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));*/
             return tkO.deleteTaiKhoan(id); //False: Khi no la khoa ngoại.
         }
+        #endregion
+        #region
+        //FORGETPASSWORD:api/TaiKhoan/Forget
+        [Route("Forget")]
+        [HttpPut]
+        public bool ForegetPassword(string email)
+        {
+            string temp = CreatePassword();
+            MailMessage mailMessag = new MailMessage(ConfigurationManager.AppSettings.Get("Email"), email);
+            mailMessag.Subject = "Gửi lại mật khẩu";
+            mailMessag.Body = "Mật khẩu mới của bạn là: " + temp;
+            SmtpClient client = new SmtpClient();
+            client.Send(mailMessag);
+            TaiKhoanDAO tkO = new TaiKhoanDAO();
+            TaiKhoan tk = new TaiKhoan();
+            tk = tkO.getTaiKhoan(email);
+            if (tk == null)
+                return false;
+            tkO.updatePassword(temp, email);
+            return true;
+        }
+        public string CreatePassword()
+        {
+            string _allowedChars = "ABCDEFGHIJKMNOPQRSTUVWXYZ0123456789";
+
+            Random randNum = new Random();
+
+            char[] chars = new char[6];
+
+            int allowedCharCount = _allowedChars.Length;
+
+            for (int i = 0; i < 6; i++)
+            {
+                chars[i] = _allowedChars[(int)((_allowedChars.Length) * randNum.NextDouble())];
+                if (chars[i] == '0' || chars[i] == '1' || chars[i] == '2' || chars[i] == '3' || chars[i] == '4'
+              || chars[i] == '5' || chars[i] == '6' || chars[i] == '7' || chars[i] == '8' || chars[i] == '9')
+                {
+                    _allowedChars = "ABCDEFGHIJKMNOPQRSTUVWXYZ";
+                }
+            }
+            return new string(chars);
+        }
+
         #endregion
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CityTravelServer.Models;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
@@ -8,12 +9,17 @@ using System.Web;
 
 namespace CityTravelService.Models
 {
+    public class Point
+    {
+        public float x { get; set; }
+        public float y { get; set; }
+    }
     public class DiaDiemDAO : DataProvider
     {
         public List<DiaDiem> getDsDiaDiem()
         {
             connect();
-            string query = "SELECT * FROM TENDIADIEM JOIN DULIEU ON TENDIADIEM.MaTenDiaDiem = DULIEU.MaTenDiaDiem JOIN DUONG ON DUONG.MaDuong = DULIEU.MaDuong JOIN PHUONG ON PHUONG.MaPhuong = DULIEU.MaPhuong JOIN QUANHUYEN ON QUANHUYEN.MaQuanHuyen = DULIEU.MaQuanHuyen JOIN TINHTHANH ON TINHTHANH.MaTinhThanh = DULIEU.MaTinhThanh";
+            string query = "SELECT * FROM TENDIADIEM JOIN DULIEU ON TENDIADIEM.MaTenDiaDiem = DULIEU.MaTenDiaDiem JOIN DUONG ON DUONG.MaDuong = DULIEU.MaDuong JOIN PHUONG ON PHUONG.MaPhuong = DULIEU.MaPhuong JOIN QUANHUYEN ON QUANHUYEN.MaQuanHuyen = DULIEU.MaQuanHuyen JOIN TINHTHANH ON TINHTHANH.MaTinhThanh = DULIEU.MaTinhThanh JOIN DICHVU ON DICHVU.MaDichVu = DULIEU.MaDichVu";
             adapter = new SqlDataAdapter(query, connection);
             DataSet dataset = new DataSet();
             adapter.Fill(dataset);
@@ -35,16 +41,58 @@ namespace CityTravelService.Models
             for (int i = 0; i < arrListStr.Length; i++)
             {
                 arrListStr[i] = arrListStr[i].Trim();
+                if (arr.Count == 30) break;
                 try {
-                    TuKhoaTinhThanhDAO ttO = new TuKhoaTinhThanhDAO();
-                    int maTT = ttO.getMaTinhThanh(arrListStr[i]);
-                    if (maTT == -1) return null;
-                    foreach (DiaDiem o in diadiem)
-                    {
-                        if (o.tinhthanh.MaTinhThanh == maTT)
-                            arr.Add(o);
-                    }
+                    DSTuKhoa dstk = new DSTuKhoa(arrListStr[i]);
+                    if (!dstk.Check()) return null;
+                    List<TuKhoaTraVe> ttTV = dstk.getTuKhoaTraVe();
 
+                    int j = 0;
+                    while (diadiem.Count != 0)
+                    {
+                        if (arr.Count == 30) break;
+                        for (int o = 0; o < diadiem.Count; o++)
+                        {
+                            if (ttTV[j].bang == 1 && diadiem[o].dichvu.ID == ttTV[j].ma && arr.Count < 30)
+                            {
+                                arr.Add(diadiem[o]);
+                                diadiem.Remove(diadiem[o]);
+                                o--;
+                            }
+                            if (ttTV[j].bang == 6 && diadiem[o].ten.MaTenDiaDiem == ttTV[j].ma && arr.Count < 30)
+                            {
+                                arr.Add(diadiem[o]);
+                                diadiem.Remove(diadiem[o]);
+                                o--;
+                            }
+                            if (ttTV[j].bang == 6 && diadiem[o].duong.MaDuong == ttTV[j].ma && arr.Count < 30)
+                            {
+                                arr.Add(diadiem[o]);
+                                diadiem.Remove(diadiem[o]);
+                                o--;
+                            }
+                            if (ttTV[j].bang == 6 && diadiem[o].phuong.MaPhuong == ttTV[j].ma && arr.Count < 30)
+                            {
+                                arr.Add(diadiem[o]);
+                                diadiem.Remove(diadiem[o]);
+                                o--;
+                            }
+                            if (ttTV[j].bang == 6 && diadiem[o].quanhuyen.MaQuanHuyen == ttTV[j].ma && arr.Count < 30)
+                            {
+                                arr.Add(diadiem[o]);
+                                diadiem.Remove(diadiem[o]);
+                                o--;
+                            }
+                            if (ttTV[j].bang == 6 && diadiem[o].tinhthanh.MaTinhThanh == ttTV[j].ma && arr.Count < 30)
+                            {
+                                arr.Add(diadiem[o]);
+                                diadiem.Remove(diadiem[o]);
+                                o--;
+                            }
+                            if (arr.Count == 30) break;
+                        }
+                        j++;
+                    }
                 }
                 catch (Exception e) { }
             }
@@ -54,6 +102,9 @@ namespace CityTravelService.Models
         protected override object GetDataFromDataRow(DataTable dt, int i)
         {
             DiaDiem dd = new DiaDiem();
+            dd.dichvu.ID = dt.Rows[i].IsNull("MaDichVu") == true ? 0 : (int)dt.Rows[i]["MaDichVu"];
+            dd.dichvu.Name = dt.Rows[i]["TenDichVu"].ToString();
+            dd.dichvu.Hinh = dt.Rows[i]["Hinh"].ToString();
             dd.ten.MaTenDiaDiem = dt.Rows[i].IsNull("MaTenDiaDiem") == true? 0 : (int)dt.Rows[i]["MaTenDiaDiem"];
             dd.ten.TenDiaDiem1 = dt.Rows[i]["TenDiaDiem"].ToString();
             dd.duong.MaDuong = dt.Rows[i].IsNull("MaDuong") == true ? 0 : (int)dt.Rows[i]["MaDuong"];
@@ -67,5 +118,13 @@ namespace CityTravelService.Models
 
             return (object)dd;
         }
+
+        public float Distance(Point a, Point b)
+        {
+            float result = (float)Math.Sqrt(Math.Pow((double)(a.x - b.x), 2) + Math.Pow((double)(a.y - b.y), 2));
+            return result;
+        }
+
+
     }
 }

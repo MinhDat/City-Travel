@@ -27,28 +27,65 @@ namespace CityTravelService.Models
             return arr;
         }
 
-        public int getMaDiaDiem(string tukhoa)
+        public List<TuKhoaTraVe> getTuKhoaDiaDiem(string tukhoa)
         {
             try
             {
                 connect();
-                string query = "SELECT * FROM TUKHOADIADIEM WHERE TuKhoaTenDiaDiem = '" + tukhoa + "'";
+
+                string query = "SELECT * FROM TUKHOADIADIEM";
                 adapter = new SqlDataAdapter(query, connection);
                 DataSet dataset = new DataSet();
                 adapter.Fill(dataset);
                 ArrayList ls = ConvertDataSetToArrayList(dataset);
-                List<TuKhoaDiaDiem> arr = new List<TuKhoaDiaDiem>();
+                List<TuKhoaTraVe> arr = new List<TuKhoaTraVe>();
+                //List<int> dem = new List<int>();
+
                 foreach (Object o in ls)
                 {
-                    arr.Add((TuKhoaDiaDiem)o);
-                }
+                    TuKhoaTraVe tk = new TuKhoaTraVe();
+                    TuKhoaDiaDiem tt = (TuKhoaDiaDiem)o;
+                    ApproximatString A = new ApproximatString(tt.TuKhoaTenDiaDiem);
+                    int C = A.SoSanh(tukhoa);
+                    if (C != -1)
+                    {
+                        if (arr.Count == 0)
+                        {
 
+                            tk.ma = tt.MaTenDiaDiem;
+                            tk.saiso = C;
+                            tk.bang = 2;
+                            arr.Add(tk);
+                        }
+                        else
+                        {
+                            for (int i = 0; i < arr.Count; i++)
+                            {
+                                if (arr[i].saiso > C)
+                                {
+                                    tk.ma = tt.MaTenDiaDiem;
+                                    tk.saiso = C;
+                                    tk.bang = 2;
+                                    if (arr[i].ma != tt.MaTenDiaDiem)
+                                    {
+                                        arr.Insert(i, tk);
+                                    }
+                                    else
+                                    {
+                                        arr[i] = tk;
+                                    }
+                                    i = arr.Count;
+                                }
+                            }
+                        }
+                    }
+                }
                 disconnect();
-                return arr[0].MaTenDiaDiem;
+                return arr;
             }
             catch (Exception e)
             {
-                return -1;
+                return null;
             }
         }
 
@@ -88,5 +125,4 @@ namespace CityTravelService.Models
         }
 
     }
-}
 }

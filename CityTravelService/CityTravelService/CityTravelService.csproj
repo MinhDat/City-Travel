@@ -143,10 +143,10 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\TaiKhoanController.cs" />
     <Compile Include="Controllers\TuKhoaDichVuController.cs" />
-    <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\ApproximatString.cs" />
     <Compile Include="Models\BinhLuan.cs" />
     <Compile Include="Models\BinhLuanDAO.cs" />
     <Compile Include="Models\ChiTietDichVu.cs" />
@@ -158,6 +158,7 @@
     <Compile Include="Models\DiaDiemDAO.cs" />
     <Compile Include="Models\DichVu.cs" />
     <Compile Include="Models\DichVuDAO.cs" />
+    <Compile Include="Models\DSTuKhoa.cs" />
     <Compile Include="Models\DuLieu.cs" />
     <Compile Include="Models\DuLieuDAO.cs" />
     <Compile Include="Models\Duong.cs" />
@@ -167,6 +168,10 @@
     <Compile Include="Models\TaiKhoanDAO.cs" />
     <Compile Include="Models\TenDiaDiem.cs" />
     <Compile Include="Models\TinhThanh.cs" />
+    <Compile Include="Models\TuKhoaDiaDiemDAO.cs" />
+    <Compile Include="Models\TuKhoaDuongDAO.cs" />
+    <Compile Include="Models\TuKhoaPhuongDAO.cs" />
+    <Compile Include="Models\TuKhoaQuanHuyenDAO.cs" />
     <Compile Include="Models\TuKhoaTinhThanhDAO.cs" />
     <Compile Include="Models\TuKhoaDiaDiem.cs" />
     <Compile Include="Models\TuKhoaDichVu.cs" />
@@ -175,6 +180,7 @@
     <Compile Include="Models\TuKhoaPhuong.cs" />
     <Compile Include="Models\TuKhoaQuanHuyen.cs" />
     <Compile Include="Models\TuKhoaTinhThanh.cs" />
+    <Compile Include="Models\TuKhoaTraVe.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
