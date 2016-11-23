@@ -5,20 +5,30 @@ using System.Reflection;
 using System.Web.Http.Controllers;
 using System.Web.Http.Description;
 using System.Xml.XPath;
+<<<<<<< HEAD
 using CityTravelService.Areas.HelpPage.ModelDescriptions;
+=======
+>>>>>>> master
 
 namespace CityTravelService.Areas.HelpPage
 {
     /// <summary>
     /// A custom <see cref="IDocumentationProvider"/> that reads the API documentation from an XML documentation file.
     /// </summary>
+<<<<<<< HEAD
     public class XmlDocumentationProvider : IDocumentationProvider, IModelDocumentationProvider
+=======
+    public class XmlDocumentationProvider : IDocumentationProvider
+>>>>>>> master
     {
         private XPathNavigator _documentNavigator;
         private const string TypeExpression = "/doc/members/member[@name='T:{0}']";
         private const string MethodExpression = "/doc/members/member[@name='M:{0}']";
+<<<<<<< HEAD
         private const string PropertyExpression = "/doc/members/member[@name='P:{0}']";
         private const string FieldExpression = "/doc/members/member[@name='F:{0}']";
+=======
+>>>>>>> master
         private const string ParameterExpression = "param[@name='{0}']";
 
         /// <summary>
@@ -37,7 +47,11 @@ namespace CityTravelService.Areas.HelpPage
 
         public string GetDocumentation(HttpControllerDescriptor controllerDescriptor)
         {
+<<<<<<< HEAD
             XPathNavigator typeNode = GetTypeNode(controllerDescriptor.ControllerType);
+=======
+            XPathNavigator typeNode = GetTypeNode(controllerDescriptor);
+>>>>>>> master
             return GetTagValue(typeNode, "summary");
         }
 
@@ -73,6 +87,7 @@ namespace CityTravelService.Areas.HelpPage
             return GetTagValue(methodNode, "returns");
         }
 
+<<<<<<< HEAD
         public string GetDocumentation(MemberInfo member)
         {
             string memberName = String.Format(CultureInfo.InvariantCulture, "{0}.{1}", GetTypeName(member.DeclaringType), member.Name);
@@ -88,6 +103,8 @@ namespace CityTravelService.Areas.HelpPage
             return GetTagValue(typeNode, "summary");
         }
 
+=======
+>>>>>>> master
         private XPathNavigator GetMethodNode(HttpActionDescriptor actionDescriptor)
         {
             ReflectedHttpActionDescriptor reflectedActionDescriptor = actionDescriptor as ReflectedHttpActionDescriptor;
@@ -102,7 +119,11 @@ namespace CityTravelService.Areas.HelpPage
 
         private static string GetMemberName(MethodInfo method)
         {
+<<<<<<< HEAD
             string name = String.Format(CultureInfo.InvariantCulture, "{0}.{1}", GetTypeName(method.DeclaringType), method.Name);
+=======
+            string name = String.Format(CultureInfo.InvariantCulture, "{0}.{1}", method.DeclaringType.FullName, method.Name);
+>>>>>>> master
             ParameterInfo[] parameters = method.GetParameters();
             if (parameters.Length != 0)
             {
@@ -127,6 +148,7 @@ namespace CityTravelService.Areas.HelpPage
             return null;
         }
 
+<<<<<<< HEAD
         private XPathNavigator GetTypeNode(Type type)
         {
             string controllerTypeName = GetTypeName(type);
@@ -137,11 +159,16 @@ namespace CityTravelService.Areas.HelpPage
         private static string GetTypeName(Type type)
         {
             string name = type.FullName;
+=======
+        private static string GetTypeName(Type type)
+        {
+>>>>>>> master
             if (type.IsGenericType)
             {
                 // Format the generic type name to something like: Generic{System.Int32,System.String}
                 Type genericType = type.GetGenericTypeDefinition();
                 Type[] genericArguments = type.GetGenericArguments();
+<<<<<<< HEAD
                 string genericTypeName = genericType.FullName;
 
                 // Trim the generic parameter counts from the name
@@ -156,6 +183,30 @@ namespace CityTravelService.Areas.HelpPage
             }
 
             return name;
+=======
+                string typeName = genericType.FullName;
+
+                // Trim the generic parameter counts from the name
+                typeName = typeName.Substring(0, typeName.IndexOf('`'));
+                string[] argumentTypeNames = genericArguments.Select(t => GetTypeName(t)).ToArray();
+                return String.Format(CultureInfo.InvariantCulture, "{0}{{{1}}}", typeName, String.Join(",", argumentTypeNames));
+            }
+
+            return type.FullName;
+        }
+
+        private XPathNavigator GetTypeNode(HttpControllerDescriptor controllerDescriptor)
+        {
+            Type controllerType = controllerDescriptor.ControllerType;
+            string controllerTypeName = controllerType.FullName;
+            if (controllerType.IsNested)
+            {
+                // Changing the nested type name from OuterType+InnerType to OuterType.InnerType to match the XML documentation syntax.
+                controllerTypeName = controllerTypeName.Replace("+", ".");
+            }
+            string selectExpression = String.Format(CultureInfo.InvariantCulture, TypeExpression, controllerTypeName);
+            return _documentNavigator.SelectSingleNode(selectExpression);
+>>>>>>> master
         }
     }
 }

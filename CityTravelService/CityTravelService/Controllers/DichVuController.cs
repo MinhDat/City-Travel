@@ -21,6 +21,7 @@ namespace CityTravelService.Controllers
         }
 
         // GET: api/DichVu/5
+<<<<<<< HEAD
         public string Get(int id)
         {
             return "value";
@@ -34,11 +35,51 @@ namespace CityTravelService.Controllers
         // PUT: api/DichVu/5
         public void Put(int id, [FromBody]string value)
         {
+=======
+        public IEnumerable<DichVu> Get(int id)
+        {
+            DichVuDAO dvO = new DichVuDAO();
+
+            DichVu[] dv = new DichVu[dvO.getDsDichVu(id).Count];
+            dv = dvO.getDsDichVu(id).ToArray();
+            if (dv.Length == 0)
+                throw new HttpResponseException(HttpStatusCode.NotFound);
+            return dv;
+        }
+
+        // POST: api/DichVu
+        public void Post([FromBody]DichVu dv)
+        {
+            DichVuDAO dv0 = new DichVuDAO();
+            dv0.insertDichVu(dv);
+        }
+
+        // PUT: api/DichVu/5
+        //public HttpResponseMessage Put([FromBody]DichVu dv)
+        //{
+        //    DichVuDAO dvO = new DichVuDAO();
+        //    dvO.updateDichVu(dv);
+        //    var response = Request.CreateResponse<DichVu>(HttpStatusCode.Created, dv);
+        //    response.Headers.Location = new System.Uri(Request.RequestUri, "/api/DichVu/" + dv.ID);
+        //    return response;
+        //}
+
+        // PUT: api/DichVu/5
+        public void Put([FromBody]DichVu dv)
+        {
+            DichVuDAO dv0 = new DichVuDAO();
+            dv0.updateDichVu(dv);
+>>>>>>> master
         }
 
         // DELETE: api/DichVu/5
         public void Delete(int id)
         {
+<<<<<<< HEAD
+=======
+            DichVuDAO dv0 = new DichVuDAO();
+            dv0.deleteDichVu(id);
+>>>>>>> master
         }
     }
 }

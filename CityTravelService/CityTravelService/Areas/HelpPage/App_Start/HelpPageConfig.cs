@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // Uncomment the following to provide samples for PageResult<T>. Must also add the Microsoft.AspNet.WebApi.OData
 // package to your project.
 ////#define Handle_PageResultOfT
@@ -15,6 +16,13 @@ using System.Web.Http;
 #if Handle_PageResultOfT
 using System.Web.Http.OData;
 #endif
+=======
+using System;
+using System.Collections.Generic;
+using System.Net.Http.Headers;
+using System.Web;
+using System.Web.Http;
+>>>>>>> master
 
 namespace CityTravelService.Areas.HelpPage
 {
@@ -25,12 +33,15 @@ namespace CityTravelService.Areas.HelpPage
     /// </summary>
     public static class HelpPageConfig
     {
+<<<<<<< HEAD
         [SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters",
             MessageId = "CityTravelService.Areas.HelpPage.TextSample.#ctor(System.String)",
             Justification = "End users may choose to merge this string with existing localized resources.")]
         [SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly",
             MessageId = "bsonspec",
             Justification = "Part of a URI.")]
+=======
+>>>>>>> master
         public static void Register(HttpConfiguration config)
         {
             //// Uncomment the following to use the documentation from XML documentation file.
@@ -45,6 +56,7 @@ namespace CityTravelService.Areas.HelpPage
             //    {typeof(IEnumerable<string>), new string[]{"sample 1", "sample 2"}}
             //});
 
+<<<<<<< HEAD
             // Extend the following to provide factories for types not handled automatically (those lacking parameterless
             // constructors) or for which you prefer to use non-default property values. Line below provides a fallback
             // since automatic handling will fail and GeneratePageResult handles only a single type.
@@ -59,6 +71,8 @@ namespace CityTravelService.Areas.HelpPage
                 new TextSample("Binary JSON content. See http://bsonspec.org for details."),
                 new MediaTypeHeaderValue("application/bson"));
 
+=======
+>>>>>>> master
             //// Uncomment the following to use "[0]=foo&[1]=bar" directly as the sample for all actions that support form URL encoded format
             //// and have IEnumerable<string> as the body parameter or return type.
             //config.SetSampleForType("[0]=foo&[1]=bar", new MediaTypeHeaderValue("application/x-www-form-urlencoded"), typeof(IEnumerable<string>));
@@ -79,6 +93,7 @@ namespace CityTravelService.Areas.HelpPage
             //// The sample will be generated as if the controller named "Values" and action named "Post" were returning a string.
             //config.SetActualResponseType(typeof(string), "Values", "Post");
         }
+<<<<<<< HEAD
 
 #if Handle_PageResultOfT
         private static object GeneratePageResult(HelpPageSampleGenerator sampleGenerator, Type type)
@@ -109,5 +124,7 @@ namespace CityTravelService.Areas.HelpPage
             return null;
         }
 #endif
+=======
+>>>>>>> master
     }
 }

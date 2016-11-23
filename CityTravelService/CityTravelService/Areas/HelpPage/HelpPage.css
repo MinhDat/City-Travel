@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .help-page h1,
 .help-page .h1,
 .help-page h2,
@@ -12,13 +13,20 @@
 }
 
 .help-page pre.wrapped {
+=======
+pre.wrapped {
+>>>>>>> master
     white-space: -moz-pre-wrap;
     white-space: -pre-wrap;
     white-space: -o-pre-wrap;
     white-space: pre-wrap;
 }
 
+<<<<<<< HEAD
 .help-page .warning-message-container {
+=======
+.warning-message-container {
+>>>>>>> master
     margin-top: 20px;
     padding: 0 10px;
     color: #525252;
@@ -31,12 +39,17 @@
     border-collapse: collapse;
     text-align: left;
     margin: 0px 0px 20px 0px;
+<<<<<<< HEAD
     border-top: 1px solid #D4D4D4;
+=======
+    border-top: 2px solid #D4D4D4;
+>>>>>>> master
 }
 
 .help-page-table th {
     text-align: left;
     font-weight: bold;
+<<<<<<< HEAD
     border-bottom: 1px solid #D4D4D4;
     padding: 5px 6px 5px 6px;
 }
@@ -49,6 +62,19 @@
 
 .help-page-table pre,
 .help-page-table p {
+=======
+    border-bottom: 2px solid #D4D4D4;
+    padding: 8px 6px 8px 6px;
+}
+
+.help-page-table td {
+    border-bottom: 2px solid #D4D4D4;
+    padding: 15px 8px 15px 8px;
+    vertical-align: top;
+}
+
+.help-page-table pre, .help-page-table p {
+>>>>>>> master
     margin: 0px;
     padding: 0px;
     font-family: inherit;
@@ -59,6 +85,7 @@
     background-color: #F3F3F3;
 }
 
+<<<<<<< HEAD
 .help-page a:hover {
     background-color: transparent;
 }
@@ -66,6 +93,15 @@
 .help-page .sample-header {
     border: 2px solid #D4D4D4;
     background: #00497E;
+=======
+a:hover {
+    background-color: transparent;
+}
+
+.sample-header {
+    border: 2px solid #D4D4D4;
+    background: #76B8DB;
+>>>>>>> master
     color: #FFFFFF;
     padding: 8px 15px;
     border-bottom: none;
@@ -73,7 +109,11 @@
     margin: 10px 0px 0px 0px;
 }
 
+<<<<<<< HEAD
 .help-page .sample-content {
+=======
+.sample-content {
+>>>>>>> master
     display: block;
     border-width: 0;
     padding: 15px 20px;
@@ -82,6 +122,7 @@
     margin: 0px 0px 10px 0px;
 }
 
+<<<<<<< HEAD
 .help-page .api-name {
     width: 40%;
 }
@@ -131,4 +172,24 @@
 .help-page a {
     color: #0000EE;
     text-decoration: none;
+=======
+.api-name {
+    width: 40%;
+}
+
+.api-documentation {
+    width: 60%;
+}
+
+.parameter-name {
+    width: 20%;
+}
+
+.parameter-documentation {
+    width: 50%;
+}
+
+.parameter-source {
+    width: 30%;
+>>>>>>> master
 }

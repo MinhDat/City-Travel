@@ -20,15 +20,15 @@ import java.util.List;
  */
 
 public class CustomRecyclerAdapterHome extends RecyclerView.Adapter<RecyclerViewHolder>  {
-    private List<DataRecyclerHome> listData = new ArrayList<DataRecyclerHome>();
+    private List<Category> listData = new ArrayList<Category>();
     private int lastPosition = -1;
     private Context context;
-    public CustomRecyclerAdapterHome(List<DataRecyclerHome> listData, Context context) {
+    public CustomRecyclerAdapterHome(List<Category> listData, Context context) {
         this.listData = listData;
         this.context=context;
     }
 
-    public void updateList(List<DataRecyclerHome> data) {
+    public void updateList(List<Category> data) {
         listData = data;
         notifyDataSetChanged();
     }
@@ -61,7 +61,7 @@ public class CustomRecyclerAdapterHome extends RecyclerView.Adapter<RecyclerView
         setAnimation(viewHolder.container,position);
     }
 
-    public void addItem(int position, DataRecyclerHome data) {
+    public void addItem(int position, Category data) {
         listData.add(position, data);
         notifyItemInserted(position);
     }
@@ -84,7 +84,6 @@ public class CustomRecyclerAdapterHome extends RecyclerView.Adapter<RecyclerView
             super(itemView);
             container=(LinearLayout) itemView.findViewById(R.id.item_recycler);
             txtName = (TextView) itemView.findViewById(R.id.category_name);
-            txtDescription=(TextView)itemView.findViewById(R.id.category_description);
             img_icon = (ImageView) itemView.findViewById(R.id.category_photo);
         }
 

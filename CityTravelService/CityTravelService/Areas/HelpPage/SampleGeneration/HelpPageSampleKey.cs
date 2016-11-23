@@ -11,15 +11,24 @@ namespace CityTravelService.Areas.HelpPage
     public class HelpPageSampleKey
     {
         /// <summary>
+<<<<<<< HEAD
         /// Creates a new <see cref="HelpPageSampleKey"/> based on media type.
         /// </summary>
         /// <param name="mediaType">The media type.</param>
         public HelpPageSampleKey(MediaTypeHeaderValue mediaType)
+=======
+        /// Creates a new <see cref="HelpPageSampleKey"/> based on media type and CLR type.
+        /// </summary>
+        /// <param name="mediaType">The media type.</param>
+        /// <param name="type">The CLR type.</param>
+        public HelpPageSampleKey(MediaTypeHeaderValue mediaType, Type type)
+>>>>>>> master
         {
             if (mediaType == null)
             {
                 throw new ArgumentNullException("mediaType");
             }
+<<<<<<< HEAD
 
             ActionName = String.Empty;
             ControllerName = String.Empty;
@@ -35,12 +44,22 @@ namespace CityTravelService.Areas.HelpPage
         public HelpPageSampleKey(MediaTypeHeaderValue mediaType, Type type)
             : this(mediaType)
         {
+=======
+>>>>>>> master
             if (type == null)
             {
                 throw new ArgumentNullException("type");
             }
+<<<<<<< HEAD
 
             ParameterType = type;
+=======
+            ControllerName = String.Empty;
+            ActionName = String.Empty;
+            ParameterNames = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+            ParameterType = type;
+            MediaType = mediaType;
+>>>>>>> master
         }
 
         /// <summary>
@@ -68,7 +87,10 @@ namespace CityTravelService.Areas.HelpPage
             {
                 throw new ArgumentNullException("parameterNames");
             }
+<<<<<<< HEAD
 
+=======
+>>>>>>> master
             ControllerName = controllerName;
             ActionName = actionName;
             ParameterNames = new HashSet<string>(parameterNames, StringComparer.OrdinalIgnoreCase);
@@ -84,14 +106,41 @@ namespace CityTravelService.Areas.HelpPage
         /// <param name="actionName">Name of the action.</param>
         /// <param name="parameterNames">The parameter names.</param>
         public HelpPageSampleKey(MediaTypeHeaderValue mediaType, SampleDirection sampleDirection, string controllerName, string actionName, IEnumerable<string> parameterNames)
+<<<<<<< HEAD
             : this(sampleDirection, controllerName, actionName, parameterNames)
+=======
+>>>>>>> master
         {
             if (mediaType == null)
             {
                 throw new ArgumentNullException("mediaType");
             }
+<<<<<<< HEAD
 
             MediaType = mediaType;
+=======
+            if (!Enum.IsDefined(typeof(SampleDirection), sampleDirection))
+            {
+                throw new InvalidEnumArgumentException("sampleDirection", (int)sampleDirection, typeof(SampleDirection));
+            }
+            if (controllerName == null)
+            {
+                throw new ArgumentNullException("controllerName");
+            }
+            if (actionName == null)
+            {
+                throw new ArgumentNullException("actionName");
+            }
+            if (parameterNames == null)
+            {
+                throw new ArgumentNullException("parameterNames");
+            }
+            ControllerName = controllerName;
+            ActionName = actionName;
+            MediaType = mediaType;
+            ParameterNames = new HashSet<string>(parameterNames, StringComparer.OrdinalIgnoreCase);
+            SampleDirection = sampleDirection;
+>>>>>>> master
         }
 
         /// <summary>

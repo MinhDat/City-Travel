@@ -13,7 +13,11 @@ namespace CityTravelService.Areas.HelpPage
     /// </summary>
     public class ObjectGenerator
     {
+<<<<<<< HEAD
         internal const int DefaultCollectionSize = 2;
+=======
+        private const int DefaultCollectionSize = 3;
+>>>>>>> master
         private readonly SimpleTypeObjectGenerator SimpleObjectGenerator = new SimpleTypeObjectGenerator();
 
         /// <summary>

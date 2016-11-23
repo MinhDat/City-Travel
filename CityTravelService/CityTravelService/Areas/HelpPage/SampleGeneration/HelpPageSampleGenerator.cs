@@ -28,10 +28,13 @@ namespace CityTravelService.Areas.HelpPage
             ActualHttpMessageTypes = new Dictionary<HelpPageSampleKey, Type>();
             ActionSamples = new Dictionary<HelpPageSampleKey, object>();
             SampleObjects = new Dictionary<Type, object>();
+<<<<<<< HEAD
             SampleObjectFactories = new List<Func<HelpPageSampleGenerator, Type, object>>
             {
                 DefaultSampleObjectFactory,
             };
+=======
+>>>>>>> master
         }
 
         /// <summary>
@@ -50,6 +53,7 @@ namespace CityTravelService.Areas.HelpPage
         public IDictionary<Type, object> SampleObjects { get; internal set; }
 
         /// <summary>
+<<<<<<< HEAD
         /// Gets factories for the objects that the supported formatters will serialize as samples. Processed in order,
         /// stopping when the factory successfully returns a non-<see langref="null"/> object.
         /// </summary>
@@ -62,6 +66,8 @@ namespace CityTravelService.Areas.HelpPage
         public IList<Func<HelpPageSampleGenerator, Type, object>> SampleObjectFactories { get; private set; }
 
         /// <summary>
+=======
+>>>>>>> master
         /// Gets the request body samples for a given <see cref="ApiDescription"/>.
         /// </summary>
         /// <param name="api">The <see cref="ApiDescription"/>.</param>
@@ -150,6 +156,7 @@ namespace CityTravelService.Areas.HelpPage
         {
             object sample;
 
+<<<<<<< HEAD
             // First, try to get the sample provided for the specified mediaType, sampleDirection, controllerName, actionName and parameterNames.
             // If not found, try to get the sample provided for the specified mediaType, sampleDirection, controllerName and actionName regardless of the parameterNames.
             // If still not found, try to get the sample provided for the specified mediaType and type.
@@ -158,6 +165,14 @@ namespace CityTravelService.Areas.HelpPage
                 ActionSamples.TryGetValue(new HelpPageSampleKey(mediaType, sampleDirection, controllerName, actionName, new[] { "*" }), out sample) ||
                 ActionSamples.TryGetValue(new HelpPageSampleKey(mediaType, type), out sample) ||
                 ActionSamples.TryGetValue(new HelpPageSampleKey(mediaType), out sample))
+=======
+            // First, try get sample provided for a specific mediaType, controllerName, actionName and parameterNames.
+            // If not found, try get the sample provided for a specific mediaType, controllerName and actionName regardless of the parameterNames
+            // If still not found, try get the sample provided for a specific type and mediaType 
+            if (ActionSamples.TryGetValue(new HelpPageSampleKey(mediaType, sampleDirection, controllerName, actionName, parameterNames), out sample) ||
+                ActionSamples.TryGetValue(new HelpPageSampleKey(mediaType, sampleDirection, controllerName, actionName, new[] { "*" }), out sample) ||
+                ActionSamples.TryGetValue(new HelpPageSampleKey(mediaType, type), out sample))
+>>>>>>> master
             {
                 return sample;
             }
@@ -167,6 +182,7 @@ namespace CityTravelService.Areas.HelpPage
 
         /// <summary>
         /// Gets the sample object that will be serialized by the formatters. 
+<<<<<<< HEAD
         /// First, it will look at the <see cref="SampleObjects"/>. If no sample object is found, it will try to create
         /// one using <see cref="DefaultSampleObjectFactory"/> (which wraps an <see cref="ObjectGenerator"/>) and other
         /// factories in <see cref="SampleObjectFactories"/>.
@@ -175,12 +191,19 @@ namespace CityTravelService.Areas.HelpPage
         /// <returns>The sample object.</returns>
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes",
             Justification = "Even if all items in SampleObjectFactories throw, problem will be visible as missing sample.")]
+=======
+        /// First, it will look at the <see cref="SampleObjects"/>. If no sample object is found, it will try to create one using <see cref="ObjectGenerator"/>.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>The sample object.</returns>
+>>>>>>> master
         public virtual object GetSampleObject(Type type)
         {
             object sampleObject;
 
             if (!SampleObjects.TryGetValue(type, out sampleObject))
             {
+<<<<<<< HEAD
                 // No specific object available, try our factories.
                 foreach (Func<HelpPageSampleGenerator, Type, object> factory in SampleObjectFactories)
                 {
@@ -202,12 +225,18 @@ namespace CityTravelService.Areas.HelpPage
                         // Ignore any problems encountered in the factory; go on to the next one (if any).
                     }
                 }
+=======
+                // Try create a default sample object
+                ObjectGenerator objectGenerator = new ObjectGenerator();
+                sampleObject = objectGenerator.GenerateObject(type);
+>>>>>>> master
             }
 
             return sampleObject;
         }
 
         /// <summary>
+<<<<<<< HEAD
         /// Resolves the actual type of <see cref="System.Net.Http.ObjectContent{T}"/> passed to the <see cref="System.Net.Http.HttpRequestMessage"/> in an action.
         /// </summary>
         /// <param name="api">The <see cref="ApiDescription"/>.</param>
@@ -222,6 +251,8 @@ namespace CityTravelService.Areas.HelpPage
         }
 
         /// <summary>
+=======
+>>>>>>> master
         /// Resolves the type of the action parameter or return value when <see cref="HttpRequestMessage"/> or <see cref="HttpResponseMessage"/> is used.
         /// </summary>
         /// <param name="api">The <see cref="ApiDescription"/>.</param>
@@ -337,7 +368,11 @@ namespace CityTravelService.Areas.HelpPage
                     "An exception has occurred while using the formatter '{0}' to generate sample for media type '{1}'. Exception message: {2}",
                     formatter.GetType().Name,
                     mediaType.MediaType,
+<<<<<<< HEAD
                     UnwrapException(e).Message));
+=======
+                    e.Message));
+>>>>>>> master
             }
             finally
             {
@@ -354,6 +389,7 @@ namespace CityTravelService.Areas.HelpPage
             return sample;
         }
 
+<<<<<<< HEAD
         internal static Exception UnwrapException(Exception exception)
         {
             AggregateException aggregateException = exception as AggregateException;
@@ -372,6 +408,8 @@ namespace CityTravelService.Areas.HelpPage
             return objectGenerator.GenerateObject(type);
         }
 
+=======
+>>>>>>> master
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Handling the failure by returning the original string.")]
         private static string TryFormatJson(string str)
         {

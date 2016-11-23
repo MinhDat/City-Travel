@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+<<<<<<< HEAD
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
@@ -12,6 +13,14 @@ using System.Web.Http;
 using System.Web.Http.Controllers;
 using System.Web.Http.Description;
 using CityTravelService.Areas.HelpPage.ModelDescriptions;
+=======
+using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
+using System.Linq;
+using System.Net.Http.Headers;
+using System.Web.Http;
+using System.Web.Http.Description;
+>>>>>>> master
 using CityTravelService.Areas.HelpPage.Models;
 
 namespace CityTravelService.Areas.HelpPage
@@ -95,6 +104,7 @@ namespace CityTravelService.Areas.HelpPage
         }
 
         /// <summary>
+<<<<<<< HEAD
         /// Sets the sample directly for all actions with the specified media type.
         /// </summary>
         /// <param name="config">The <see cref="HttpConfiguration"/>.</param>
@@ -106,6 +116,8 @@ namespace CityTravelService.Areas.HelpPage
         }
 
         /// <summary>
+=======
+>>>>>>> master
         /// Sets the sample directly for all actions with the specified type and media type.
         /// </summary>
         /// <param name="config">The <see cref="HttpConfiguration"/>.</param>
@@ -118,7 +130,11 @@ namespace CityTravelService.Areas.HelpPage
         }
 
         /// <summary>
+<<<<<<< HEAD
         /// Specifies the actual type of <see cref="System.Net.Http.ObjectContent{T}"/> passed to the <see cref="System.Net.Http.HttpRequestMessage"/> in an action.
+=======
+        /// Specifies the actual type of <see cref="System.Net.Http.ObjectContent{T}"/> passed to the <see cref="System.Net.Http.HttpRequestMessage"/> in an action. 
+>>>>>>> master
         /// The help page will use this information to produce more accurate request samples.
         /// </summary>
         /// <param name="config">The <see cref="HttpConfiguration"/>.</param>
@@ -131,7 +147,11 @@ namespace CityTravelService.Areas.HelpPage
         }
 
         /// <summary>
+<<<<<<< HEAD
         /// Specifies the actual type of <see cref="System.Net.Http.ObjectContent{T}"/> passed to the <see cref="System.Net.Http.HttpRequestMessage"/> in an action.
+=======
+        /// Specifies the actual type of <see cref="System.Net.Http.ObjectContent{T}"/> passed to the <see cref="System.Net.Http.HttpRequestMessage"/> in an action. 
+>>>>>>> master
         /// The help page will use this information to produce more accurate request samples.
         /// </summary>
         /// <param name="config">The <see cref="HttpConfiguration"/>.</param>
@@ -145,7 +165,11 @@ namespace CityTravelService.Areas.HelpPage
         }
 
         /// <summary>
+<<<<<<< HEAD
         /// Specifies the actual type of <see cref="System.Net.Http.ObjectContent{T}"/> returned as part of the <see cref="System.Net.Http.HttpRequestMessage"/> in an action.
+=======
+        /// Specifies the actual type of <see cref="System.Net.Http.ObjectContent{T}"/> returned as part of the <see cref="System.Net.Http.HttpRequestMessage"/> in an action. 
+>>>>>>> master
         /// The help page will use this information to produce more accurate response samples.
         /// </summary>
         /// <param name="config">The <see cref="HttpConfiguration"/>.</param>
@@ -158,7 +182,11 @@ namespace CityTravelService.Areas.HelpPage
         }
 
         /// <summary>
+<<<<<<< HEAD
         /// Specifies the actual type of <see cref="System.Net.Http.ObjectContent{T}"/> returned as part of the <see cref="System.Net.Http.HttpRequestMessage"/> in an action.
+=======
+        /// Specifies the actual type of <see cref="System.Net.Http.ObjectContent{T}"/> returned as part of the <see cref="System.Net.Http.HttpRequestMessage"/> in an action. 
+>>>>>>> master
         /// The help page will use this information to produce more accurate response samples.
         /// </summary>
         /// <param name="config">The <see cref="HttpConfiguration"/>.</param>
@@ -197,6 +225,7 @@ namespace CityTravelService.Areas.HelpPage
         }
 
         /// <summary>
+<<<<<<< HEAD
         /// Gets the model description generator.
         /// </summary>
         /// <param name="config">The configuration.</param>
@@ -209,6 +238,8 @@ namespace CityTravelService.Areas.HelpPage
         }
 
         /// <summary>
+=======
+>>>>>>> master
         /// Gets the model that represents an API displayed on the help page. The model is initialized on the first call and cached for subsequent calls.
         /// </summary>
         /// <param name="config">The <see cref="HttpConfiguration"/>.</param>
@@ -226,7 +257,12 @@ namespace CityTravelService.Areas.HelpPage
                 ApiDescription apiDescription = apiDescriptions.FirstOrDefault(api => String.Equals(api.GetFriendlyId(), apiDescriptionId, StringComparison.OrdinalIgnoreCase));
                 if (apiDescription != null)
                 {
+<<<<<<< HEAD
                     model = GenerateApiModel(apiDescription, config);
+=======
+                    HelpPageSampleGenerator sampleGenerator = config.GetHelpPageSampleGenerator();
+                    model = GenerateApiModel(apiDescription, sampleGenerator);
+>>>>>>> master
                     config.Properties.TryAdd(modelId, model);
                 }
             }
@@ -234,6 +270,7 @@ namespace CityTravelService.Areas.HelpPage
             return (HelpPageApiModel)model;
         }
 
+<<<<<<< HEAD
         private static HelpPageApiModel GenerateApiModel(ApiDescription apiDescription, HttpConfiguration config)
         {
             HelpPageApiModel apiModel = new HelpPageApiModel()
@@ -391,12 +428,27 @@ namespace CityTravelService.Areas.HelpPage
             try
             {
                 foreach (var item in sampleGenerator.GetSampleRequests(apiModel.ApiDescription))
+=======
+        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "The exception is recorded as ErrorMessages.")]
+        private static HelpPageApiModel GenerateApiModel(ApiDescription apiDescription, HelpPageSampleGenerator sampleGenerator)
+        {
+            HelpPageApiModel apiModel = new HelpPageApiModel();
+            apiModel.ApiDescription = apiDescription;
+
+            try
+            {
+                foreach (var item in sampleGenerator.GetSampleRequests(apiDescription))
+>>>>>>> master
                 {
                     apiModel.SampleRequests.Add(item.Key, item.Value);
                     LogInvalidSampleAsError(apiModel, item.Value);
                 }
 
+<<<<<<< HEAD
                 foreach (var item in sampleGenerator.GetSampleResponses(apiModel.ApiDescription))
+=======
+                foreach (var item in sampleGenerator.GetSampleResponses(apiDescription))
+>>>>>>> master
                 {
                     apiModel.SampleResponses.Add(item.Key, item.Value);
                     LogInvalidSampleAsError(apiModel, item.Value);
@@ -404,6 +456,7 @@ namespace CityTravelService.Areas.HelpPage
             }
             catch (Exception e)
             {
+<<<<<<< HEAD
                 apiModel.ErrorMessages.Add(String.Format(CultureInfo.CurrentCulture,
                     "An exception has occurred while generating the sample. Exception message: {0}",
                     HelpPageSampleGenerator.UnwrapException(e).Message));
@@ -453,6 +506,12 @@ namespace CityTravelService.Areas.HelpPage
                 }
             }
             return modelGenerator;
+=======
+                apiModel.ErrorMessages.Add(String.Format(CultureInfo.CurrentCulture, "An exception has occurred while generating the sample. Exception Message: {0}", e.Message));
+            }
+
+            return apiModel;
+>>>>>>> master
         }
 
         private static void LogInvalidSampleAsError(HelpPageApiModel apiModel, object sample)

@@ -6,7 +6,11 @@ namespace CityTravelService.Models
 {
     public class DataProvider
     {
+<<<<<<< HEAD
         //private string _connectString = @"Data Source=.;Initial Catalog=CityTravel;Integrated Security=True";
+=======
+        //private string _connectString = @"Data Source=HAMINHDAT\SQLEXPRESS;Initial Catalog=CityTravel;Integrated Security=True";
+>>>>>>> master
         protected static string _connectionString;
 
         protected SqlConnection connection;

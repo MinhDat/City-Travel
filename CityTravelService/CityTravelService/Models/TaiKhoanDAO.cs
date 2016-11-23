@@ -28,6 +28,47 @@ namespace CityTravelService.Models
             return arr;
         }
 
+<<<<<<< HEAD
+=======
+        public TaiKhoan getTaiKhoan(string email)
+        {
+            connect();
+            string query = "SELECT * FROM TAIKHOAN WHERE Email = '" + email + "'";
+            adapter = new SqlDataAdapter(query, connection);
+            DataSet dataset = new DataSet();
+            adapter.Fill(dataset);
+            ArrayList ls = ConvertDataSetToArrayList(dataset);
+            TaiKhoan arr = new TaiKhoan();
+            foreach (Object o in ls)
+            {
+                arr = (TaiKhoan)o;
+                break;
+            }
+
+            disconnect();
+            return arr;
+        }
+
+        public TaiKhoan getTaiKhoan(string email, string password)
+        {
+            connect();
+            string query = "SELECT * FROM TAIKHOAN WHERE Email = '" + email + "' AND MatKhau = '" + password + "'";
+            adapter = new SqlDataAdapter(query, connection);
+            DataSet dataset = new DataSet();
+            adapter.Fill(dataset);
+            ArrayList ls = ConvertDataSetToArrayList(dataset);
+            TaiKhoan arr = new TaiKhoan();
+            foreach (Object o in ls)
+            {
+                arr = (TaiKhoan)o;
+                break;
+            }
+
+            disconnect();
+            return arr;
+        }
+
+>>>>>>> master
         protected override object GetDataFromDataRow(DataTable dt, int i)
         {
             TaiKhoan tk = new TaiKhoan();
@@ -36,14 +77,20 @@ namespace CityTravelService.Models
             tk.LastName = dt.Rows[i]["Ho"].ToString();
             tk.FirtName = dt.Rows[i]["Ten"].ToString();
             tk.Phone = dt.Rows[i]["SDT"].ToString();
+<<<<<<< HEAD
             tk.Sex = dt.Rows[i].IsNull(6) == true ? 0 : (int)dt.Rows[i]["GioiTinh"];
             tk.Birth = dt.Rows[i].IsNull(7) == true ? DateTime.Now : (DateTime)dt.Rows[i]["NgaySinh"];
+=======
+            tk.Sex = (dt.Rows[i].IsNull("GioiTinh") == true) ? 0 : (int)dt.Rows[i]["GioiTinh"];
+            tk.Birth = (dt.Rows[i].IsNull("NgaySinh") == true) ? DateTime.Now : (DateTime)dt.Rows[i]["NgaySinh"];
+>>>>>>> master
             tk.Address = dt.Rows[i]["DiaChi"].ToString();
             tk.Picture = dt.Rows[i]["Hinh"].ToString();
 
             return (object)tk;
         }
 
+<<<<<<< HEAD
         public void insertTaiKhoan(TaiKhoan tk)
         {
             connect();
@@ -89,5 +136,86 @@ namespace CityTravelService.Models
 
       
 
+=======
+        public bool insertTaiKhoan(TaiKhoan tk)
+        {
+            try
+            {
+                connect();
+                string insertCommand = "INSERT INTO TAIKHOAN VALUES('" +
+                    tk.Email + "', '" +
+                    tk.PassWord + "', N'" +
+                    tk.LastName + "', N'" +
+                    tk.FirtName + "', N'" +
+                    tk.Phone + "', " +
+                    tk.Sex + ", '" +
+                    tk.Birth.Year + "-" + tk.Birth.Month + "-" + tk.Birth.Day + "', N'" +
+                    tk.Address + "', '" +
+                    tk.Picture + "')";
+                executeNonQuery(insertCommand);
+                disconnect();
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+
+        public bool updateTaiKhoan(TaiKhoan tk)
+        {
+            try
+            {
+                connect();
+                string updateCommand = "UPDATE TAIKHOAN SET Email = '" + tk.Email +
+                    "', MatKhau = '" + tk.PassWord +
+                    "', Ho = N'" + tk.LastName +
+                    "', Ten = N'" + tk.FirtName +
+                    "', SDT = N'" + tk.Phone +
+                    "', GioiTinh = " + tk.Sex +
+                    ", NgaySinh = '" + tk.Birth.Year + "-" + tk.Birth.Month + "-" + tk.Birth.Day +
+                    "', DiaChi = N'" + tk.Address +
+                    "', Hinh = '" + tk.Picture +
+                    "' WHERE Email = '" + tk.Email + "'";
+                executeNonQuery(updateCommand);
+                disconnect();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        public bool updatePassword(string pass, string Email)
+        {
+            try
+            {
+                connect();
+                string updateCommand = "UPDATE TAIKHOAN SET MatKhau = '" + pass +
+                    "' WHERE Email = '" + Email + "'";
+                executeNonQuery(updateCommand);
+                disconnect();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        public bool deleteTaiKhoan(string Email)
+        {
+            try
+            {
+                connect();
+                string deleteCommand = "DELETE FROM TAIKHOAN WHERE Email = '" + Email + "'";
+                executeNonQuery(deleteCommand);
+                disconnect();
+                return true;
+            } catch (Exception)
+            {
+                return false;
+            }
+        }
+>>>>>>> master
     }
 }

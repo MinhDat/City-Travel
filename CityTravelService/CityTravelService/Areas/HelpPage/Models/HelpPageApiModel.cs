@@ -2,7 +2,10 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Net.Http.Headers;
 using System.Web.Http.Description;
+<<<<<<< HEAD
 using CityTravelService.Areas.HelpPage.ModelDescriptions;
+=======
+>>>>>>> master
 
 namespace CityTravelService.Areas.HelpPage.Models
 {
@@ -16,7 +19,10 @@ namespace CityTravelService.Areas.HelpPage.Models
         /// </summary>
         public HelpPageApiModel()
         {
+<<<<<<< HEAD
             UriParameters = new Collection<ParameterDescription>();
+=======
+>>>>>>> master
             SampleRequests = new Dictionary<MediaTypeHeaderValue, object>();
             SampleResponses = new Dictionary<MediaTypeHeaderValue, object>();
             ErrorMessages = new Collection<string>();
@@ -28,6 +34,7 @@ namespace CityTravelService.Areas.HelpPage.Models
         public ApiDescription ApiDescription { get; set; }
 
         /// <summary>
+<<<<<<< HEAD
         /// Gets or sets the <see cref="ParameterDescription"/> collection that describes the URI parameters for the API.
         /// </summary>
         public Collection<ParameterDescription> UriParameters { get; private set; }
@@ -70,6 +77,8 @@ namespace CityTravelService.Areas.HelpPage.Models
         }
 
         /// <summary>
+=======
+>>>>>>> master
         /// Gets the sample requests associated with the API.
         /// </summary>
         public IDictionary<MediaTypeHeaderValue, object> SampleRequests { get; private set; }
@@ -83,6 +92,7 @@ namespace CityTravelService.Areas.HelpPage.Models
         /// Gets the error messages associated with this model.
         /// </summary>
         public Collection<string> ErrorMessages { get; private set; }
+<<<<<<< HEAD
 
         private static IList<ParameterDescription> GetParameterDescriptions(ModelDescription modelDescription)
         {
@@ -104,5 +114,7 @@ namespace CityTravelService.Areas.HelpPage.Models
 
             return null;
         }
+=======
+>>>>>>> master
     }
 }

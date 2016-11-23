@@ -7,8 +7,12 @@
     ViewBag.Title = description.HttpMethod.Method + " " + description.RelativePath;
 }
 
+<<<<<<< HEAD
 <link type="text/css" href="~/Areas/HelpPage/HelpPage.css" rel="stylesheet" />
 <div id="body" class="help-page">
+=======
+<div id="body">
+>>>>>>> master
     <section class="featured">
         <div class="content-wrapper">
             <p>
@@ -17,6 +21,16 @@
         </div>
     </section>
     <section class="content-wrapper main-content clear-fix">
+<<<<<<< HEAD
         @Html.DisplayForModel()
     </section>
 </div>
+=======
+        @Html.DisplayFor(m => Model)
+    </section>
+</div>
+
+@section Scripts {
+    <link type="text/css" href="~/Areas/HelpPage/HelpPage.css" rel="stylesheet" />
+}
+>>>>>>> master

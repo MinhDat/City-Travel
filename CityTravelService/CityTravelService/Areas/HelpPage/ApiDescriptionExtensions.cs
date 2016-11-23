@@ -31,7 +31,11 @@ namespace CityTravelService.Areas.HelpPage
                 localPath.Replace("/", "-").Replace("{", String.Empty).Replace("}", String.Empty));
             if (queryKeyString != null)
             {
+<<<<<<< HEAD
                 friendlyPath.AppendFormat("_{0}", queryKeyString.Replace('.', '-'));
+=======
+                friendlyPath.AppendFormat("_{0}", queryKeyString);
+>>>>>>> master
             }
             return friendlyPath.ToString();
         }

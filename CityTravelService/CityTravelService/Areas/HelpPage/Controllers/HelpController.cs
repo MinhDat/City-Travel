@@ -1,7 +1,10 @@
 using System;
 using System.Web.Http;
 using System.Web.Mvc;
+<<<<<<< HEAD
 using CityTravelService.Areas.HelpPage.ModelDescriptions;
+=======
+>>>>>>> master
 using CityTravelService.Areas.HelpPage.Models;
 
 namespace CityTravelService.Areas.HelpPage.Controllers
@@ -11,8 +14,11 @@ namespace CityTravelService.Areas.HelpPage.Controllers
     /// </summary>
     public class HelpController : Controller
     {
+<<<<<<< HEAD
         private const string ErrorViewName = "Error";
 
+=======
+>>>>>>> master
         public HelpController()
             : this(GlobalConfiguration.Configuration)
         {
@@ -42,6 +48,7 @@ namespace CityTravelService.Areas.HelpPage.Controllers
                 }
             }
 
+<<<<<<< HEAD
             return View(ErrorViewName);
         }
 
@@ -58,6 +65,9 @@ namespace CityTravelService.Areas.HelpPage.Controllers
             }
 
             return View(ErrorViewName);
+=======
+            return View("Error");
+>>>>>>> master
         }
     }
 }
