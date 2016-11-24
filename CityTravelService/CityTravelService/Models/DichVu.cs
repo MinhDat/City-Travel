@@ -10,5 +10,13 @@ namespace CityTravelService.Models
         public int ID { get; set; }
         public string Name { get; set; }
         public string Hinh { get; set; }
+
+        public DuLieu dulieu;
+
+        public DichVu() {
+            dulieu = new DuLieu();
+        }
+
+
     }
 }

@@ -156,7 +156,8 @@ namespace CityTravelService.Models
                 executeNonQuery(deleteCommand);
                 disconnect();
                 return true;
-            } catch (Exception)
+            }
+            catch (Exception)
             {
                 return false;
             }
