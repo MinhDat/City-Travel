@@ -5,13 +5,13 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.Toolbar;
 
-import com.akexorcist.googledirection.DirectionCallback;
-import com.akexorcist.googledirection.GoogleDirection;
-import com.akexorcist.googledirection.constant.TransportMode;
-import com.akexorcist.googledirection.model.Direction;
-import com.akexorcist.googledirection.model.Leg;
-import com.akexorcist.googledirection.model.Route;
-import com.akexorcist.googledirection.util.DirectionConverter;
+//import com.akexorcist.googledirection.DirectionCallback;
+//import com.akexorcist.googledirection.GoogleDirection;
+//import com.akexorcist.googledirection.constant.TransportMode;
+//import com.akexorcist.googledirection.model.Direction;
+//import com.akexorcist.googledirection.model.Leg;
+//import com.akexorcist.googledirection.model.Route;
+//import com.akexorcist.googledirection.util.DirectionConverter;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -58,26 +58,26 @@ public class MapDetailService extends FragmentActivity implements OnMapReadyCall
         LatLng des = new LatLng(37.7814432, -122.4460177);
 
         mMap = googleMap;
-        GoogleDirection.withServerKey(API)
-                .from(ori)
-                .to(des)
-                .transportMode(TransportMode.DRIVING)
-                .execute(new DirectionCallback() {
-                    @Override
-                    public void onDirectionSuccess(Direction direction, String rawBody) {
-
-                            Route route = direction.getRouteList().get(0);
-                            Leg leg = route.getLegList().get(0);
-                            ArrayList<LatLng> directionPositionList = leg.getDirectionPoint();
-                            PolylineOptions polylineOptions = DirectionConverter.createPolyline(getApplicationContext(), directionPositionList, 5, Color.RED);
-                            mMap.addPolyline(polylineOptions);
-                    }
-                    @Override
-                    public void onDirectionFailure(Throwable t) {
-                        // Do something here
-                        //Toast.makeText(getApplicationContext(),"can not found the way", Toast.LENGTH_LONG);
-                    }
-                });
+//        GoogleDirection.withServerKey(API)
+//                .from(ori)
+//                .to(des)
+//                .transportMode(TransportMode.DRIVING)
+//                .execute(new DirectionCallback() {
+//                    @Override
+//                    public void onDirectionSuccess(Direction direction, String rawBody) {
+//
+//                            Route route = direction.getRouteList().get(0);
+//                            Leg leg = route.getLegList().get(0);
+//                            ArrayList<LatLng> directionPositionList = leg.getDirectionPoint();
+//                            PolylineOptions polylineOptions = DirectionConverter.createPolyline(getApplicationContext(), directionPositionList, 5, Color.RED);
+//                            mMap.addPolyline(polylineOptions);
+//                    }
+//                    @Override
+//                    public void onDirectionFailure(Throwable t) {
+//                        // Do something here
+//                        //Toast.makeText(getApplicationContext(),"can not found the way", Toast.LENGTH_LONG);
+//                    }
+//                });
         addMarker(ori);
         addMarker(des);
     }

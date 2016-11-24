@@ -7,30 +7,34 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     tools:context="com.example.thaianhit.citytravel.fragment_search_locations">
-
-    <com.arlib.floatingsearchview.FloatingSearchView
-        android:id="@+id/floating_search_view"
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/app_bar"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        app:floatingSearch_searchHint="Search..."
-        app:floatingSearch_suggestionsListAnimDuration="250"
-        app:floatingSearch_showSearchKey="false"
-        app:floatingSearch_leftActionMode="showSearch"
-        app:floatingSearch_searchBarMarginLeft="@dimen/search_view_inset"
-        app:floatingSearch_searchBarMarginTop="@dimen/search_view_inset"
-        app:floatingSearch_searchBarMarginRight="@dimen/search_view_inset"
-        app:floatingSearch_close_search_on_keyboard_dismiss="true"
-        >
-    </com.arlib.floatingsearchview.FloatingSearchView>
+        android:layout_height="80dp"
+        android:theme="@style/AppTheme.AppBarOverlay">
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/toolbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            app:contentScrim="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|enterAlways">
+            <com.arlib.floatingsearchview.FloatingSearchView
+                android:id="@+id/floating_search_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:floatingSearch_close_search_on_keyboard_dismiss="false"
+                app:floatingSearch_dimBackground="false"
+                app:floatingSearch_menu="@menu/menu_scrolling"
+                app:floatingSearch_dismissOnOutsideTouch="true"
+                app:floatingSearch_leftActionMode="showHome"
+                app:floatingSearch_searchBarMarginLeft="5dp"
+                app:floatingSearch_searchBarMarginRight="5dp"
+                app:floatingSearch_searchBarMarginTop="5dp"
+                app:floatingSearch_searchHint="Search..."
+                app:floatingSearch_showSearchKey="true"
+                app:floatingSearch_suggestionsListAnimDuration="250"/>
+        </android.support.design.widget.CollapsingToolbarLayout>
+    </android.support.design.widget.AppBarLayout>
     <include  layout="@layout/content_fragment" />
-    <android.support.design.widget.FloatingActionButton
-        android:clickable="true"
-        android:id="@+id/setting"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/fab_margin"
-        android:layout_gravity="bottom|end"
-        app:srcCompat="@drawable/ic_setting"
-        app:layout_anchor="@+id/include3"
-        app:layout_anchorGravity="top|right" />
 </LinearLayout>
