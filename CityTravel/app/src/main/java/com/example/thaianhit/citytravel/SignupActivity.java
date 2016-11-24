@@ -7,10 +7,12 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -20,28 +22,37 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class SignupActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
-    private static final String TAG = "SignupActivity";
+    private Calendar c;
     private static final int REQUEST_SIGNUP = 0;
-    CharSequence[] values = {" Male "," Female "," Non "};
+    CharSequence[] values = { " None "," Male " ," Female "};
     AlertDialog alertDialog_birthday;
-    int id_choose =0;
+    int id_choose = -1;
     @Bind(R.id.input_firstname)
     EditText _firstnameText;
     @Bind(R.id.input_lastname)
     EditText _lastnameText;
     @Bind(R.id.input_email)
     EditText _emailText;
-
     @Bind(R.id.input_password)
     EditText _passwordText;
     @Bind(R.id.input_reEnterPassword)
@@ -56,11 +67,13 @@ public class SignupActivity extends AppCompatActivity implements DatePickerDialo
     TextView tvGender;
     @Bind(R.id.input_birthday)
     TextView tvBirthday;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
         ButterKnife.bind(this);
+        tvBirthday.setText(13 + "/" + 6 + "/" + 1995);
         Glide.with(this).load(R.drawable.background).asBitmap().into(new SimpleTarget<Bitmap>(400, 500) {
             @Override
             public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
@@ -76,6 +89,7 @@ public class SignupActivity extends AppCompatActivity implements DatePickerDialo
                 CreateAlertDialogWithRadioButtonGroup();
             }
         });
+
         tvBirthday.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -100,28 +114,28 @@ public class SignupActivity extends AppCompatActivity implements DatePickerDialo
             }
         });
     }
+
     public void showDatePickerDialog(View v) {
         DatePickerFragment newFragment = new DatePickerFragment();
         newFragment.show(getFragmentManager(), "datePicker");
     }
-    public void CreateAlertDialogWithRadioButtonGroup(){
+
+    public void CreateAlertDialogWithRadioButtonGroup() {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(SignupActivity.this);
         builder.setTitle("Gender");
         builder.setSingleChoiceItems(values, id_choose, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int item)
-            {
+            public void onClick(DialogInterface dialog, int item) {
                 id_choose = item;
-                switch(item)
-                {
+                switch (item) {
                     case 0:
-                        tvGender.setText("Male");
+                        tvGender.setText("None");
                         break;
                     case 1:
-                        tvGender.setText("Female");
+                        tvGender.setText("Male");
                         break;
                     case 2:
-                        tvGender.setText("Non");
+                        tvGender.setText("Female");
                         break;
                 }
                 alertDialog_birthday.dismiss();
@@ -131,6 +145,7 @@ public class SignupActivity extends AppCompatActivity implements DatePickerDialo
         alertDialog_birthday.show();
 
     }
+
     @Override
     public void onBackPressed() {
         Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
@@ -139,56 +154,58 @@ public class SignupActivity extends AppCompatActivity implements DatePickerDialo
         overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
         super.onBackPressed();
     }
-    public void signup() {
-        Log.d(TAG, "Signup");
 
+    public void signup() {
         if (!validate()) {
-            onSignupFailed();
+            Toast.makeText(getBaseContext(), "Signup failed!", Toast.LENGTH_SHORT).show();
             return;
         }
-
-        _signupButton.setEnabled(false);
-
         final ProgressDialog progressDialog = new ProgressDialog(SignupActivity.this,
                 R.style.AppTheme_Dark_Dialog);
         progressDialog.setIndeterminate(true);
-        progressDialog.setMessage("Creating Account...");
+        progressDialog.setMessage("Creating account...");
         progressDialog.show();
 
-//        String name = _firstnameText.getText().toString();
-//        String address = _addressText.getText().toString();
-//        String email = _emailText.getText().toString();
-//        String mobile = _mobileText.getText().toString();
-//        String password = _passwordText.getText().toString();
-//        String reEnterPassword = _reEnterPasswordText.getText().toString();
 
-        // TODO: Implement your own signup logic here.
+        // TODO: Implement your own authentication logic here.
 
         new android.os.Handler().postDelayed(
                 new Runnable() {
                     public void run() {
-                        // On complete call either onSignupSuccess or onSignupFailed
-                        // depending on success
-                        onSignupSuccess();
-                        // onSignupFailed();
+                        Checksignup();
                         progressDialog.dismiss();
                     }
                 }, 3000);
+
     }
 
 
-    public void onSignupSuccess() {
-        _signupButton.setEnabled(true);
-        setResult(RESULT_OK, null);
-        finish();
+    public void Checksignup() {
+        DateFormat  df = new SimpleDateFormat("dd/MM/yyyy");
+        Date date = new Date();
+        try {
+            date = df.parse(tvBirthday.toString());
+        } catch (Exception e) {
+        }
+        APIInterface service = ApiClient.getClient().create(APIInterface.class);
+        Call<Boolean> call = service.postAccount(new Account(_emailText.getText().toString(), "", "", date, id_choose - 1, "", _firstnameText.getText().toString(), _lastnameText.getText().toString(), _passwordText.getText().toString()));
+        call.enqueue(new Callback<Boolean>() {
+            @Override
+            public void onResponse(Call<Boolean> call, Response<Boolean> response)
+            {
+                Toast.makeText(getBaseContext(), "Signup success!", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivityForResult(intent, REQUEST_SIGNUP);
+                overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+                finish();
+            }
+            @Override
+            public void onFailure(Call<Boolean> call, Throwable t)
+            {
+                Toast.makeText(getBaseContext(), "Signup failed!", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
-
-    public void onSignupFailed() {
-        Toast.makeText(getBaseContext(), "Signup failed", Toast.LENGTH_LONG).show();
-
-        _signupButton.setEnabled(true);
-    }
-
     public boolean validate() {
         boolean valid = true;
         String lastname = _lastnameText.getText().toString();
@@ -234,12 +251,13 @@ public class SignupActivity extends AppCompatActivity implements DatePickerDialo
     }
 
     @Override
-    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-        // store the values selected into a Calendar instance
-        final Calendar c = Calendar.getInstance();
+    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth)
+    {
+        c = Calendar.getInstance();
         c.set(Calendar.YEAR, year);
         c.set(Calendar.MONTH, monthOfYear);
         c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-        tvBirthday.setText(dayOfMonth+"/"+monthOfYear+"/"+year);
+
+        tvBirthday.setText(dayOfMonth + "/" + monthOfYear + "/" + year);
     }
 }

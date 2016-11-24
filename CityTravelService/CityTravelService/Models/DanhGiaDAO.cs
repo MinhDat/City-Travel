@@ -46,6 +46,27 @@ namespace CityTravelService.Models
             return arr;
         }
 
+        public float getDanhGia(int id)
+        {
+            connect();
+            string query = "SELECT * FROM DANHGIA WHERE MaTenDiaDiem = " + id;
+            adapter = new SqlDataAdapter(query, connection);
+            DataSet dataset = new DataSet();
+            adapter.Fill(dataset);
+            ArrayList ls = ConvertDataSetToArrayList(dataset);
+            List<DanhGia> arr = new List<DanhGia>();
+            int dem = 0;
+            float tong = 0;
+            foreach (Object o in ls)
+            {
+                DanhGia dg = (DanhGia)o;
+                tong = tong + dg.Rate;
+                dem++;
+            }
+            disconnect();
+            return (tong / dem);
+        }
+
         public List<DanhGia> getDanhGia(string email, int id)
         {
             connect();

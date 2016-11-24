@@ -24,7 +24,9 @@
             android:layout_alignParentTop="true"
             android:layout_gravity="center_vertical"
             android:layout_marginRight="16dp"
-            app:srcCompat="@drawable/ic_account_comment" />
+            android:src="@drawable/ic_account_comment"
+            />
+        <!--app:srcCompat="@drawable/ic_account_comment"-->
 
         <TextView
             android:id="@+id/txt_phone_number"

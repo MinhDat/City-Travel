@@ -120,6 +120,22 @@
             <!--chi tiet dich vu-->
             <LinearLayout
                 android:layout_width="match_parent"
+                android:layout_height="260dp"
+                android:padding="5dp">
+
+                <include layout="@layout/activity_maps"/>
+                <!--<ImageView-->
+                    <!--android:id="@+id/img_detail_map"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="200dp"-->
+                    <!--android:layout_marginLeft="5dp"-->
+                    <!--android:layout_marginRight="5dp"-->
+                    <!--android:paddingBottom="3dp"-->
+                    <!--android:src="@drawable/map_demo" />-->
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:orientation="horizontal"
@@ -158,21 +174,6 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="250dp"
-                android:padding="5dp">
-
-                <include layout="@layout/activity_maps"/>
-                <!--<ImageView-->
-                    <!--android:id="@+id/img_detail_map"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="200dp"-->
-                    <!--android:layout_marginLeft="5dp"-->
-                    <!--android:layout_marginRight="5dp"-->
-                    <!--android:paddingBottom="3dp"-->
-                    <!--android:src="@drawable/map_demo" />-->
-            </LinearLayout>
         </LinearLayout>
 
         <!--viet comment-->
@@ -191,7 +192,7 @@
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_weight="9"
-                    android:layout_height="match_parent"
+                    android:layout_height="70dp"
                     android:padding="3dp">
                     <EditText
                         android:id="@+id/edt_write_comment"
@@ -203,7 +204,7 @@
                         android:textSize="15dp"
 
                         android:isScrollContainer="true"
-                        android:minHeight="100dp"
+                        android:minHeight="80dp"
                         android:inputType="textMultiLine"/>
                 </LinearLayout>
                 <LinearLayout
@@ -217,7 +218,9 @@
                         android:background="@drawable/custom_button_send_comment"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:srcCompat="@drawable/ic_send_comment"/>
+                        android:src="@drawable/ic_send_comment"
+                        />
+                    <!--app:srcCompat="@drawable/ic_send_comment"-->
                 </LinearLayout>
             </LinearLayout>
             <!--<include layout="@layout/item_write_comment" />-->

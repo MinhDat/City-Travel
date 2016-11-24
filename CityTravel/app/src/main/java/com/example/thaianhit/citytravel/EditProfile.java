@@ -60,7 +60,7 @@ public class EditProfile extends AppCompatActivity implements DatePickerDialog.O
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle("Edit profile");
-
+        tbEdit.setTitleTextColor(android.graphics.Color.WHITE);
         edtGender.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

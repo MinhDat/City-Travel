@@ -6,6 +6,7 @@ package com.example.thaianhit.citytravel;
 
 public class DataRecyclerHome {
     // Tên của danh mục tìm kiếm: Bệnh viện, Cửa hàng,...
+
     public String name;
     // Phần mô tả cho danh mục đó
     public String Description;

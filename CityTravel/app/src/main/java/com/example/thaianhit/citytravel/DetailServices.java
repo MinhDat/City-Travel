@@ -1,25 +1,29 @@
 package com.example.thaianhit.citytravel;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
 
+import static com.example.thaianhit.citytravel.R.id.map;
+
 public class DetailServices extends FragmentActivity implements OnMapReadyCallback {
 
     TextView txt_detail_service;
-
     ListView lv_detail_services;
     ArrayList arr_detail_services;
     AdapterDetailServices adapter;
@@ -38,7 +42,7 @@ public class DetailServices extends FragmentActivity implements OnMapReadyCallba
         });
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
+                .findFragmentById(map);
         mapFragment.getMapAsync(this);
     }
 
@@ -63,15 +67,29 @@ public class DetailServices extends FragmentActivity implements OnMapReadyCallba
         lv_detail_services.setAdapter(adapter);
 
         dialog.show();
-    }
 
+
+    }
     @Override
     public void onMapReady(GoogleMap googleMap) {
+        googleMap.getUiSettings().setAllGesturesEnabled(false);
         mMap = googleMap;
 
-        // Add a marker in Sydney and move the camera
         LatLng sydney = new LatLng(10.751242, 106.701170);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+
+        mMap.addMarker(new MarkerOptions().position(sydney).title("861/90C Trần Xuân Soạn"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+
+        CameraPosition cameraPosition = new CameraPosition.Builder().target(sydney).zoom(14.0f).build();
+        CameraUpdate cameraUpdate = CameraUpdateFactory.newCameraPosition(cameraPosition);
+        mMap.moveCamera(cameraUpdate);
+        
+        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+            @Override
+            public void onMapClick(LatLng latLng) {
+                Intent intent = new Intent(getApplicationContext(), MapDetailService.class);
+                startActivity(intent);
+            }
+        });
     }
 }

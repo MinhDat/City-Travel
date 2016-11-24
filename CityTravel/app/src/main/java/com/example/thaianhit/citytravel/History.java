@@ -37,7 +37,10 @@ public class History  extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         myFragmentView = inflater.inflate(R.layout.activity_history, container, false);
         Toolbar toolbar = (Toolbar) myFragmentView.findViewById(R.id.toolbarSave);
+        toolbar.setTitleTextColor(android.graphics.Color.WHITE);
+        toolbar.setTitle("History");
         toolbar.inflateMenu(R.menu.menu_toolbar_save_location);
+
         recyclerView = (RecyclerView) myFragmentView.findViewById(R.id.recycler);
         setHasOptionsMenu(true);
         // If the size of views will not change as the data changes.
