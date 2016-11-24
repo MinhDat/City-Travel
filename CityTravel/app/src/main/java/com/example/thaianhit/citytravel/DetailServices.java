@@ -1,7 +1,7 @@
 package com.example.thaianhit.citytravel;
 
 import android.app.Dialog;
-import android.location.Address;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
@@ -18,20 +18,15 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import static com.example.thaianhit.citytravel.R.id.map;
 
 public class DetailServices extends FragmentActivity implements OnMapReadyCallback {
 
     TextView txt_detail_service;
-
     ListView lv_detail_services;
     ArrayList arr_detail_services;
     AdapterDetailServices adapter;
-
-    List<Address> addresses = null;
-    String address = "", city = "", country = "", postalCode;
 
     private GoogleMap mMap;
     @Override
@@ -75,9 +70,9 @@ public class DetailServices extends FragmentActivity implements OnMapReadyCallba
 
 
     }
-
     @Override
     public void onMapReady(GoogleMap googleMap) {
+        googleMap.getUiSettings().setAllGesturesEnabled(false);
         mMap = googleMap;
 
         LatLng sydney = new LatLng(10.751242, 106.701170);
@@ -88,6 +83,13 @@ public class DetailServices extends FragmentActivity implements OnMapReadyCallba
         CameraPosition cameraPosition = new CameraPosition.Builder().target(sydney).zoom(14.0f).build();
         CameraUpdate cameraUpdate = CameraUpdateFactory.newCameraPosition(cameraPosition);
         mMap.moveCamera(cameraUpdate);
-
+        
+        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+            @Override
+            public void onMapClick(LatLng latLng) {
+                Intent intent = new Intent(getApplicationContext(), MapDetailService.class);
+                startActivity(intent);
+            }
+        });
     }
 }

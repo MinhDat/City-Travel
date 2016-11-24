@@ -21,7 +21,6 @@
             android:id="@+id/toolbar_title" />
     </android.support.v7.widget.Toolbar>
 
-    <include layout="@layout/content_save_location"
-        />
+    <include layout="@layout/content_save_location" />
 </LinearLayout>
 
