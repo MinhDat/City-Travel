@@ -17,7 +17,6 @@ public class ChangePassword extends AppCompatActivity {
         setContentView(R.layout.activity_change_password);
         ButterKnife.bind(this);
         setSupportActionBar(tbChangePass);
-        tbChangePass.setTitleTextColor(android.graphics.Color.WHITE);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle("Change password");

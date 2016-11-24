@@ -7,6 +7,7 @@
     android:orientation="vertical"
     android:weightSum="10"
     android:baselineAligned="false">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -21,7 +22,7 @@
             android:layout_weight="3.5">
 
             <ImageView
-                android:id="@+id/img_avatar_about_me"
+                android:id="@+id/img_avatar"
                 android:layout_width="130dp"
                 android:layout_height="130dp"
                 android:layout_gravity="center"
@@ -56,7 +57,7 @@
                     android:gravity="bottom">
 
                     <TextView
-                        android:id="@+id/txt_full_name_about_me"
+                        android:id="@+id/txt_full_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
@@ -84,10 +85,12 @@
                     android:orientation="horizontal">
 
                     <ImageButton
-                        android:id="@+id/img_edit_user_about_me"
+                        android:id="@+id/img_edit_user"
                         android:layout_width="45dp"
                         android:layout_height="45dp"
-
+                        android:layout_alignLeft="@+id/textView2"
+                        android:layout_alignStart="@+id/textView2"
+                        android:layout_below="@+id/textView2"
                         android:layout_marginLeft="17dp"
                         android:layout_marginStart="17dp"
                         android:layout_marginTop="10dp"
@@ -96,14 +99,15 @@
                         app:srcCompat="@drawable/ic_edit_profile" />
 
                     <ImageButton
-                        android:id="@+id/img_edit_password_about_me"
+                        android:id="@+id/img_edit_password"
                         android:layout_width="45dp"
                         android:layout_height="45dp"
-
+                        android:layout_below="@+id/textView2"
                         android:layout_marginLeft="17dp"
                         android:layout_marginStart="17dp"
                         android:layout_marginTop="10dp"
-
+                        android:layout_toEndOf="@+id/imageButton2"
+                        android:layout_toRightOf="@+id/imageButton2"
                         android:background="@null"
                         android:gravity="top"
                         app:srcCompat="@drawable/ic_key" />
