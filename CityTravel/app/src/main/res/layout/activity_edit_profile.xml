@@ -14,7 +14,8 @@
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
         android:minHeight="?attr/actionBarSize"
-        app:theme="@style/ToolbarStyle"></android.support.v7.widget.Toolbar>
+        app:theme="@style/ToolBarStyle"
+        style="@style/AppTheme.TND"></android.support.v7.widget.Toolbar>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -28,12 +29,13 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
+                android:background="@color/colorPrimary"
                 android:gravity="center">
 
                 <ImageView
                     android:id="@+id/ivEditProfile"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
                     android:scaleType="centerCrop"
                     />
             </LinearLayout>
