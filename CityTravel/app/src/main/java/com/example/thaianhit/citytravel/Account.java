@@ -1,5 +1,6 @@
 package com.example.thaianhit.citytravel;
 
+import com.google.android.gms.vision.barcode.Barcode;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.Date;
@@ -11,7 +12,7 @@ import java.util.Date;
 public class Account {
     @SerializedName("Email")
     private String email;
-    @SerializedName("MatKhau")
+    @SerializedName("PassWord")
     private String password;
     @SerializedName("LastName")
     private String lastName;

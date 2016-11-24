@@ -44,7 +44,7 @@ import butterknife.ButterKnife;
 public class SignupActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
     private Calendar c;
     private static final int REQUEST_SIGNUP = 0;
-    CharSequence[] values = {" Male ", " Female ", " None "};
+    CharSequence[] values = { " None "," Male " ," Female "};
     AlertDialog alertDialog_birthday;
     int id_choose = -1;
     @Bind(R.id.input_firstname)
@@ -129,13 +129,13 @@ public class SignupActivity extends AppCompatActivity implements DatePickerDialo
                 id_choose = item;
                 switch (item) {
                     case 0:
-                        tvGender.setText("Male");
+                        tvGender.setText("None");
                         break;
                     case 1:
-                        tvGender.setText("Female");
+                        tvGender.setText("Male");
                         break;
                     case 2:
-                        tvGender.setText("None");
+                        tvGender.setText("Female");
                         break;
                 }
                 alertDialog_birthday.dismiss();
@@ -156,60 +156,31 @@ public class SignupActivity extends AppCompatActivity implements DatePickerDialo
     }
 
     public void signup() {
-
-
         if (!validate()) {
+            Toast.makeText(getBaseContext(), "Signup failed!", Toast.LENGTH_SHORT).show();
             return;
         }
-        SignupAsyntask signupAsyntask = new SignupAsyntask();
-        signupAsyntask.execute();
+        final ProgressDialog progressDialog = new ProgressDialog(SignupActivity.this,
+                R.style.AppTheme_Dark_Dialog);
+        progressDialog.setIndeterminate(true);
+        progressDialog.setMessage("Creating account...");
+        progressDialog.show();
+
+
+        // TODO: Implement your own authentication logic here.
+
+        new android.os.Handler().postDelayed(
+                new Runnable() {
+                    public void run() {
+                        Checksignup();
+                        progressDialog.dismiss();
+                    }
+                }, 3000);
 
     }
 
-    public class SignupAsyntask extends AsyncTask<Void, Void, Void> {
-        ProgressDialog progressDialog;
 
-        @Override
-        protected void onPreExecute() {
-            progressDialog = new ProgressDialog(SignupActivity.this,
-                    R.style.AppTheme_Dark_Dialog);
-            progressDialog.setIndeterminate(true);
-            progressDialog.setMessage("Creating Account...");
-            progressDialog.show();
-
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            progressDialog.dismiss();
-        }
-
-
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            Checksignup();
-            Intent intent = new Intent(SignupActivity.this,LoginActivity.class);
-            startActivity(intent);
-            finish();
-            overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
-            return null;
-        }
-    }
     public void Checksignup() {
-        int gender = -1;
-        Log.d("TAGcl",tvGender.getText().toString());
-
-        if (tvGender.getText().toString() == "Male")
-        {
-            gender = 1;
-        }
-        if (tvGender.getText().toString() == "Female") {
-            gender = 0;
-        }
-        if (tvGender.getText().toString() == "None") {
-            gender = -1;
-        }
         DateFormat  df = new SimpleDateFormat("dd/MM/yyyy");
         Date date = new Date();
         try {
@@ -217,24 +188,24 @@ public class SignupActivity extends AppCompatActivity implements DatePickerDialo
         } catch (Exception e) {
         }
         APIInterface service = ApiClient.getClient().create(APIInterface.class);
-        Call<Boolean> call = service.postAccount(new Account(_emailText.getText().toString(), "", "", date, gender, "", _firstnameText.getText().toString(), _lastnameText.getText().toString(), _passwordText.getText().toString()));
+        Call<Boolean> call = service.postAccount(new Account(_emailText.getText().toString(), "", "", date, id_choose - 1, "", _firstnameText.getText().toString(), _lastnameText.getText().toString(), _passwordText.getText().toString()));
         call.enqueue(new Callback<Boolean>() {
             @Override
             public void onResponse(Call<Boolean> call, Response<Boolean> response)
             {
-                Toast.makeText(getBaseContext(), "Signup success!", Toast.LENGTH_LONG).show();
+                Toast.makeText(getBaseContext(), "Signup success!", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivityForResult(intent, REQUEST_SIGNUP);
+                overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+                finish();
             }
             @Override
             public void onFailure(Call<Boolean> call, Throwable t)
             {
-                Toast.makeText(getBaseContext(), "Signup failed!", Toast.LENGTH_LONG).show();
+                Toast.makeText(getBaseContext(), "Signup failed!", Toast.LENGTH_SHORT).show();
             }
         });
     }
-
-
-
-
     public boolean validate() {
         boolean valid = true;
         String lastname = _lastnameText.getText().toString();
@@ -280,8 +251,8 @@ public class SignupActivity extends AppCompatActivity implements DatePickerDialo
     }
 
     @Override
-    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-        // store the values selected into a Calendar instance
+    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth)
+    {
         c = Calendar.getInstance();
         c.set(Calendar.YEAR, year);
         c.set(Calendar.MONTH, monthOfYear);

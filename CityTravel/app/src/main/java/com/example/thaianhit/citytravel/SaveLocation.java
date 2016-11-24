@@ -29,7 +29,9 @@ public class SaveLocation  extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         myFragmentView = inflater.inflate(R.layout.activity_save_location, container, false);
         Toolbar toolbar = (Toolbar) myFragmentView.findViewById(R.id.toolbarSave);
-      toolbar.inflateMenu(R.menu.menu_toolbar_save_location);
+        toolbar.setTitleTextColor(android.graphics.Color.WHITE);
+        toolbar.setTitle("Saved");
+          toolbar.inflateMenu(R.menu.menu_toolbar_save_location);
         recyclerView = (RecyclerView) myFragmentView.findViewById(R.id.recycler);
 
         // If the size of views will not change as the data changes.

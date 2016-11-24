@@ -2,7 +2,9 @@ package com.example.thaianhit.citytravel;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.MainThread;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +15,7 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 
+import com.arlib.floatingsearchview.FloatingSearchView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
@@ -23,23 +26,25 @@ public class fragment_search_locations extends AppCompatActivity {
     private RecyclerView recyclerView;
     private CustomRecyclerAdapterSearch adapter;
     private RecyclerView.LayoutManager layoutManager;
-    private ImageView img_backround;
-    FloatingActionButton floatingActionButton;
+    private FloatingSearchView floatingSearchView;
     private List<DataRecyclerSearch> listData = new ArrayList<DataRecyclerSearch>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fragment_search_locations);
         recyclerView = (RecyclerView) findViewById(R.id.recycler);
-        floatingActionButton=(FloatingActionButton)findViewById(R.id.setting);
-        // If the size of views will not change as the data changes.
         recyclerView.setHasFixedSize(true);
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                alertFormElements();
-            }
-        });
+        floatingSearchView = (FloatingSearchView)findViewById(R.id.floating_search_view);
+        floatingSearchView.setOnHomeActionClickListener(new FloatingSearchView.OnHomeActionClickListener() {
+           @Override
+           public void onHomeClicked()
+           {
+               Intent intent = new Intent(fragment_search_locations.this, MainActivity.class);
+               startActivity(intent);
+               overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+               finish();
+           }
+       });
         // Setting the LayoutManager.
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
@@ -53,6 +58,7 @@ public class fragment_search_locations extends AppCompatActivity {
         listData.add(d);
         // Setting the adapter.
         adapter = new CustomRecyclerAdapterSearch(listData,fragment_search_locations.this);
+        recyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
         recyclerView.setAdapter(adapter);
     }
     public void alertFormElements() {

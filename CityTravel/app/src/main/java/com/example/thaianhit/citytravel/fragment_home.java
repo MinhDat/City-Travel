@@ -26,10 +26,8 @@ import retrofit2.Response;
 
 public class fragment_home extends Fragment {
     private RecyclerView recyclerView;
-    private CustomRecyclerAdapterHome adapter;
     private RecyclerView.LayoutManager layoutManager;
     private ImageView img_backround;
-    private List<Category> listData = new ArrayList<Category>();
     private FloatingActionButton Search;
     Toolbar toolbar;
     private View myFragmentView;
@@ -40,12 +38,13 @@ public class fragment_home extends Fragment {
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
         img_backround=(ImageView)myFragmentView.findViewById(R.id.img_backround);
         Search=(FloatingActionButton)myFragmentView.findViewById(R.id.Search);
-
         Search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent tempt=new Intent(getActivity(),fragment_search_locations.class);
                 getActivity().startActivity(tempt);
+                getActivity().overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+                getActivity().finish();
             }
         });
         Glide.with(this).load(R.drawable.logo)
@@ -55,7 +54,7 @@ public class fragment_home extends Fragment {
                 .into(img_backround);
 
         recyclerView = (RecyclerView)myFragmentView.findViewById(R.id.recycler);
-
+        recyclerView.setNestedScrollingEnabled(false);
         // If the size of views will not change as the data changes.
         recyclerView.setHasFixedSize(true);
 
@@ -81,6 +80,7 @@ public class fragment_home extends Fragment {
         });
         return myFragmentView;
     }
+
 
 
 }
