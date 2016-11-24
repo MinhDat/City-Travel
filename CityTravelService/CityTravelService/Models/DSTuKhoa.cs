@@ -42,7 +42,7 @@ namespace CityTravelService.Models
         {
             List<TuKhoaTraVe> arr = new List<TuKhoaTraVe>();
 
-            TuKhoaTraVe TV = dvTV[0];
+            TuKhoaTraVe TV = dvTV.Count == 0 ? null : dvTV[0];
             TV = TV == null ? ddTV[0] : TV;
             TV = TV == null ? tdTV[0] : TV;
             TV = TV == null ? tpTV[0] : TV;

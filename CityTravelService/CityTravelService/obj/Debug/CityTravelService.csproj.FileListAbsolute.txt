@@ -30,3 +30,35 @@ C:\Users\HuuBao\Desktop\Project nhóm\CityTravelService\CityTravelService\bin\An
 C:\Users\HuuBao\Desktop\Project nhóm\CityTravelService\CityTravelService\obj\Debug\CityTravelService.csprojResolveAssemblyReference.cache
 C:\Users\HuuBao\Desktop\Project nhóm\CityTravelService\CityTravelService\obj\Debug\CityTravelService.dll
 C:\Users\HuuBao\Desktop\Project nhóm\CityTravelService\CityTravelService\obj\Debug\CityTravelService.pdb
+C:\Users\hamin\Desktop\QLDA\gitDoAn\City-Travel\CityTravelService\CityTravelService\bin\CityTravelService.dll.config
+C:\Users\hamin\Desktop\QLDA\gitDoAn\City-Travel\CityTravelService\CityTravelService\bin\CityTravelService.dll
+C:\Users\hamin\Desktop\QLDA\gitDoAn\City-Travel\CityTravelService\CityTravelService\bin\CityTravelService.pdb
+C:\Users\hamin\Desktop\QLDA\gitDoAn\City-Travel\CityTravelService\CityTravelService\bin\Antlr3.Runtime.dll
+C:\Users\hamin\Desktop\QLDA\gitDoAn\City-Travel\CityTravelService\CityTravelService\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\hamin\Desktop\QLDA\gitDoAn\City-Travel\CityTravelService\CityTravelService\bin\Newtonsoft.Json.dll
+C:\Users\hamin\Desktop\QLDA\gitDoAn\City-Travel\CityTravelService\CityTravelService\bin\System.Net.Http.Formatting.dll
+C:\Users\hamin\Desktop\QLDA\gitDoAn\City-Travel\CityTravelService\CityTravelService\bin\System.Web.Helpers.dll
+C:\Users\hamin\Desktop\QLDA\gitDoAn\City-Travel\CityTravelService\CityTravelService\bin\System.Web.Http.dll
+C:\Users\hamin\Desktop\QLDA\gitDoAn\City-Travel\CityTravelService\CityTravelService\bin\System.Web.Http.WebHost.dll
+C:\Users\hamin\Desktop\QLDA\gitDoAn\City-Travel\CityTravelService\CityTravelService\bin\System.Web.Mvc.dll
+C:\Users\hamin\Desktop\QLDA\gitDoAn\City-Travel\CityTravelService\CityTravelService\bin\System.Web.Optimization.dll
+C:\Users\hamin\Desktop\QLDA\gitDoAn\City-Travel\CityTravelService\CityTravelService\bin\System.Web.Razor.dll
+C:\Users\hamin\Desktop\QLDA\gitDoAn\City-Travel\CityTravelService\CityTravelService\bin\System.Web.WebPages.Deployment.dll
+C:\Users\hamin\Desktop\QLDA\gitDoAn\City-Travel\CityTravelService\CityTravelService\bin\System.Web.WebPages.dll
+C:\Users\hamin\Desktop\QLDA\gitDoAn\City-Travel\CityTravelService\CityTravelService\bin\System.Web.WebPages.Razor.dll
+C:\Users\hamin\Desktop\QLDA\gitDoAn\City-Travel\CityTravelService\CityTravelService\bin\WebGrease.dll
+C:\Users\hamin\Desktop\QLDA\gitDoAn\City-Travel\CityTravelService\CityTravelService\bin\Newtonsoft.Json.xml
+C:\Users\hamin\Desktop\QLDA\gitDoAn\City-Travel\CityTravelService\CityTravelService\bin\System.Net.Http.Formatting.xml
+C:\Users\hamin\Desktop\QLDA\gitDoAn\City-Travel\CityTravelService\CityTravelService\bin\System.Web.Helpers.xml
+C:\Users\hamin\Desktop\QLDA\gitDoAn\City-Travel\CityTravelService\CityTravelService\bin\System.Web.Http.xml
+C:\Users\hamin\Desktop\QLDA\gitDoAn\City-Travel\CityTravelService\CityTravelService\bin\System.Web.Http.WebHost.xml
+C:\Users\hamin\Desktop\QLDA\gitDoAn\City-Travel\CityTravelService\CityTravelService\bin\System.Web.Mvc.xml
+C:\Users\hamin\Desktop\QLDA\gitDoAn\City-Travel\CityTravelService\CityTravelService\bin\System.Web.Optimization.xml
+C:\Users\hamin\Desktop\QLDA\gitDoAn\City-Travel\CityTravelService\CityTravelService\bin\System.Web.Razor.xml
+C:\Users\hamin\Desktop\QLDA\gitDoAn\City-Travel\CityTravelService\CityTravelService\bin\System.Web.WebPages.xml
+C:\Users\hamin\Desktop\QLDA\gitDoAn\City-Travel\CityTravelService\CityTravelService\bin\System.Web.WebPages.Deployment.xml
+C:\Users\hamin\Desktop\QLDA\gitDoAn\City-Travel\CityTravelService\CityTravelService\bin\System.Web.WebPages.Razor.xml
+C:\Users\hamin\Desktop\QLDA\gitDoAn\City-Travel\CityTravelService\CityTravelService\bin\Antlr3.Runtime.pdb
+C:\Users\hamin\Desktop\QLDA\gitDoAn\City-Travel\CityTravelService\CityTravelService\obj\Debug\CityTravelService.csprojResolveAssemblyReference.cache
+C:\Users\hamin\Desktop\QLDA\gitDoAn\City-Travel\CityTravelService\CityTravelService\obj\Debug\CityTravelService.dll
+C:\Users\hamin\Desktop\QLDA\gitDoAn\City-Travel\CityTravelService\CityTravelService\obj\Debug\CityTravelService.pdb
