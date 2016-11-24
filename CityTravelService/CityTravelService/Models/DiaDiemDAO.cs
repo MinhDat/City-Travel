@@ -116,6 +116,19 @@ namespace CityTravelService.Models
             dd.tinhthanh.MaTinhThanh = dt.Rows[i].IsNull("MaTinhThanh") == true ? 0 : (int)dt.Rows[i]["MaTinhThanh"];
             dd.tinhthanh.TenTinhThanh = dt.Rows[i]["TenTinhThanh"].ToString();
 
+            dd.dichvu.dulieu.MaDuLieu = dt.Rows[i].IsNull("MaDuLieu") ? 0 : (int)dt.Rows[i]["MaDuLieu"];
+            dd.dichvu.dulieu.MaDichVu = dt.Rows[i].IsNull("MaDichVu") ? 0 : (int)dt.Rows[i]["MaDichVu"];
+            dd.dichvu.dulieu.MaTenDiaDiem = dt.Rows[i].IsNull("MaTenDiaDiem") ? 0 : (int)dt.Rows[i]["MaTenDiaDiem"];
+            dd.dichvu.dulieu.SoNha = dt.Rows[i]["SoNha"].ToString();
+            dd.dichvu.dulieu.MaDuong = dt.Rows[i].IsNull("MaDuong") ? 0 : (int)dt.Rows[i]["MaDuong"];
+            dd.dichvu.dulieu.MaPhuong = dt.Rows[i].IsNull("MaPhuong") ? 0 : (int)dt.Rows[i]["MaPhuong"];
+            dd.dichvu.dulieu.MaQuanHuyen = dt.Rows[i].IsNull("MaQuanHuyen") ? 0 : (int)dt.Rows[i]["MaQuanHuyen"];
+            dd.dichvu.dulieu.MaTinhThanh = dt.Rows[i].IsNull("MaTinhThanh") ? 0 : (int)dt.Rows[i]["MaTinhThanh"];
+            dd.dichvu.dulieu.KinhDo = dt.Rows[i].IsNull("KinhDo") ? 0.0f : (double)dt.Rows[i]["KinhDo"];
+            dd.dichvu.dulieu.ViDo = dt.Rows[i].IsNull("ViDo") ? 0.0f : (double)dt.Rows[i]["ViDo"];
+            dd.dichvu.dulieu.ChuThich = dt.Rows[i]["ChuThich"].ToString();
+            dd.dichvu.dulieu.DanhGia = dt.Rows[i].IsNull("DanhGia") ? 0 : (int)dt.Rows[i]["DanhGia"];
+
             return (object)dd;
         }
 
