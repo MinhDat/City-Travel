@@ -125,13 +125,13 @@
 
                 <include layout="@layout/activity_maps"/>
                 <!--<ImageView-->
-                    <!--android:id="@+id/img_detail_map"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="200dp"-->
-                    <!--android:layout_marginLeft="5dp"-->
-                    <!--android:layout_marginRight="5dp"-->
-                    <!--android:paddingBottom="3dp"-->
-                    <!--android:src="@drawable/map_demo" />-->
+                <!--android:id="@+id/img_detail_map"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="200dp"-->
+                <!--android:layout_marginLeft="5dp"-->
+                <!--android:layout_marginRight="5dp"-->
+                <!--android:paddingBottom="3dp"-->
+                <!--android:src="@drawable/map_demo" />-->
             </LinearLayout>
 
             <LinearLayout
