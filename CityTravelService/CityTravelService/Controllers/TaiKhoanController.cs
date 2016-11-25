@@ -1,6 +1,9 @@
 ﻿using System.Collections.Generic;
 using CityTravelService.Models;
 using System.Web.Http;
+using System.Net.Http;
+using System.Net.Http.Formatting;
+using System.Net;
 using System;
 using System.Net.Mail;
 using System.Configuration;
@@ -30,7 +33,7 @@ namespace CityTravelService.Controllers
         {
             TaiKhoanDAO tkO = new TaiKhoanDAO();
             TaiKhoan tk = new TaiKhoan();
-            tk = tkO.getTaiKhoan(email);
+            tk =tkO.getTaiKhoan(email);
             //if (tk.Length == 0)
             //    throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
             return tk;
@@ -46,7 +49,7 @@ namespace CityTravelService.Controllers
 
             TaiKhoan tk;
             tk = tkO.getTaiKhoan(email, password);
-            if (tk.Email == null)
+            if(tk.Email==null)
             {
                 return false;
             }
@@ -84,6 +87,14 @@ namespace CityTravelService.Controllers
             response.Headers.Location = new System.Uri(Request.RequestUri, "/api/TaiKhoan/" + tk.Email.ToString());*/
             return tkO.updateTaiKhoan(tk);
         }
+        [Route("ChangPassword")]
+        [HttpPut]
+        public bool  ChangPassword(string email,string passwordold,string passwordnew)
+        {
+            TaiKhoanDAO tk0 = new TaiKhoanDAO();
+            return tk0.changePassword(email, passwordold, passwordnew);
+
+        }
         #endregion
 
         #region DELETE
@@ -116,7 +127,7 @@ namespace CityTravelService.Controllers
             TaiKhoanDAO tkO = new TaiKhoanDAO();
             TaiKhoan tk = new TaiKhoan();
             tk = tkO.getTaiKhoan(email);
-            if (tk == null)
+            if (tk==null)
                 return false;
             tkO.updatePassword(temp, email);
             return true;
