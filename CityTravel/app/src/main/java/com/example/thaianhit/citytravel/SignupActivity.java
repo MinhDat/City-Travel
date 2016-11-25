@@ -124,8 +124,10 @@ public class SignupActivity extends AppCompatActivity implements DatePickerDialo
 
         AlertDialog.Builder builder = new AlertDialog.Builder(SignupActivity.this);
         builder.setTitle("Gender");
-        builder.setSingleChoiceItems(values, id_choose, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int item) {
+        builder.setSingleChoiceItems(values, id_choose, new DialogInterface.OnClickListener()
+        {
+            public void onClick(DialogInterface dialog, int item)
+            {
                 id_choose = item;
                 switch (item) {
                     case 0:

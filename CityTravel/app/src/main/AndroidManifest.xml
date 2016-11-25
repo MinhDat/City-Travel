@@ -17,16 +17,16 @@
         <activity
             android:name=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
-
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".LoginActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Dark" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
         </activity>
         <activity
             android:name=".SignupActivity"
@@ -73,6 +73,9 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.thaianhit.citytravel.DetailServices" />
         </activity>
+        <activity
+            android:name=".MapDetailService"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

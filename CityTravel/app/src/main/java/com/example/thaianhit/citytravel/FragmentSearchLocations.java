@@ -1,18 +1,21 @@
 package com.example.thaianhit.citytravel;
 
-import android.content.Context;
+
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.CheckBox;
+
+import android.view.MenuItem;
+
+import android.widget.Toast;
 
 import com.arlib.floatingsearchview.FloatingSearchView;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +25,10 @@ public class FragmentSearchLocations extends AppCompatActivity {
     private CustomRecyclerAdapterSearch adapter;
     private RecyclerView.LayoutManager layoutManager;
     private FloatingSearchView floatingSearchView;
+    AlertDialog alertDialog_setting;
     private List<DataRecyclerSearch> listData = new ArrayList<DataRecyclerSearch>();
+    boolean bl[] = new boolean[2];
+    CharSequence[] values = {"Near me", "Rate"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +37,17 @@ public class FragmentSearchLocations extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.recycler);
         recyclerView.setHasFixedSize(true);
         floatingSearchView = (FloatingSearchView) findViewById(R.id.floating_search_view);
+        floatingSearchView.setOnMenuItemClickListener(new FloatingSearchView.OnMenuItemClickListener()
+        {
+            @Override
+            public void onActionMenuItemSelected(MenuItem item)
+            {
+                if(item.getItemId() == R.id.action_settings)
+                {
+                    alertFormElements();
+                }
+            }
+        });
         floatingSearchView.setOnHomeActionClickListener(new FloatingSearchView.OnHomeActionClickListener() {
             @Override
             public void onHomeClicked() {
@@ -40,6 +57,8 @@ public class FragmentSearchLocations extends AppCompatActivity {
                 finish();
             }
         });
+
+
         // Setting the LayoutManager.
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
@@ -52,49 +71,30 @@ public class FragmentSearchLocations extends AppCompatActivity {
         listData.add(c);
         listData.add(d);
         // Setting the adapter.
-        adapter = new CustomRecyclerAdapterSearch(listData, FragmentSearchLocations.this);
+        adapter = new CustomRecyclerAdapterSearch(listData,FragmentSearchLocations.this);
         recyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
         recyclerView.setAdapter(adapter);
     }
 
-
     public void alertFormElements() {
-        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        final View formElementsView = inflater.inflate(R.layout.alert_show_select_search,
-                null, false);
+        AlertDialog.Builder builder = new AlertDialog.Builder(FragmentSearchLocations.this);
+        builder.setTitle("Setting");
+        builder.setMultiChoiceItems(values, bl, new DialogInterface.OnMultiChoiceClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i, boolean b)
+            {
 
-        // You have to list down your form elements
-        final CheckBox myCheckBoxNear = (CheckBox) formElementsView
-                .findViewById(R.id.myCheckBoxNear);
+            }
 
-        final CheckBox myCheckBoxRate = (CheckBox) formElementsView
-                .findViewById(R.id.myCheckBoxRate);
-        // the alert dialog
-        new AlertDialog.Builder(FragmentSearchLocations.this).setView(formElementsView)
-                .setTitle("Form Elements")
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-
-                        String toastString = "";
-
-                    /*
-                     * Detecting whether the checkbox is checked or not.
-                     */
-                        if (myCheckBoxNear.isChecked()) {
-                            toastString += "Happy is checked!\n";
-                        } else {
-                            toastString += "Happy IS NOT checked.\n";
-                        }
-
-                    /*
-                     * Getting the value of selected RadioButton.
-                     */
-                        // get selected radio button from radioGroup
-
-
-                        dialog.cancel();
-                    }
-
-                }).show();
+        });
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Do something when click positive button
+                alertDialog_setting.dismiss();
+            }
+        });
+        alertDialog_setting = builder.create();
+        alertDialog_setting.show();
     }
 }

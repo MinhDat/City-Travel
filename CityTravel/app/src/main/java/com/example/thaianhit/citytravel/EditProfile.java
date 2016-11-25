@@ -35,7 +35,7 @@ public class EditProfile extends AppCompatActivity implements DatePickerDialog.O
     EditText edtBirthday;
     @Bind(R.id.ivEditProfile)
     ImageView ivEditProfile;
-    CharSequence[] values = {" Male "," Famale "," Non "};
+    CharSequence[] values = {" Male "," Female "," Non "};
     AlertDialog alertDialog_birthday;
     int id_choose =0;
     @Override
@@ -43,7 +43,8 @@ public class EditProfile extends AppCompatActivity implements DatePickerDialog.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
         ButterKnife.bind(this);
-        Glide.with(this).load(R.drawable.anh).asBitmap().centerCrop().into(new BitmapImageViewTarget(ivEditProfile) {
+        Glide.with(this).load(R.drawable.anh).asBitmap().centerCrop().into(new BitmapImageViewTarget(ivEditProfile)
+        {
             @Override
             protected void setResource(Bitmap resource) {
                 RoundedBitmapDrawable circularBitmapDrawable =
@@ -52,7 +53,9 @@ public class EditProfile extends AppCompatActivity implements DatePickerDialog.O
                 ivEditProfile.setImageDrawable(circularBitmapDrawable);
             }
         });
+
         setSupportActionBar(tbEdit);
+        tbEdit.setTitleTextColor(android.graphics.Color.WHITE);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle("Edit profile");

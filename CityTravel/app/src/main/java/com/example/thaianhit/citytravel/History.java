@@ -25,11 +25,11 @@ public class History  extends Fragment {
     private RecyclerView recyclerView;
     private CustomRecyclerAdapterHistory adapter;
     private RecyclerView.LayoutManager layoutManager;
-    private ImageView img_backround;
     private List<DataRecyclerSearch> listData = new ArrayList<DataRecyclerSearch>();
     private View myFragmentView;
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
     }
@@ -40,13 +40,9 @@ public class History  extends Fragment {
         toolbar.setTitleTextColor(android.graphics.Color.WHITE);
         toolbar.setTitle("History");
         toolbar.inflateMenu(R.menu.menu_toolbar_save_location);
-
         recyclerView = (RecyclerView) myFragmentView.findViewById(R.id.recycler);
         setHasOptionsMenu(true);
-        // If the size of views will not change as the data changes.
         recyclerView.setHasFixedSize(true);
-
-        // Setting the LayoutManager.
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         DataRecyclerSearch a=new DataRecyclerSearch("Bệnh viện","Nodescription","10");
@@ -57,7 +53,6 @@ public class History  extends Fragment {
         listData.add(b);
         listData.add(c);
         listData.add(d);
-        // Setting the adapter.
         adapter = new CustomRecyclerAdapterHistory(listData,getActivity());
         recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
         recyclerView.setAdapter(adapter);
@@ -68,8 +63,6 @@ public class History  extends Fragment {
         switch (item.getItemId()) {
             case R.id.miCompose :
             {
-
-                //Write here what to do you on click
                 return true;
             }
         }

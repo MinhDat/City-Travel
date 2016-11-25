@@ -1,6 +1,7 @@
 package com.example.thaianhit.citytravel;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.app.Fragment;
@@ -13,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -31,17 +33,18 @@ public class FragmentHome extends Fragment {
     private FloatingActionButton Search;
     Toolbar toolbar;
     private View myFragmentView;
+
     @Override
-    public View onCreateView(LayoutInflater inflater,  ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         myFragmentView = inflater.inflate(R.layout.activity_fragment_home, container, false);
-        toolbar = (Toolbar)myFragmentView.findViewById(R.id.toolbarHome);
+        toolbar = (Toolbar) myFragmentView.findViewById(R.id.toolbarHome);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
-        img_backround=(ImageView)myFragmentView.findViewById(R.id.img_backround);
-        Search=(FloatingActionButton)myFragmentView.findViewById(R.id.Search);
+        img_backround = (ImageView) myFragmentView.findViewById(R.id.img_backround);
+        Search = (FloatingActionButton) myFragmentView.findViewById(R.id.Search);
         Search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent tempt=new Intent(getActivity(),FragmentSearchLocations.class);
+                Intent tempt = new Intent(getActivity(), FragmentSearchLocations.class);
                 getActivity().startActivity(tempt);
                 getActivity().overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
                 getActivity().finish();
@@ -52,35 +55,54 @@ public class FragmentHome extends Fragment {
                 .crossFade()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(img_backround);
-
-        recyclerView = (RecyclerView)myFragmentView.findViewById(R.id.recycler);
+        recyclerView = (RecyclerView) myFragmentView.findViewById(R.id.recycler);
         recyclerView.setNestedScrollingEnabled(false);
-        // If the size of views will not change as the data changes.
         recyclerView.setHasFixedSize(true);
-
-        // Setting the LayoutManager.
+        LoadCategory();
         layoutManager = new LinearLayoutManager(getActivity());
 
+
+        return myFragmentView;
+    }
+    public class CategoryAsyntask extends AsyncTask<Void,Void,Void>
+    {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+        }
+
+        @Override
+        protected void onProgressUpdate(Void... values) {
+            super.onProgressUpdate(values);
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            return null;
+        }
+    }
+    public void LoadCategory()
+    {
         APIInterface apiService = ApiClient.getClient().create(APIInterface.class);
         Call<List<Category>> call = apiService.getCategory();
         call.enqueue(new Callback<List<Category>>() {
             @Override
-            public void onResponse(Call<List<Category>> call, Response<List<Category>> response)
-            {
-                List<Category> movies =new ArrayList<Category>();
-                movies.addAll(response.body()) ;
+            public void onResponse(Call<List<Category>> call, Response<List<Category>> response) {
+                List<Category> movies = new ArrayList<Category>();
+                movies.addAll(response.body());
                 recyclerView.setLayoutManager(layoutManager);
                 recyclerView.setAdapter(new CustomRecyclerAdapterHome(movies, getActivity().getApplicationContext()));
-                Log.d("TAG1",response.body().toString());
             }
+
             @Override
             public void onFailure(Call<List<Category>> call, Throwable t) {
-                Log.d("TAG1","2");
+                Toast.makeText(getActivity(),"Load fail",Toast.LENGTH_LONG).show();
             }
         });
-        return myFragmentView;
     }
-
-
-
 }
