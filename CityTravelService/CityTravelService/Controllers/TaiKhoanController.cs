@@ -1,6 +1,9 @@
 ﻿using System.Collections.Generic;
 using CityTravelService.Models;
 using System.Web.Http;
+using System.Net.Http;
+using System.Net.Http.Formatting;
+using System.Net;
 using System;
 using System.Net.Mail;
 using System.Configuration;
@@ -83,6 +86,14 @@ namespace CityTravelService.Controllers
             /*var response = Request.CreateResponse<TaiKhoan>(HttpStatusCode.Created, tk);
             response.Headers.Location = new System.Uri(Request.RequestUri, "/api/TaiKhoan/" + tk.Email.ToString());*/
             return tkO.updateTaiKhoan(tk);
+        }
+        [Route("ChangPassword")]
+        [HttpPut]
+        public bool ChangPassword(string email, string passwordold, string passwordnew)
+        {
+            TaiKhoanDAO tk0 = new TaiKhoanDAO();
+            return tk0.changePassword(email, passwordold, passwordnew);
+
         }
         #endregion
 
