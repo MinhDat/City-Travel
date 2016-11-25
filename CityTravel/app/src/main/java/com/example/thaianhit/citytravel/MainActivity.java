@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
                 if (tabId == R.id.btn_search)
                 {
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmentTransaction.replace(R.id.fragment_switch,new fragment_home(), "fragmentA");
+                    fragmentTransaction.replace(R.id.fragment_switch,new FragmentHome(), "fragmentA");
                     fragmentTransaction.addToBackStack("fragmentA");
                     fragmentTransaction.commit();
                 }

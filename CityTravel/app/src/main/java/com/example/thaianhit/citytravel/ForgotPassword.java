@@ -8,6 +8,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,6 +21,10 @@ import com.bumptech.glide.request.target.SimpleTarget;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 
 public class ForgotPassword extends AppCompatActivity {
     @Bind(R.id.bgForgotPassword)
@@ -72,14 +77,34 @@ public class ForgotPassword extends AppCompatActivity {
         new android.os.Handler().postDelayed(
                 new Runnable() {
                     public void run() {
-                      onSubmitSuccess();
+                        onSubmitSuccess();
 
                         progressDialog.dismiss();
                     }
-                }, 3000);
+                }, 1000);
     }
     public void onSubmitSuccess() {
-        Toast.makeText(getBaseContext(), "Submit success!", Toast.LENGTH_LONG).show();
+        APIInterface service = ApiClient.getClient().create(APIInterface.class);
+        Call<Boolean> call = service.Forgetpassword(_emailText.getText().toString());
+        call.enqueue(new Callback<Boolean>() {
+            @Override
+            public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                if(response.body()==true)
+                {
+                    Toast.makeText(getApplicationContext(),"Change password sucessful", Toast.LENGTH_LONG).show();
+                    Intent start=new Intent(ForgotPassword.this,LoginActivity.class);
+                    startActivity(start);
+                    finish();
+                    overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<Boolean> call, Throwable t) {
+                Toast.makeText(getApplicationContext(),"Email is not Exist", Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     public void onSubmitFailed() {

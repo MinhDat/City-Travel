@@ -19,5 +19,7 @@ public interface APIInterface
     Call<Account> getAccount(@Query("email") String emal);
     @PUT("TaiKhoan/Forget?")
     Call<Boolean> Forgetpassword(@Query("email") String email);
+    @PUT("TaiKhoan/ChangPassword?")
+    Call<Boolean> ChangePassword(@Query("email") String email,@Query("passwordold") String password,@Query("passwordnew")String passwordnew);
 }
 
