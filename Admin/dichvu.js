@@ -3,8 +3,6 @@ var app=angular.module("Appdichvu", []);
 
     app.controller('dichvuController',function($scope,$http,$log){
 var refresh=function(){
-
-
          $http.get("http://citytravel-2.apphb.com/api/dichvu")
   .then(function(response) {
       $scope.dichvus = response.data;
@@ -62,3 +60,26 @@ console.log("hello");
         });
     };
     });
+
+
+    app.controller('taikhoanController',function($scope,$http,$log){
+var refresh=function(){
+         $http.get("http://citytravel-2.apphb.com/api/taikhoan")
+  .then(function(response) {
+    console.log(response.data);
+      $scope.taikhoans = response.data;
+  });
+};
+
+refresh();
+
+  $scope.deletetaikhoan = function(email){
+        console.log(email);
+        $http.delete('http://citytravel-2.apphb.com/api/taikhoan/'+email,email).then(function(response){
+            refresh();
+        });
+    };
+  });
+
+
+

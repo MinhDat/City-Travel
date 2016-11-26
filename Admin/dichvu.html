@@ -21,7 +21,7 @@
     
 </head>
 <!--  -->
-<body ng-app="Appdichvu" ng-controller="dichvuController">
+<body ng-app="Appdichvu">
     <!--  -->
     <div class="container">
         <h2>Admin Management</h2>
@@ -51,7 +51,7 @@
 </div>
     </div>
     <div id="menu1" class="tab-pane fade">
-        <div class="container" ng-app="Appdichvu" ng-controller="dichvuController">
+        <div class="container" ng-controller="dichvuController">
                 <div class="col-xs-6">
                     <h2>Service Management</h2>
                     <p>In this Page, you can Manage all of thing relate about Service of Places</p>
@@ -73,6 +73,8 @@
                                 <tr>
                                     <th>Service ID</th>
                                     <th>Name of Service</th>
+                                    <th></th>
+                                    <th></th>
                                 </tr>
                             </thread>
                             <tbody>
@@ -88,38 +90,35 @@
 </div>
             </div>
     </div>
-       <div id="menu2" class="tab-pane fade">
-      <div class="container">
+       <div id="menu3" class="tab-pane fade">
+      <div class="container" ng-controller="taikhoanController">
 <div class="col-xs-6">
     <h2>User Management</h2>
 <p>In this Page, you can Manage all of user</p>
 <table class="table">
 <thread>
 <tr>
-<th>User ID</th>
-<th>User Name</th>
-<th>Password</th>
+<th>Email</th>
+<th>Last Name</th>
+<th>First Name</th>
+<th></th>
 </tr>
 </thread>
 <tbody>
-<tr>
-<td></td>
-</tr>
+        <tr ng-repeat = "taikhoan in taikhoans">
+            <td>{{taikhoan.Email}}</td>
+            <td>{{taikhoan.LastName}}</td>
+            <td>{{taikhoan.FirtName}}</td>
+            <td><button type="button" ng-click="deletetaikhoan(taikhoan.Email)" class="btn btn-primary">Delete</button></td>
+        </tr>
 </tbody>
 
 </table>
 </div>
 </div>
     </div>
-      
-         
-
         </div>
-
-
     </div>
-    <!--  -->
-
 </body>
 </html>
 
