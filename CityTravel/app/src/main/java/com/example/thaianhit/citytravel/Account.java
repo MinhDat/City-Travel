@@ -17,26 +17,26 @@ public class Account {
     @SerializedName("LastName")
     private String lastName;
     @SerializedName("FirtName")
-    private String firsrName;
+    private String firstName;
     @SerializedName("Phone")
     private String phone;
     @SerializedName("Sex")
     private int gender;
     @SerializedName("Birth")
-    private Date birth;
+    private String birth;
     @SerializedName("Address")
     private String address;
     @SerializedName("Picture")
     private String picture;
 
-    public Account(String email, String picture, String address, Date birth, int gender, String phone, String firsrName, String lastName, String password) {
+    public Account(String email, String picture, String address, String birth, int gender, String phone, String firsrName, String lastName, String password) {
         this.email = email;
         this.picture = picture;
         this.address = address;
         this.birth = birth;
         this.gender = gender;
         this.phone = phone;
-        this.firsrName = firsrName;
+        this.firstName = firsrName;
         this.lastName = lastName;
         this.password = password;
     }
@@ -58,11 +58,11 @@ public class Account {
     }
 
     public String getFirsrName() {
-        return firsrName;
+        return firstName;
     }
 
     public void setFirsrName(String firsrName) {
-        this.firsrName = firsrName;
+        this.firstName = firsrName;
     }
 
     public String getLastName() {
@@ -89,11 +89,11 @@ public class Account {
         this.gender = gender;
     }
 
-    public Date getBirth() {
+    public String getBirth() {
         return birth;
     }
 
-    public void setBirth(Date birth) {
+    public void setBirth(String birth) {
         this.birth = birth;
     }
 

@@ -33,6 +33,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -44,7 +45,7 @@ import butterknife.ButterKnife;
 public class SignupActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
     private Calendar c;
     private static final int REQUEST_SIGNUP = 0;
-    CharSequence[] values = { " None "," Male " ," Female "};
+    CharSequence[] values = {" None ", " Male ", " Female "};
     AlertDialog alertDialog_birthday;
     int id_choose = -1;
     @Bind(R.id.input_firstname)
@@ -124,10 +125,8 @@ public class SignupActivity extends AppCompatActivity implements DatePickerDialo
 
         AlertDialog.Builder builder = new AlertDialog.Builder(SignupActivity.this);
         builder.setTitle("Gender");
-        builder.setSingleChoiceItems(values, id_choose, new DialogInterface.OnClickListener()
-        {
-            public void onClick(DialogInterface dialog, int item)
-            {
+        builder.setSingleChoiceItems(values, id_choose, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int item) {
                 id_choose = item;
                 switch (item) {
                     case 0:
@@ -162,52 +161,19 @@ public class SignupActivity extends AppCompatActivity implements DatePickerDialo
             Toast.makeText(getBaseContext(), "Signup failed!", Toast.LENGTH_SHORT).show();
             return;
         }
-        final ProgressDialog progressDialog = new ProgressDialog(SignupActivity.this,
-                R.style.AppTheme_Dark_Dialog);
-        progressDialog.setIndeterminate(true);
-        progressDialog.setMessage("Creating account...");
-        progressDialog.show();
-
-
-        // TODO: Implement your own authentication logic here.
-
-        new android.os.Handler().postDelayed(
-                new Runnable() {
-                    public void run() {
-                        Checksignup();
-                        progressDialog.dismiss();
-                    }
-                }, 3000);
-
-    }
-
-
-    public void Checksignup() {
-        DateFormat  df = new SimpleDateFormat("dd/MM/yyyy");
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         Date date = new Date();
         try {
             date = df.parse(tvBirthday.toString());
         } catch (Exception e) {
         }
         APIInterface service = ApiClient.getClient().create(APIInterface.class);
-        Call<Boolean> call = service.postAccount(new Account(_emailText.getText().toString(), "", "", date, id_choose - 1, "", _firstnameText.getText().toString(), _lastnameText.getText().toString(), _passwordText.getText().toString()));
-        call.enqueue(new Callback<Boolean>() {
-            @Override
-            public void onResponse(Call<Boolean> call, Response<Boolean> response)
-            {
-                Toast.makeText(getBaseContext(), "Signup success!", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                startActivityForResult(intent, REQUEST_SIGNUP);
-                overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
-                finish();
-            }
-            @Override
-            public void onFailure(Call<Boolean> call, Throwable t)
-            {
-                Toast.makeText(getBaseContext(), "Signup failed!", Toast.LENGTH_SHORT).show();
-            }
-        });
+        Call<Boolean> call = service.postAccount(new Account(_emailText.getText().toString(), "", "", date.toString(), id_choose - 1, "", _firstnameText.getText().toString(), _lastnameText.getText().toString(), _passwordText.getText().toString()));
+        SignupAsyntask signupAsyntask = new SignupAsyntask();
+        signupAsyntask.execute(call);
+
     }
+
     public boolean validate() {
         boolean valid = true;
         String lastname = _lastnameText.getText().toString();
@@ -252,14 +218,59 @@ public class SignupActivity extends AppCompatActivity implements DatePickerDialo
         return valid;
     }
 
+
     @Override
-    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth)
-    {
+    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
         c = Calendar.getInstance();
         c.set(Calendar.YEAR, year);
         c.set(Calendar.MONTH, monthOfYear);
         c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
         tvBirthday.setText(dayOfMonth + "/" + monthOfYear + "/" + year);
+    }
+
+    public class SignupAsyntask extends AsyncTask<Call, Void, Boolean> {
+        ProgressDialog pDialog = new ProgressDialog(SignupActivity.this,
+                R.style.AppTheme_Dark_Dialog);
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pDialog.setMessage("Please wait...");
+            pDialog.setCancelable(false);
+            pDialog.show();
+        }
+
+        @Override
+        protected void onPostExecute(Boolean aBoolean) {
+            super.onPostExecute(aBoolean);
+            if (pDialog.isShowing()) {
+                pDialog.dismiss();
+            }
+            if (aBoolean == true) {
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivityForResult(intent, REQUEST_SIGNUP);
+                overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+                finish();
+            } else {
+                Toast.makeText(SignupActivity.this, "Sign up fail", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        @Override
+        protected Boolean doInBackground(Call... calls) {
+
+            try {
+                Call<Boolean> call = calls[0];
+                Response<Boolean> response = null;
+                response = call.execute();
+                return response.body();
+            } catch (IOException e) {
+                e.printStackTrace();
+                return false;
+            }
+
+        }
+
     }
 }

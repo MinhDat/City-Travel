@@ -118,7 +118,7 @@ public class EditProfile extends AppCompatActivity implements DatePickerDialog.O
                         edtGender.setText("Male");
                         break;
                     case 1:
-                        edtGender.setText("Famale");
+                        edtGender.setText("Female");
                         break;
                     case 2:
                         edtGender.setText("Non");

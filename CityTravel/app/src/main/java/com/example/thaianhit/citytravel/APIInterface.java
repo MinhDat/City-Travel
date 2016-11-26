@@ -15,8 +15,6 @@ public interface APIInterface
     Call<List<Category>> getCategory();
     @GET("Taikhoan?")
     Call<Boolean> checkLogin(@Query("email") String email,@Query("password") String password);
-    @GET("Taikhoan?")
-    Call<Account> getAccount(@Query("email") String emal);
     @PUT("TaiKhoan/Forget?")
     Call<Boolean> Forgetpassword(@Query("email") String email);
     @PUT("TaiKhoan/ChangPassword?")

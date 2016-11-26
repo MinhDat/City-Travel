@@ -85,24 +85,23 @@ public class FragmentAboutMe extends Fragment
     }
     public void GetAccount()
     {
-        APIInterface service = ApiClient.getClient().create(APIInterface.class);
-        Call<Account> call = service.getAccount(LoginActivity.string_email);
-        Log.d("email_tag",LoginActivity.string_email);
-        call.enqueue(new Callback<Account>() {
-           @Override
-           public void onResponse(Call<Account> call, Response<Account> response)
-           {
-               Account account = response.body();
-               Log.d("address_tag",response.body().toString());
-               txt_address.setText(account.getAddress().toString());
-               txt_birth_day.setText(account.getBirth().toString());
-           }
-
-           @Override
-           public void onFailure(Call<Account> call, Throwable t) {
-                Log.d("address_tag",t.toString());
-           }
-       });
+//
+//        Log.d("email_tag",LoginActivity.string_email);
+//        call.enqueue(new Callback<Account>() {
+//           @Override
+//           public void onResponse(Call<Account> call, Response<Account> response)
+//           {
+//               Account account = response.body();
+//               Log.d("address_tag",response.body().toString());
+//               txt_address.setText(account.getAddress().toString());
+//               txt_birth_day.setText(account.getBirth().toString());
+//           }
+//
+//           @Override
+//           public void onFailure(Call<Account> call, Throwable t) {
+//                Log.d("address_tag",t.toString());
+//           }
+//       });
     }
 }
 

@@ -1,5 +1,6 @@
 package com.example.thaianhit.citytravel;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -9,21 +10,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
-
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
 import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Response;
 
 public class FragmentHome extends Fragment {
@@ -33,6 +30,7 @@ public class FragmentHome extends Fragment {
     private FloatingActionButton Search;
     Toolbar toolbar;
     private View myFragmentView;
+    private ProgressDialog pDialog;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -58,51 +56,60 @@ public class FragmentHome extends Fragment {
         recyclerView = (RecyclerView) myFragmentView.findViewById(R.id.recycler);
         recyclerView.setNestedScrollingEnabled(false);
         recyclerView.setHasFixedSize(true);
-        LoadCategory();
-        layoutManager = new LinearLayoutManager(getActivity());
 
+        layoutManager = new LinearLayoutManager(getActivity());
+        APIInterface apiService = ApiClient.getClient().create(APIInterface.class);
+            Call<List<Category>> call = apiService.getCategory();
+        CategoryAsyncTask categoryAsyncTask = new CategoryAsyncTask();
+        categoryAsyncTask.execute(call);
 
         return myFragmentView;
     }
-    public class CategoryAsyntask extends AsyncTask<Void,Void,Void>
-    {
+    public class CategoryAsyncTask extends AsyncTask<Call,Void,List<Category>> {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            pDialog = new ProgressDialog(getActivity());
+            pDialog.setMessage("Please wait...");
+            pDialog.setCancelable(false);
+            pDialog.show();
+
         }
 
         @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-        }
+        protected void onPostExecute(List<Category> categories) {
 
-        @Override
-        protected void onProgressUpdate(Void... values) {
-            super.onProgressUpdate(values);
-        }
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            return null;
-        }
-    }
-    public void LoadCategory()
-    {
-        APIInterface apiService = ApiClient.getClient().create(APIInterface.class);
-        Call<List<Category>> call = apiService.getCategory();
-        call.enqueue(new Callback<List<Category>>() {
-            @Override
-            public void onResponse(Call<List<Category>> call, Response<List<Category>> response) {
-                List<Category> movies = new ArrayList<Category>();
-                movies.addAll(response.body());
+            super.onPostExecute(categories);
+            if (pDialog.isShowing()) {
+                pDialog.dismiss();
+            }
+            if(categories.size() != 0)
+            {
                 recyclerView.setLayoutManager(layoutManager);
-                recyclerView.setAdapter(new CustomRecyclerAdapterHome(movies, getActivity().getApplicationContext()));
+                recyclerView.setAdapter(new CustomRecyclerAdapterHome(categories, getActivity().getApplicationContext()));
+
+            }
+            else
+            {
+                Toast.makeText(getActivity(),"Load fail",Toast.LENGTH_SHORT).show();
             }
 
-            @Override
-            public void onFailure(Call<List<Category>> call, Throwable t) {
-                Toast.makeText(getActivity(),"Load fail",Toast.LENGTH_LONG).show();
+        }
+
+        @Override
+        protected List<Category> doInBackground(Call... calls) {
+            List<Category> list = new ArrayList<Category>();
+            try {
+                Call<List<Category>> call = calls[0];
+                Response<List<Category>> response = call.execute();
+
+                list.addAll(response.body());
+                return list;
+            } catch (Exception e)
+            {
+                return list;
             }
-        });
+
+        }
     }
 }
