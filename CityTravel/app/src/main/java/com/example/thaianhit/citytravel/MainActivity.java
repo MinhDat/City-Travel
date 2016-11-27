@@ -1,6 +1,5 @@
 package com.example.thaianhit.citytravel;
 import android.app.FragmentTransaction;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.v7.app.AppCompatActivity;
@@ -24,40 +23,46 @@ public class MainActivity extends AppCompatActivity {
                 {
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                     fragmentTransaction.replace(R.id.fragment_switch,new FragmentHome(), "fragmentA");
+
                     fragmentTransaction.addToBackStack("fragmentA");
+
                     fragmentTransaction.commit();
                 }
                 if(tabId==R.id.btn_list)
                 {
+
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                     fragmentTransaction.replace(R.id.fragment_switch,new SaveLocation(), "fragmentB");
+
                     fragmentTransaction.addToBackStack("fragmentB");
+
                     fragmentTransaction.commit();
+
                 }
                 if(tabId==R.id.btn_about_me)
                 {
+
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                     fragmentTransaction.replace(R.id.fragment_switch,new FragmentAboutMe(), "fragmentD");
+
                     fragmentTransaction.addToBackStack("fragmentD");
                     fragmentTransaction.commit();
                     overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+
                 }
                 if(tabId==R.id.btn_history)
                 {
+
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                     fragmentTransaction.replace(R.id.fragment_switch,new History(), "fragmentC");
+
                     fragmentTransaction.addToBackStack("fragmentC");
+
                     fragmentTransaction.commit();
+
                 }
             }
         });
     }
 
-    @Override
-    public void onBackPressed() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            this.finishAffinity();
-        }
-        super.onBackPressed();
-    }
 }

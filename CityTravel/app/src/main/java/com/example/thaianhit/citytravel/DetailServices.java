@@ -34,6 +34,7 @@ public class DetailServices extends FragmentActivity implements OnMapReadyCallba
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_services);
         txt_detail_service = (TextView) findViewById(R.id.txt_chi_tiet_dv);
+        //tbDetailService = findViewById(R.id.)
         txt_detail_service.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,7 +76,7 @@ public class DetailServices extends FragmentActivity implements OnMapReadyCallba
         googleMap.getUiSettings().setAllGesturesEnabled(false);
         mMap = googleMap;
 
-        LatLng sydney = new LatLng(10.751242, 106.701170);
+        final LatLng sydney = new LatLng(10.751242, 106.701170);
 
         mMap.addMarker(new MarkerOptions().position(sydney).title("861/90C Trần Xuân Soạn"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));

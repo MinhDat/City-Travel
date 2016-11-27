@@ -5,7 +5,7 @@ xmlns:tools="http://schemas.android.com/tools"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
 app:layout_behavior="@string/appbar_scrolling_view_behavior"
-tools:context="com.example.thaianhit.citytravel.FragmentHome"
+tools:context="com.example.thaianhit.citytravel.fragment_home"
 >
 // RecyclerView ( Tương tự như listView) chứa danh sách các mục tìm kiếm như : Bệnh viện, Cửa hàng,...
 <android.support.v7.widget.RecyclerView

@@ -1,17 +1,13 @@
 package com.example.thaianhit.citytravel;
 
-import android.graphics.Color;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 
-//import com.akexorcist.googledirection.DirectionCallback;
-//import com.akexorcist.googledirection.GoogleDirection;
-//import com.akexorcist.googledirection.constant.TransportMode;
-//import com.akexorcist.googledirection.model.Direction;
-//import com.akexorcist.googledirection.model.Leg;
-//import com.akexorcist.googledirection.model.Route;
-//import com.akexorcist.googledirection.util.DirectionConverter;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -19,66 +15,78 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.model.PolylineOptions;
 
-import java.util.ArrayList;
-
-public class MapDetailService extends FragmentActivity implements OnMapReadyCallback {
+public class MapDetailService extends AppCompatActivity implements OnMapReadyCallback {
 
     Toolbar tbDetail;
     String API = "AIzaSyARQpLUzG0SDIebZUM_6zZfotVBmwG4r_E";
     public GoogleMap mMap;
-
+    
+    Intent intent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map_detail_service);
 
+        intent = getIntent();
         tbDetail = (Toolbar) findViewById(R.id.tbMapDetailService);
         tbDetail.setTitle("Map detail service");
+
+        setSupportActionBar(tbDetail);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setTitle("Map detail service");
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.gg_map);
         mapFragment.getMapAsync(this);
-
-
     }
 
     void addMarker(LatLng position)
     {
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(position, 15));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(position, 16));
         mMap.addMarker(new MarkerOptions()
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_map_marker))
-                .anchor(0.5f, 1.0f) // Anchors the marker on the bottom left
+                .anchor(0.5f, 1.0f)
                 .position(position));
     }
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        LatLng ori = new LatLng(37.7849569, -122.4068855);
-        LatLng des = new LatLng(37.7814432, -122.4460177);
 
+        LatLng point = new LatLng(10.751242, 106.701170);
         mMap = googleMap;
-//        GoogleDirection.withServerKey(API)
-//                .from(ori)
-//                .to(des)
-//                .transportMode(TransportMode.DRIVING)
-//                .execute(new DirectionCallback() {
-//                    @Override
-//                    public void onDirectionSuccess(Direction direction, String rawBody) {
-//
-//                            Route route = direction.getRouteList().get(0);
-//                            Leg leg = route.getLegList().get(0);
-//                            ArrayList<LatLng> directionPositionList = leg.getDirectionPoint();
-//                            PolylineOptions polylineOptions = DirectionConverter.createPolyline(getApplicationContext(), directionPositionList, 5, Color.RED);
-//                            mMap.addPolyline(polylineOptions);
-//                    }
-//                    @Override
-//                    public void onDirectionFailure(Throwable t) {
-//                        // Do something here
-//                        //Toast.makeText(getApplicationContext(),"can not found the way", Toast.LENGTH_LONG);
-//                    }
-//                });
-        addMarker(ori);
-        addMarker(des);
+        addMarker(point);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_map_detail_direction, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+        Intent intentMap, chooser=null;
+        float lat = (float) 10.751242;
+        float lng = (float) 106.701170;
+        Uri uri = Uri.parse("http://maps.google.com/maps?saddr="+lat+","+lng+"&daddr="+10.748544+","+106.688742);
+
+        switch (id){
+            case android.R.id.home:
+                onBackPressed();
+                break;
+            case R.id.mnMapDirection:
+                intentMap = new Intent(Intent.ACTION_VIEW,
+                        Uri.parse("http://maps.google.com/maps?saddr="+lat+","+lng+"&daddr="+10.748544+","+106.688742));
+                chooser = Intent.createChooser(intentMap,"Launch Maps");
+                intentMap.setClassName("com.google.android.apps.maps",
+                        "com.google.android.maps.MapsActivity");
+
+                startActivity(chooser);
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

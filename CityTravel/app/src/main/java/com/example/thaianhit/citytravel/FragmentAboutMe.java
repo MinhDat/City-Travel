@@ -6,7 +6,6 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,10 +15,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 
 public class FragmentAboutMe extends Fragment
@@ -46,13 +41,13 @@ public class FragmentAboutMe extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         myFragmentView = inflater.inflate(R.layout.activity_fragment_about_me, container, false);
-        img_btn_editPassword = (ImageButton)myFragmentView.findViewById(R.id.img_edit_password_about_me);
-        img_btn_editUser = (ImageButton)myFragmentView.findViewById(R.id.img_edit_user_about_me);
-        txt_address = (TextView)myFragmentView.findViewById(R.id.txt_address_about_me);
-        txt_birth_day =(TextView)myFragmentView.findViewById(R.id.txt_birth_day_about_me);
-        txt_gender =(TextView)myFragmentView.findViewById(R.id.txt_genner_about_me);
-        txt_phone = (TextView)myFragmentView.findViewById(R.id.txt_phone_number_about_me);
-        imgAvatar = (ImageView)myFragmentView.findViewById(R.id.img_avatar_about_me);
+        img_btn_editPassword = (ImageButton)myFragmentView.findViewById(R.id.img_edit_password);
+        img_btn_editUser = (ImageButton)myFragmentView.findViewById(R.id.img_edit_user);
+        txt_address = (TextView)myFragmentView.findViewById(R.id.txt_address);
+        txt_birth_day =(TextView)myFragmentView.findViewById(R.id.txt_birth_day);
+        txt_gender =(TextView)myFragmentView.findViewById(R.id.txt_gender);
+        txt_phone = (TextView)myFragmentView.findViewById(R.id.txt_phone_number);
+        imgAvatar = (ImageView)myFragmentView.findViewById(R.id.img_avatar);
         GetAccount();
         img_btn_editUser.setOnClickListener(new View.OnClickListener() {
             @Override
