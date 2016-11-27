@@ -7,6 +7,7 @@ using System.Net;
 using System;
 using System.Net.Mail;
 using System.Configuration;
+using CityTravelService.Session;
 
 namespace CityTravelService.Controllers
 {
@@ -15,6 +16,7 @@ namespace CityTravelService.Controllers
     {
         #region GET
         // GET: api/TaiKhoan
+        [Auth(PerMissionName = "Admin")]
         [Route("")]
         [HttpGet]
         public IEnumerable<TaiKhoan> Get()
@@ -27,6 +29,7 @@ namespace CityTravelService.Controllers
         }
 
         // GET: api/TaiKhoan/5
+        [Auth(PerMissionName = "Customer")]
         [Route("")]
         [HttpGet]
         public TaiKhoan Get(string email)
@@ -43,26 +46,18 @@ namespace CityTravelService.Controllers
         // GET: 
         [Route("")]
         [HttpGet]
-        public bool Get(string email, string password)
+        public TaiKhoan Get(string email, string password)
         {
             TaiKhoanDAO tkO = new TaiKhoanDAO();
-
             TaiKhoan tk;
             tk = tkO.getTaiKhoan(email, password);
-            if(tk.Email==null)
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
-
+            return tk;
         }
         #endregion
 
         #region POST
         // POST: api/TaiKhoan
+        [Auth(PerMissionName = "Customer")]
         [Route("")]
         [HttpPost]
         public bool Post([FromBody]TaiKhoan tk)
@@ -77,6 +72,7 @@ namespace CityTravelService.Controllers
 
         #region PUT
         // PUT: api/TaiKhoan/5
+        [Auth(PerMissionName = "Customer")]
         [Route("")]
         [HttpPut]
         public bool Put([FromBody]TaiKhoan tk)
@@ -87,6 +83,7 @@ namespace CityTravelService.Controllers
             response.Headers.Location = new System.Uri(Request.RequestUri, "/api/TaiKhoan/" + tk.Email.ToString());*/
             return tkO.updateTaiKhoan(tk);
         }
+        [Auth(PerMissionName = "Customer")]
         [Route("ChangPassword")]
         [HttpPut]
         public bool  ChangPassword(string email,string passwordold,string passwordnew)
@@ -96,7 +93,7 @@ namespace CityTravelService.Controllers
 
         }
         #endregion
-
+        [Auth(PerMissionName = "Admin")]
         #region DELETE
         // DELETE: api/TaiKhoan/5
         [Route("")]
