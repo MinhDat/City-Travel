@@ -43,11 +43,12 @@ public class FragmentAboutMe extends Fragment
         myFragmentView = inflater.inflate(R.layout.activity_fragment_about_me, container, false);
         img_btn_editPassword = (ImageButton)myFragmentView.findViewById(R.id.img_edit_password);
         img_btn_editUser = (ImageButton)myFragmentView.findViewById(R.id.img_edit_user);
-        txt_address = (TextView)myFragmentView.findViewById(R.id.txt_address);
-        txt_birth_day =(TextView)myFragmentView.findViewById(R.id.txt_birth_day);
+        txt_address = (TextView)myFragmentView.findViewById(R.id.txt_address_about_me);
+        txt_birth_day =(TextView)myFragmentView.findViewById(R.id.txt_birth_day_about_me
+        );
         txt_gender =(TextView)myFragmentView.findViewById(R.id.txt_gender);
         txt_phone = (TextView)myFragmentView.findViewById(R.id.txt_phone_number);
-        imgAvatar = (ImageView)myFragmentView.findViewById(R.id.img_avatar);
+        imgAvatar = (ImageView)myFragmentView.findViewById(R.id.img_avatar_about_me);
         GetAccount();
         img_btn_editUser.setOnClickListener(new View.OnClickListener() {
             @Override

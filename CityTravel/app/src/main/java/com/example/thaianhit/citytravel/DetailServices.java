@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -33,6 +34,9 @@ public class DetailServices extends FragmentActivity implements OnMapReadyCallba
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_services);
+        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbarDetail);
+        toolbar.setTitleTextColor(android.graphics.Color.WHITE);
+        toolbar.setTitle("Dịch vụ");
         txt_detail_service = (TextView) findViewById(R.id.txt_chi_tiet_dv);
         //tbDetailService = findViewById(R.id.)
         txt_detail_service.setOnClickListener(new View.OnClickListener() {
@@ -51,9 +55,7 @@ public class DetailServices extends FragmentActivity implements OnMapReadyCallba
         Dialog dialog = new Dialog(this);
         dialog.setTitle("Chi tiết dịch vụ");
         dialog.setContentView(R.layout.custom_dialog_detail);
-
         lv_detail_services = (ListView) dialog.findViewById(R.id.lv_dialog_detail);
-
         arr_detail_services = new ArrayList();
         arr_detail_services.add(new ClassDetailService("Loại phòng 1","500,000"));
         arr_detail_services.add(new ClassDetailService("Loại phòng 2","400,000"));
@@ -63,7 +65,6 @@ public class DetailServices extends FragmentActivity implements OnMapReadyCallba
         arr_detail_services.add(new ClassDetailService("Loại phòng 2","400,000"));
         arr_detail_services.add(new ClassDetailService("Loại phòng 3","300,000"));
         arr_detail_services.add(new ClassDetailService("Loại phòng 4","200,000"));
-
         adapter = new AdapterDetailServices(getApplicationContext(), R.layout.item_dialog_detail_service, arr_detail_services);
         lv_detail_services.setAdapter(adapter);
 
@@ -93,4 +94,6 @@ public class DetailServices extends FragmentActivity implements OnMapReadyCallba
             }
         });
     }
+
+
 }

@@ -6,6 +6,7 @@
     android:layout_height="wrap_content"
     android:layout_marginBottom="5dp"
     android:paddingTop="5dp"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:paddingLeft="3.5dp"
     android:paddingRight="3.5dp">
 
@@ -24,7 +25,7 @@
             android:layout_alignParentTop="true"
             android:layout_gravity="center_vertical"
             android:layout_marginRight="16dp"
-            android:src="@drawable/ic_account_comment"
+            card_view:srcCompat="@drawable/ic_account_comment"
             />
         <!--app:srcCompat="@drawable/ic_account_comment"-->
 

@@ -36,6 +36,7 @@ public class MapDetailService extends AppCompatActivity implements OnMapReadyCal
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle("Map detail service");
+        tbDetail.setTitleTextColor(android.graphics.Color.WHITE);
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.gg_map);
@@ -46,7 +47,6 @@ public class MapDetailService extends AppCompatActivity implements OnMapReadyCal
     {
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(position, 16));
         mMap.addMarker(new MarkerOptions()
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_map_marker))
                 .anchor(0.5f, 1.0f)
                 .position(position));
     }
