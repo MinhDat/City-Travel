@@ -14,8 +14,7 @@
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
         android:minHeight="?attr/actionBarSize"
-        app:theme="@style/ToolbarStyle"
-       ></android.support.v7.widget.Toolbar>
+        app:theme="@style/ToolbarStyle"></android.support.v7.widget.Toolbar>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -54,7 +53,7 @@
                     android:hint="Name"
                     android:inputType="textEmailAddress"
                     android:text="Dũng"
-                    android:id="@+id/editText" />
+                    android:id="@+id/edt_Name" />
 
                 <EditText
                     android:layout_width="0dp"
@@ -66,7 +65,8 @@
                     android:hint="Name"
                     android:inputType="textEmailAddress"
 
-                    android:text="Trương Như" />
+                    android:text="Trương Như"
+                    android:id="@+id/edt_Ho" />
             </LinearLayout>
 
             <EditText
@@ -76,7 +76,8 @@
                 android:layout_marginTop="3dp"
                 android:background="@drawable/custom_edittext_profile"
                 android:hint="Phone Number"
-                android:inputType="number" />
+                android:inputType="number"
+                android:id="@+id/edt_PhoneNumber" />
 
             <EditText
                 android:textSize="14sp"

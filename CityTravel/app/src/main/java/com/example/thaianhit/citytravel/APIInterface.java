@@ -15,9 +15,13 @@ public interface APIInterface
     Call<List<Category>> getCategory();
     @GET("Taikhoan?")
     Call<Boolean> checkLogin(@Query("email") String email,@Query("password") String password);
+    @GET("Taikhoan?")
+    Call<Account> getAccount(@Query("email") String emal);
     @PUT("TaiKhoan/Forget?")
     Call<Boolean> Forgetpassword(@Query("email") String email);
     @PUT("TaiKhoan/ChangPassword?")
     Call<Boolean> ChangePassword(@Query("email") String email,@Query("passwordold") String password,@Query("passwordnew")String passwordnew);
+    @PUT("Taikhoan")
+    Call<Boolean> editProfile(@Body Account account);
 }
 

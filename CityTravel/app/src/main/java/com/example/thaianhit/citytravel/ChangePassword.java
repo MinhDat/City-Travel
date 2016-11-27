@@ -47,7 +47,7 @@ public class ChangePassword extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
-            case R.id.mnSetting:
+            case R.id.action_save:
                 ChangePass();
                 break;
             case android.R.id.home:
