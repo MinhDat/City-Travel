@@ -9,6 +9,7 @@ using CityTravelService.Models;
 
 namespace CityTravelService.Controllers
 {
+	[Auth(PerMissionName = "Admin")]
     public class DiaDiemController : ApiController
     {
         // POST: api/TenDiaDiem
