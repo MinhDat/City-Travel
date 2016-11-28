@@ -8,12 +8,21 @@ using System;
 using System.Net.Mail;
 using System.Configuration;
 using CityTravelService.Session;
+using System.Web;
 
 namespace CityTravelService.Controllers
 {
     [RoutePrefix("api/TaiKhoan")]
     public class TaiKhoanController : ApiController
     {
+        public bool Test()
+        {
+            if (HttpContext.Current.Session.Count == 0 || HttpContext.Current.Session["UserOnline"] == null)
+            {
+                return false;
+            }
+            return true;
+        }
         #region GET
         // GET: api/TaiKhoan
         [Auth(PerMissionName = "Admin")]
@@ -22,18 +31,32 @@ namespace CityTravelService.Controllers
         public IEnumerable<TaiKhoan> Get()
         {
             TaiKhoanDAO tkO = new TaiKhoanDAO();
-
             TaiKhoan[] tk = new TaiKhoan[tkO.getDsTaiKhoan().Count];
             tk = tkO.getDsTaiKhoan().ToArray();
             return tk;
         }
-
+        [Route("Logout")]
+        [HttpGet]
+        public bool Logout()
+        {
+            if (Test() == false)
+            {
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
+            }
+            HttpContext.Current.Session["AccountId"] = null;
+            HttpContext.Current.Session["UserOnline"] = null;
+            HttpContext.Current.Session["Auth"] = null;
+            return true;
+        }
         // GET: api/TaiKhoan/5
-        [Auth(PerMissionName = "Customer")]
         [Route("")]
         [HttpGet]
         public TaiKhoan Get(string email)
         {
+            if (Test() == false)
+            {
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
+            }
             TaiKhoanDAO tkO = new TaiKhoanDAO();
             TaiKhoan tk = new TaiKhoan();
             tk =tkO.getTaiKhoan(email);
@@ -57,7 +80,6 @@ namespace CityTravelService.Controllers
 
         #region POST
         // POST: api/TaiKhoan
-        [Auth(PerMissionName = "Customer")]
         [Route("")]
         [HttpPost]
         public bool Post([FromBody]TaiKhoan tk)
@@ -72,34 +94,43 @@ namespace CityTravelService.Controllers
 
         #region PUT
         // PUT: api/TaiKhoan/5
-        [Auth(PerMissionName = "Customer")]
         [Route("")]
         [HttpPut]
         public bool Put([FromBody]TaiKhoan tk)
         {
+            if (Test() == false)
+            {
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound)); return false;
+            }
             TaiKhoanDAO tkO = new TaiKhoanDAO();
             //tkO.updateTaiKhoan(tk);
             /*var response = Request.CreateResponse<TaiKhoan>(HttpStatusCode.Created, tk);
             response.Headers.Location = new System.Uri(Request.RequestUri, "/api/TaiKhoan/" + tk.Email.ToString());*/
             return tkO.updateTaiKhoan(tk);
         }
-        [Auth(PerMissionName = "Customer")]
         [Route("ChangPassword")]
         [HttpPut]
         public bool  ChangPassword(string email,string passwordold,string passwordnew)
         {
+            if (Test() == false)
+            {
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
+            }
             TaiKhoanDAO tk0 = new TaiKhoanDAO();
             return tk0.changePassword(email, passwordold, passwordnew);
 
         }
         #endregion
-        [Auth(PerMissionName = "Admin")]
         #region DELETE
         // DELETE: api/TaiKhoan/5
         [Route("")]
         [HttpDelete]
         public bool Delete(string id)
         {
+            if (Test() == false)
+            {
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
+            }
             TaiKhoanDAO tkO = new TaiKhoanDAO();
             TaiKhoan tk = new TaiKhoan();
             tk = tkO.getTaiKhoan(id);

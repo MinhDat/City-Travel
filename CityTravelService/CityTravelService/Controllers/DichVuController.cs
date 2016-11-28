@@ -5,14 +5,28 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using CityTravelService.Models;
+using CityTravelService.Session;
+using System.Web;
 
 namespace CityTravelService.Controllers
 {
     public class DichVuController : ApiController
     {
+        public bool Test()
+        {
+            if (HttpContext.Current.Session.Count == 0 || HttpContext.Current.Session["UserOnline"] == null)
+            {
+                return false;
+            }
+            return true;
+        }
         // GET: api/DichVu
         public IEnumerable<DichVu> Get()
         {
+            if (Test() == false)
+            {
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
+            }
             DichVuDAO ddO = new DichVuDAO();
 
             DichVu[] dd = new DichVu[ddO.getDsDichVu().Count];
@@ -23,6 +37,10 @@ namespace CityTravelService.Controllers
         // GET: api/DichVu/5
         public IEnumerable<DichVu> Get(int id)
         {
+            if (Test() == false)
+            {
+                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
+            }
             DichVuDAO ddO = new DichVuDAO();
 
             DichVu[] dd = new DichVu[ddO.getDsDichVu(id).Count];
@@ -33,6 +51,7 @@ namespace CityTravelService.Controllers
         }
 
         // POST: api/DichVu
+        [Auth(PerMissionName = "Admin")]
         public void Post([FromBody]DichVu dd)
         {
             DichVuDAO dd0 = new DichVuDAO();
@@ -50,6 +69,7 @@ namespace CityTravelService.Controllers
         //}
 
         // PUT: api/DichVu/5
+        [Auth(PerMissionName = "Admin")]
         public void Put([FromBody]DichVu dd)
         {
             DichVuDAO dd0 = new DichVuDAO();
@@ -57,6 +77,7 @@ namespace CityTravelService.Controllers
         }
 
         // DELETE: api/DichVu/5
+        [Auth(PerMissionName = "Admin")]
         public void Delete(int id)
         {
             DichVuDAO dd0 = new DichVuDAO();

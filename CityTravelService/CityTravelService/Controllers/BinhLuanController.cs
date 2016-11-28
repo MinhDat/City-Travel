@@ -1,4 +1,5 @@
 ﻿using CityTravelServer.Models;
+using CityTravelService.Session;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,7 @@ using System.Web.Http;
 
 namespace CityTravelServer.Controllers
 {
+    [Auth(PerMissionName = "Admin")]
     public class BinhLuanController : ApiController
     {
         // GET: api/BinhLuan
@@ -40,7 +42,7 @@ namespace CityTravelServer.Controllers
         }
 
         // PUT: api/BinhLuan/5
-        public void Put([FromBody]BinhLuan bl)
+        public void Put([FromBody]string bl)
         {
             BinhLuanDAO bl0 = new BinhLuanDAO();
             bl0.updateBinhLuan(bl);
