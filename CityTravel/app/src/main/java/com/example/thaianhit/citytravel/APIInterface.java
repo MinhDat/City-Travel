@@ -13,15 +13,15 @@ public interface APIInterface
     Call<Boolean> postAccount(@Body Account account);
     @GET("DichVu")
     Call<List<Category>> getCategory();
-    @GET("Taikhoan?")
-    Call<Boolean> checkLogin(@Query("email") String email,@Query("password") String password);
-    @GET("Taikhoan?")
-    Call<Account> getAccount(@Query("email") String emal);
+    @GET("TaiKhoan?")
+    Call<Account> checkLogin(@Query("email") String email,@Query("password") String password);
     @PUT("TaiKhoan/Forget?")
     Call<Boolean> Forgetpassword(@Query("email") String email);
     @PUT("TaiKhoan/ChangPassword?")
     Call<Boolean> ChangePassword(@Query("email") String email,@Query("passwordold") String password,@Query("passwordnew")String passwordnew);
-    @PUT("Taikhoan")
+    @PUT("TaiKhoan")
     Call<Boolean> editProfile(@Body Account account);
+    @GET("TaiKhoan/Logout")
+    Call<Boolean> Logout();
 }
 

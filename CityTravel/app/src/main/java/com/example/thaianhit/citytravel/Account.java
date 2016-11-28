@@ -1,9 +1,9 @@
 package com.example.thaianhit.citytravel;
 
-import com.google.android.gms.vision.barcode.Barcode;
+
 import com.google.gson.annotations.SerializedName;
 
-import java.util.Date;
+
 
 /**
  * Created by T.N on 11/20/2016.
@@ -28,8 +28,10 @@ public class Account {
     private String address;
     @SerializedName("Picture")
     private String picture;
+    @SerializedName("Role")
+    private String role;
 
-    public Account(String email, String picture, String address, String birth, int gender, String phone, String firsrName, String lastName, String password) {
+    public Account(String email, String picture, String address, String birth, int gender, String phone, String firsrName, String lastName, String password,String role) {
         this.email = email;
         this.picture = picture;
         this.address = address;
@@ -39,6 +41,7 @@ public class Account {
         this.firstName = firsrName;
         this.lastName = lastName;
         this.password = password;
+        this.role = role;
     }
 
     public String getEmail() {
@@ -57,13 +60,6 @@ public class Account {
         this.password = password;
     }
 
-    public String getFirsrName() {
-        return firstName;
-    }
-
-    public void setFirsrName(String firsrName) {
-        this.firstName = firsrName;
-    }
 
     public String getLastName() {
         return lastName;
@@ -111,5 +107,21 @@ public class Account {
 
     public void setPicture(String picture) {
         this.picture = picture;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }

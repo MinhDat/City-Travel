@@ -1,8 +1,10 @@
 package com.example.thaianhit.citytravel;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
+import android.content.DialogInterface;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -10,15 +12,16 @@ import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.io.IOException;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.example.thaianhit.citytravel.LoginActivity.string_email;
 
 public class ChangePassword extends AppCompatActivity {
+    ProgressDialog  progressDialog;
     @Bind(R.id.tbChangePass)
     Toolbar tbChangePass;
     @Bind(R.id.edt_oldpassword)
@@ -27,6 +30,8 @@ public class ChangePassword extends AppCompatActivity {
     EditText edt_newpassword;
     @Bind(R.id.edt_repassword)
     EditText edt_repassword;
+    AccountLocalStore accountLocalStore;
+    Account account = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +42,8 @@ public class ChangePassword extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle("Change password");
+      accountLocalStore = new AccountLocalStore(ChangePassword.this);
+      account =  accountLocalStore.GetLoggedInUser();
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
@@ -64,51 +71,10 @@ public class ChangePassword extends AppCompatActivity {
             onChangePassFailed();
             return;
         }
-        final ProgressDialog progressDialog = new ProgressDialog(ChangePassword.this,
-                R.style.AppTheme_Dark_Dialog);
-        progressDialog.setIndeterminate(true);
-        progressDialog.setMessage("Submit...");
-        progressDialog.show();
-
-
-        // TODO: Implement your own authentication logic here.
-
-        new android.os.Handler().postDelayed(
-                new Runnable() {
-                    public void run() {
-                        Change();
-                        progressDialog.dismiss();
-                    }
-                }, 1000);
-    }
-    public void Change()
-    {
-        APIInterface service = ApiClient.getClient().create(APIInterface.class);
-        Call<Boolean> call = service.ChangePassword(string_email, edt_oldpassword.getText().toString(),edt_newpassword.getText().toString());
-        call.enqueue(new Callback<Boolean>() {
-            @Override
-            public void onResponse(Call<Boolean> call, Response<Boolean> response) {
-                if(response.isSuccessful())
-                {
-                    if(response.body() == true)
-                    {
-                        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                        startActivity(intent);
-                        overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
-                        finish();
-                    }
-                    else
-                    {
-                        Toast.makeText(ChangePassword.this, "Password old not valid", Toast.LENGTH_SHORT).show();
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Boolean> call, Throwable t) {
-                Toast.makeText(ChangePassword.this, "ChangPassword Fail", Toast.LENGTH_LONG).show();
-            }
-        });
+        ChangeAsyncTask asyncTask = new ChangeAsyncTask();
+        APIInterface service = ApiClient.getClient(ChangePassword.this).create(APIInterface.class);
+        Call<Boolean> call = service.ChangePassword(account.getEmail(), edt_oldpassword.getText().toString(),edt_newpassword.getText().toString());
+        asyncTask.execute(call);
 
     }
     public boolean validate() {
@@ -141,7 +107,65 @@ public class ChangePassword extends AppCompatActivity {
     }
     public void onChangePassFailed() {
         Toast.makeText(getBaseContext(), "ChangPassword failed", Toast.LENGTH_LONG).show();
+    }
+    public class ChangeAsyncTask extends AsyncTask<Call,Void,Boolean>
+    {
 
+
+        @Override
+        protected void onPreExecute()
+        {
+            progressDialog = new ProgressDialog(ChangePassword.this,
+                    R.style.AppTheme_Dark_Dialog);
+            progressDialog.setIndeterminate(true);
+            progressDialog.setMessage("Changing...");
+            progressDialog.show();
+            super.onPreExecute();
+        }
+
+        @Override
+        protected void onPostExecute(Boolean aBoolean)
+        {
+            super.onPostExecute(aBoolean);
+            if(progressDialog.isShowing()) {
+                progressDialog.dismiss();
+            }
+            if(aBoolean == true)
+            {
+                ShowDialog();
+            }
+            else
+            {
+                Toast.makeText(ChangePassword.this,"Change fail!",Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        @Override
+        protected Boolean doInBackground(Call... calls)
+        {
+            try {
+                Call<Boolean> call = calls[0];
+                Response<Boolean> response = null;
+                response = call.execute();
+                return response.body();
+            } catch (IOException e) {
+                e.printStackTrace();
+                return false;
+            }
+        }
+    }
+    public void ShowDialog()
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Change password success!");
+        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id)
+            {
+                onBackPressed();
+            }
+        });
+        builder.create();
+        builder.show();
     }
 
 }

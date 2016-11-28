@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,6 +49,7 @@ public class FragmentHome extends Fragment {
                 getActivity().finish();
             }
         });
+
         Glide.with(this).load(R.drawable.logo)
                 .thumbnail(0.5f)
                 .crossFade()
@@ -58,7 +60,7 @@ public class FragmentHome extends Fragment {
         recyclerView.setHasFixedSize(true);
 
         layoutManager = new LinearLayoutManager(getActivity());
-        APIInterface apiService = ApiClient.getClient().create(APIInterface.class);
+        APIInterface apiService = ApiClient.getClient(getActivity()).create(APIInterface.class);
             Call<List<Category>> call = apiService.getCategory();
         CategoryAsyncTask categoryAsyncTask = new CategoryAsyncTask();
         categoryAsyncTask.execute(call);
@@ -99,14 +101,16 @@ public class FragmentHome extends Fragment {
         @Override
         protected List<Category> doInBackground(Call... calls) {
             List<Category> list = new ArrayList<Category>();
-            try {
+            try
+            {
                 Call<List<Category>> call = calls[0];
                 Response<List<Category>> response = call.execute();
-
                 list.addAll(response.body());
+
                 return list;
             } catch (Exception e)
             {
+                Log.d("fffff",e.toString());
                 return list;
             }
 

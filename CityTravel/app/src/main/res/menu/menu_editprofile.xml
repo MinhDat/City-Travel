@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools">
     <item
         android:id="@+id/action_save"
-        android:icon="@drawable/ic_save_white"
-        android:title="Save"
-        app:showAsAction="ifRoom" />
+    android:icon="@drawable/ic_save_white"
+    android:title="Save"
+    app:showAsAction="ifRoom" />
 
 </menu>

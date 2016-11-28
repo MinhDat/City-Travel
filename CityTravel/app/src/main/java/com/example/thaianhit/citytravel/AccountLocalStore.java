@@ -19,12 +19,13 @@ public class AccountLocalStore {
         spEditor.putString("birth",account.getBirth());
         spEditor.putInt("gender",account.getGender());
         spEditor.putString("phone",account.getPhone());
-        spEditor.putString("firstname",account.getFirsrName());
+        spEditor.putString("firstname",account.getFirstName());
         spEditor.putString("lastname",account.getLastName());
         spEditor.putString("password",account.getPassword());
+        spEditor.putString("role",account.getRole());
         spEditor.commit();
     }
-    public Account GetLoggedInUser()
+    public  Account GetLoggedInUser()
     {
         String email = userLocalDatabase.getString("email","");
         String picture = userLocalDatabase.getString("picture","");
@@ -35,7 +36,8 @@ public class AccountLocalStore {
         String firstname = userLocalDatabase.getString("firstname","");
         String lastname = userLocalDatabase.getString("lastname","");
         String password = userLocalDatabase.getString("password","");
-        Account storeAccount = new Account(email,picture,address,birth,gender,phone,firstname,lastname,password);
+        String role = userLocalDatabase.getString("role","");
+        Account storeAccount = new Account(email,picture,address,birth,gender,phone,firstname,lastname,password,role);
         return storeAccount;
     }
     public void SetUserLoggedIn(boolean loggedIn)

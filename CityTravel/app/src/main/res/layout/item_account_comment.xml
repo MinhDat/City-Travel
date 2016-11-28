@@ -14,7 +14,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/custom_boder_button_save"
+        android:background="@drawable/custom_toggle"
         android:padding="16dp">
 
         <ImageView

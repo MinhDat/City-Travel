@@ -24,16 +24,10 @@ import android.widget.Toast;
 
 
 import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Response;
-
-
-
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
-
-import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -41,9 +35,12 @@ import java.util.Date;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class SignupActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
     private Calendar c;
+    ProgressDialog pDialog;
     private static final int REQUEST_SIGNUP = 0;
     CharSequence[] values = {" None ", " Male ", " Female "};
     AlertDialog alertDialog_birthday;
@@ -68,7 +65,7 @@ public class SignupActivity extends AppCompatActivity implements DatePickerDialo
     TextView tvGender;
     @Bind(R.id.input_birthday)
     TextView tvBirthday;
-
+    public static final String BASE_URL = "http://citytravel-2.apphb.com/api/";
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -167,11 +164,23 @@ public class SignupActivity extends AppCompatActivity implements DatePickerDialo
             date = df.parse(tvBirthday.toString());
         } catch (Exception e) {
         }
-        APIInterface service = ApiClient.getClient().create(APIInterface.class);
-        Call<Boolean> call = service.postAccount(new Account(_emailText.getText().toString(), "", "", date.toString(), id_choose - 1, "", _firstnameText.getText().toString(), _lastnameText.getText().toString(), _passwordText.getText().toString()));
+        int gender =-1;
+        if(tvGender.getText().equals("Male"))
+        {
+            gender = 0;
+        }
+        if(tvGender.getText().equals("Female"))
+        {
+            gender = -1;
+        }
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        APIInterface service = retrofit.create(APIInterface.class);
         SignupAsyntask signupAsyntask = new SignupAsyntask();
+        Call<Boolean> call = service.postAccount(new Account(_emailText.getText().toString(), "", "", date.toString(), gender, "", _firstnameText.getText().toString(), _lastnameText.getText().toString(), _passwordText.getText().toString(),"Customer"));
         signupAsyntask.execute(call);
-
     }
 
     public boolean validate() {
@@ -228,14 +237,12 @@ public class SignupActivity extends AppCompatActivity implements DatePickerDialo
 
         tvBirthday.setText(dayOfMonth + "/" + monthOfYear + "/" + year);
     }
-
     public class SignupAsyntask extends AsyncTask<Call, Void, Boolean> {
-        ProgressDialog pDialog = new ProgressDialog(SignupActivity.this,
-                R.style.AppTheme_Dark_Dialog);
-
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            pDialog = new ProgressDialog(SignupActivity.this,
+                    R.style.AppTheme_Dark_Dialog);
             pDialog.setMessage("Please wait...");
             pDialog.setCancelable(false);
             pDialog.show();
@@ -247,26 +254,35 @@ public class SignupActivity extends AppCompatActivity implements DatePickerDialo
             if (pDialog.isShowing()) {
                 pDialog.dismiss();
             }
-            if (aBoolean == true) {
-                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                startActivityForResult(intent, REQUEST_SIGNUP);
-                overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
-                finish();
-            } else {
-                Toast.makeText(SignupActivity.this, "Sign up fail", Toast.LENGTH_SHORT).show();
+            try {
+                Log.d("Gggg",aBoolean.toString());
+                if (aBoolean == true)
+                {
+                    Toast.makeText(SignupActivity.this, "Sign up success", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(SignupActivity.this, LoginActivity.class);
+                    startActivityForResult(intent, REQUEST_SIGNUP);
+                    overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+                    finish();
+                } else {
+                    Toast.makeText(SignupActivity.this, "Sign up fail", Toast.LENGTH_SHORT).show();
+                }
+            }
+            catch (Exception e)
+            {
+                Log.d("FFF",e.toString());
+                Toast.makeText(SignupActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
             }
         }
 
         @Override
         protected Boolean doInBackground(Call... calls) {
-
             try {
                 Call<Boolean> call = calls[0];
                 Response<Boolean> response = null;
                 response = call.execute();
                 return response.body();
-            } catch (IOException e) {
-                e.printStackTrace();
+            } catch (Exception e) {
+                Log.d("ffff",e.toString());
                 return false;
             }
 

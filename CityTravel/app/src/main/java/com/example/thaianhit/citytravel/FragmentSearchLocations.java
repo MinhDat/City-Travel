@@ -10,11 +10,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import android.support.v7.widget.SearchView;
 import android.view.MenuItem;
 
 import android.widget.Toast;
 
 import com.arlib.floatingsearchview.FloatingSearchView;
+import com.arlib.floatingsearchview.suggestions.model.SearchSuggestion;
 
 
 import java.util.ArrayList;
@@ -29,6 +31,7 @@ public class FragmentSearchLocations extends AppCompatActivity {
     private List<DataRecyclerSearch> listData = new ArrayList<DataRecyclerSearch>();
     boolean bl[] = new boolean[2];
     CharSequence[] values = {"Near me", "Rate"};
+    boolean t = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,13 +40,10 @@ public class FragmentSearchLocations extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.recycler);
         recyclerView.setHasFixedSize(true);
         floatingSearchView = (FloatingSearchView) findViewById(R.id.floating_search_view);
-        floatingSearchView.setOnMenuItemClickListener(new FloatingSearchView.OnMenuItemClickListener()
-        {
+        floatingSearchView.setOnMenuItemClickListener(new FloatingSearchView.OnMenuItemClickListener() {
             @Override
-            public void onActionMenuItemSelected(MenuItem item)
-            {
-                if(item.getItemId() == R.id.action_settings)
-                {
+            public void onActionMenuItemSelected(MenuItem item) {
+                if (item.getItemId() == R.id.action_settings) {
                     alertFormElements();
                 }
             }
@@ -55,6 +55,24 @@ public class FragmentSearchLocations extends AppCompatActivity {
                 startActivity(intent);
                 overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
                 finish();
+            }
+        });
+        floatingSearchView.setOnQueryChangeListener(new FloatingSearchView.OnQueryChangeListener() {
+            @Override
+            public void onSearchTextChanged(String oldQuery, String newQuery) {
+
+                Toast.makeText(FragmentSearchLocations.this, newQuery, Toast.LENGTH_SHORT).show();
+            }
+        });
+        floatingSearchView.setOnSearchListener(new FloatingSearchView.OnSearchListener() {
+            @Override
+            public void onSuggestionClicked(SearchSuggestion searchSuggestion) {
+
+            }
+
+            @Override
+            public void onSearchAction(String currentQuery) {
+                Toast.makeText(FragmentSearchLocations.this, currentQuery, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -71,7 +89,7 @@ public class FragmentSearchLocations extends AppCompatActivity {
         listData.add(c);
         listData.add(d);
         // Setting the adapter.
-        adapter = new CustomRecyclerAdapterSearch(listData,FragmentSearchLocations.this);
+        adapter = new CustomRecyclerAdapterSearch(listData, FragmentSearchLocations.this);
         recyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
         recyclerView.setAdapter(adapter);
     }
@@ -81,8 +99,7 @@ public class FragmentSearchLocations extends AppCompatActivity {
         builder.setTitle("Setting");
         builder.setMultiChoiceItems(values, bl, new DialogInterface.OnMultiChoiceClickListener() {
             @Override
-            public void onClick(DialogInterface dialogInterface, int i, boolean b)
-            {
+            public void onClick(DialogInterface dialogInterface, int i, boolean b) {
 
             }
 
@@ -97,4 +114,6 @@ public class FragmentSearchLocations extends AppCompatActivity {
         alertDialog_setting = builder.create();
         alertDialog_setting.show();
     }
+
+
 }

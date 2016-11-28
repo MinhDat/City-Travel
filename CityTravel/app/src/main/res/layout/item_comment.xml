@@ -1,0 +1,53 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:focusable="true"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+    android:clickable="true">
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:id = "@+id/iv_avatar"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+    <TextView
+        android:text="Trương Như Dũng"
+        android:id="@+id/tv_name"
+        android:layout_toRightOf="@id/iv_avatar"
+        android:layout_width="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:textSize="16sp"
+        android:layout_marginLeft="16dp"
+        android:textStyle="bold"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/comment"
+        android:layout_toRightOf="@id/iv_avatar"
+        android:layout_below="@id/tv_name"
+        android:textColor="@android:color/darker_gray"
+        android:text="Ngon lắm các bạn ạ"
+        android:textSize="16sp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/date"
+        android:textColor="@android:color/darker_gray"
+        android:text="10/10/2016"
+        android:textSize="12sp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true" />
+
+
+</RelativeLayout>

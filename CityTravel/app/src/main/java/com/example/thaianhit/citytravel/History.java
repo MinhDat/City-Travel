@@ -32,15 +32,6 @@ public class History  extends Fragment {
     private View myFragmentView;
 
     @Override
-    public void onCreate(Bundle savedInstanceState)
-    {
-        super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
-
-//        HistoryLikeDAO historyLikeDAO = new HistoryLikeDAO(this);
-
-    }
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         myFragmentView = inflater.inflate(R.layout.activity_history, container, false);
         Toolbar toolbar = (Toolbar) myFragmentView.findViewById(R.id.toolbarSave);

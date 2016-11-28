@@ -16,12 +16,13 @@ import android.widget.EditText;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
-
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -31,7 +32,7 @@ import retrofit2.Response;
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
     private static final int REQUEST_SIGNUP = 0;
-    public static String string_email = "truongnhudung95@gmail.com";
+
     AccountLocalStore accountLocalStore;
     @Bind(R.id.input_email)
     EditText _emailText;
@@ -98,8 +99,8 @@ public class LoginActivity extends AppCompatActivity {
             onLoginFailed();
             return;
         }
-        APIInterface service = ApiClient.getClient().create(APIInterface.class);
-        Call<Boolean> call = service.checkLogin(_emailText.getText().toString(), _passwordText.getText().toString());
+        APIInterface service = ApiClient.getClient(LoginActivity.this).create(APIInterface.class);
+        Call<Account> call = service.checkLogin(_emailText.getText().toString(), _passwordText.getText().toString());
         LoginAsyntask loginAsyntask = new LoginAsyntask();
         loginAsyntask.execute(call);
 
@@ -118,9 +119,21 @@ public class LoginActivity extends AppCompatActivity {
         return accountLocalStore.GetUserLoogedIn();
     }
 
-    public class LoginAsyntask extends AsyncTask<Call, Void, Boolean> {
+    public class LoginAsyntask extends AsyncTask<Call, Void, Account> {
         ProgressDialog pDialog = new ProgressDialog(LoginActivity.this,
                 R.style.AppTheme_Dark_Dialog);
+
+        @Override
+        protected Account doInBackground(Call... calls) {
+            try {
+                Call<Account> call = calls[0];
+                Response<Account> response = call.execute();
+                return response.body();
+            } catch (IOException e) {
+                e.printStackTrace();
+                return null;
+            }
+        }
 
         @Override
         protected void onPreExecute() {
@@ -131,41 +144,46 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         @Override
-        protected void onPostExecute(Boolean aBoolean) {
-            super.onPostExecute(aBoolean);
+        protected void onPostExecute(Account account) {
+            super.onPostExecute(account);
             if (pDialog.isShowing()) {
                 pDialog.dismiss();
             }
-
-            if (aBoolean == true) {
-                Account account = new Account(_emailText.getText().toString(),"","","",-1,"","","",_passwordText.getText().toString());
-                accountLocalStore.StoreUserData(account);
-                accountLocalStore.SetUserLoggedIn(true);
-                string_email = _emailText.getText().toString();
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivityForResult(intent, REQUEST_SIGNUP);
-                overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
-                finish();
-            } else
+            try
             {
-                Toast.makeText(LoginActivity.this, "Login fail", Toast.LENGTH_SHORT).show();
+                if (account.getEmail() != null)
+                {
+                    DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+                    Date date;
+                    try {
+                        date = df.parse(account.getBirth());
+                        account.setBirth(df.format(date));
+                    } catch (Exception e) {
+                        Log.d("Ffff",e.toString());
+
+                    }
+                    accountLocalStore.StoreUserData(account);
+                    accountLocalStore.SetUserLoggedIn(true);
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    startActivityForResult(intent, REQUEST_SIGNUP);
+                    overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+                    finish();
+                }
+                else
+                {
+                    Toast.makeText(getBaseContext(), "Login failed", Toast.LENGTH_LONG).show();
+                }
             }
+            catch (Exception e)
+            {
+                Toast.makeText(getBaseContext(), "Login failed", Toast.LENGTH_LONG).show();
+            }
+
         }
 
-        @Override
-        protected Boolean doInBackground(Call... calls) {
 
-            try {
-                Call<Boolean> call = calls[0];
-                Response<Boolean> response = null;
-                response = call.execute();
-                return response.body();
-            } catch (IOException e) {
-                e.printStackTrace();
-                return false;
-            }
 
-        }
+
     }
 
     @Override
@@ -187,7 +205,6 @@ public class LoginActivity extends AppCompatActivity {
         Toast.makeText(getBaseContext(), "Login failed", Toast.LENGTH_LONG).show();
         _loginButton.setEnabled(true);
     }
-
     public boolean validate() {
         boolean valid = true;
 

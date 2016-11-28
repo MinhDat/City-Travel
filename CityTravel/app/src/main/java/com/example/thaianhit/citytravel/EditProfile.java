@@ -1,16 +1,16 @@
 package com.example.thaianhit.citytravel;
 
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,45 +20,48 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.model.StringLoader;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 
+import java.io.IOException;
 import java.util.Calendar;
-import java.util.Date;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.example.thaianhit.citytravel.LoginActivity.string_email;
-
-public class EditProfile extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
+public class EditProfile extends AppCompatActivity implements DatePickerDialog.OnDateSetListener{
+    ProgressDialog progressDialog;
     @Bind(R.id.tbEdit)
     Toolbar tbEdit;
+    @Bind(R.id.edt_first_name)
+    EditText edt_firstname;
+    @Bind(R.id.edt_last_name)
+    EditText edt_lastname;
+    @Bind(R.id.edt_phone)
+    EditText edt_phone;
     @Bind(R.id.edtAddress)
     EditText edtAddress;
     @Bind(R.id.edt_gender)
     EditText edtGender;
     @Bind(R.id.edt_birthday)
     EditText edtBirthday;
-    @Bind(R.id.edt_PhoneNumber)
-    EditText edtPhoneNumber;
     @Bind(R.id.ivEditProfile)
     ImageView ivEditProfile;
-    CharSequence[] values = {" Male ", " Female ", " Non "};
+    CharSequence[] values = {" Male "," Female "," Non "};
     AlertDialog alertDialog_birthday;
-    int id_choose = 0;
-
-
-
+    int id_choose =0;
+    Account account = null;
+    AccountLocalStore accountLocalStore;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
         ButterKnife.bind(this);
-        Glide.with(this).load(R.drawable.anh).asBitmap().centerCrop().into(new BitmapImageViewTarget(ivEditProfile) {
+         accountLocalStore = new AccountLocalStore(EditProfile.this);
+        account = accountLocalStore.GetLoggedInUser();
+        Glide.with(this).load(R.drawable.anh).asBitmap().centerCrop().into(new BitmapImageViewTarget(ivEditProfile)
+        {
             @Override
             protected void setResource(Bitmap resource) {
                 RoundedBitmapDrawable circularBitmapDrawable =
@@ -73,7 +76,21 @@ public class EditProfile extends AppCompatActivity implements DatePickerDialog.O
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle("Edit profile");
-
+        edtAddress.setText(account.getAddress());
+        edtBirthday.setText(account.getBirth());
+        edt_phone.setText(account.getPhone());
+        edt_firstname.setText(account.getFirstName());
+        edt_lastname.setText(account.getLastName());
+        if (account.getGender() == 0) {
+            edtGender.setText("Male");
+        }
+        if (account.getGender() == 1) {
+            edtGender.setText("Female");
+        }
+        if(account.getGender() == -1)
+        {
+            edtGender.setText("None");
+        }
         edtGender.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -87,9 +104,9 @@ public class EditProfile extends AppCompatActivity implements DatePickerDialog.O
             }
         });
     }
-
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
         getMenuInflater().inflate(R.menu.menu_editprofile, menu);
         return super.onCreateOptionsMenu(menu);
     }
@@ -97,12 +114,26 @@ public class EditProfile extends AppCompatActivity implements DatePickerDialog.O
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        switch (id) {
+        int gender = -1;
+        if(edtGender.getText().equals("Male"))
+        {
+            gender = 0;
+        }
+        if(edtGender.getText().equals("Female"))
+        {
+            gender = 1;
+        }
+        switch (id){
             case android.R.id.home:
                 onBackPressed();
                 break;
             case R.id.action_save:
-                edit_Profile();
+                Account accountedit = new Account(account.getEmail(),account.getPicture(),edtAddress.getText().toString(),edtBirthday.getText().toString(),gender,edt_phone.getText().toString(),edt_firstname.getText().toString(),edt_lastname.getText().toString(),account.getPassword(),account.getRole());
+                accountLocalStore.StoreUserData(accountedit);
+                EditAsyncTask editAsyncTask = new EditAsyncTask();
+                APIInterface service = ApiClient.getClient(EditProfile.this).create(APIInterface.class);
+                Call<Boolean> call = service.editProfile(accountedit);
+                editAsyncTask.execute(call);
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -112,7 +143,6 @@ public class EditProfile extends AppCompatActivity implements DatePickerDialog.O
         DatePickerFragment newFragment = new DatePickerFragment();
         newFragment.show(getFragmentManager(), "datePicker");
     }
-
     @Override
     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
         // store the values selected into a Calendar instance
@@ -120,22 +150,23 @@ public class EditProfile extends AppCompatActivity implements DatePickerDialog.O
         c.set(Calendar.YEAR, year);
         c.set(Calendar.MONTH, monthOfYear);
         c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-        edtBirthday.setText(dayOfMonth + "/" + monthOfYear + "/" + year);
+        edtBirthday.setText(dayOfMonth+"/"+monthOfYear+"/"+year);
     }
-
-    public void CreateAlertDialogWithRadioButtonGroup() {
+    public void CreateAlertDialogWithRadioButtonGroup(){
 
         AlertDialog.Builder builder = new AlertDialog.Builder(EditProfile.this);
         builder.setTitle("Gender");
         builder.setSingleChoiceItems(values, id_choose, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int item) {
+            public void onClick(DialogInterface dialog, int item)
+            {
                 id_choose = item;
-                switch (item) {
+                switch(item)
+                {
                     case 0:
                         edtGender.setText("Male");
                         break;
                     case 1:
-                        edtGender.setText("Famale");
+                        edtGender.setText("Female");
                         break;
                     case 2:
                         edtGender.setText("Non");
@@ -148,47 +179,45 @@ public class EditProfile extends AppCompatActivity implements DatePickerDialog.O
         alertDialog_birthday.show();
 
     }
+    public class EditAsyncTask extends AsyncTask<Call,Void,Boolean>
+    {
 
-    public void edit_Profile() {
-        APIInterface service = ApiClient.getClient().create(APIInterface.class);
-        AccountLocalStore prof = new AccountLocalStore(EditProfile.this);
-        Account account_local = prof.GetLoggedInUser();
-        String email = account_local.getEmail();
-        Log.d("ffff",email.toString()) ;
-        String picture = account_local.getPicture();
-        String address = edtAddress.getText().toString();
-        int gender = 0;
-        String gen = edtGender.getText().toString();
-        if (gen == "Male") {
-            gender = 0;
-        } else if (gen == "Female") {
-            gender = 1;
-        } else {
-            gender = -1;
+        @Override
+        protected void onPreExecute()
+        {
+            progressDialog = new ProgressDialog(EditProfile.this,
+                    R.style.AppTheme_Dark_Dialog);
+            progressDialog.setIndeterminate(true);
+            progressDialog.setMessage("Changing...");
+            progressDialog.show();
+            super.onPreExecute();
         }
-        String birth = edtBirthday.getText().toString();
-        String phone = edtPhoneNumber.getText().toString();
-        String firsrName = account_local.getFirsrName();
-        String lastName = account_local.getLastName();
-        String password = account_local.getPassword();
-        Account tk = new Account(email, picture, address, birth, gender, phone, firsrName, lastName, password);
-        Call<Boolean> call = service.editProfile(tk);
-        call.enqueue(new Callback<Boolean>() {
-            @Override
-            public void onResponse(Call<Boolean> call, Response<Boolean> response) {
-                if (response.isSuccessful()) {
-                    if (response.body() == true) {
-                        Toast.makeText(EditProfile.this, "Edit success!", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(EditProfile.this, "Database Error!", Toast.LENGTH_SHORT).show();
-                    }
-                }
+        @Override
+        protected Boolean doInBackground(Call... calls) {
+            try {
+                Call<Boolean> call = calls[0];
+                Response<Boolean> response = null;
+                response = call.execute();
+                return response.body();
+            } catch (IOException e) {
+                return false;
             }
-
-            @Override
-            public void onFailure(Call<Boolean> call, Throwable t) {
-                Toast.makeText(EditProfile.this, "Edit Fail", Toast.LENGTH_LONG).show();
+        }
+        @Override
+        protected void onPostExecute(Boolean aBoolean)
+        {
+            super.onPostExecute(aBoolean);
+            if(progressDialog.isShowing()) {
+                progressDialog.dismiss();
             }
-        });
+            if(aBoolean == true)
+            {
+                Toast.makeText(EditProfile.this,"Change success!",Toast.LENGTH_SHORT).show();
+            }
+            else
+            {
+                Toast.makeText(EditProfile.this,"Change fail!",Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 }
