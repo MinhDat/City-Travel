@@ -10,6 +10,7 @@ import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -153,6 +154,7 @@ public class EditProfile extends AppCompatActivity implements DatePickerDialog.O
         AccountLocalStore prof = new AccountLocalStore(EditProfile.this);
         Account account_local = prof.GetLoggedInUser();
         String email = account_local.getEmail();
+        Log.d("ffff",email.toString()) ;
         String picture = account_local.getPicture();
         String address = edtAddress.getText().toString();
         int gender = 0;

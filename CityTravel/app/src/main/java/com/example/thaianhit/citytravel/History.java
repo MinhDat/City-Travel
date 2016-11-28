@@ -3,6 +3,7 @@ package com.example.thaianhit.citytravel;
 import android.app.ActionBar;
 import android.app.Fragment;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -17,9 +18,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
+import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class History  extends Fragment {
     private RecyclerView recyclerView;
@@ -27,11 +30,15 @@ public class History  extends Fragment {
     private RecyclerView.LayoutManager layoutManager;
     private List<DataRecyclerSearch> listData = new ArrayList<DataRecyclerSearch>();
     private View myFragmentView;
+
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+
+//        HistoryLikeDAO historyLikeDAO = new HistoryLikeDAO(this);
+
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

@@ -6,16 +6,24 @@
     android:layout_height="match_parent"
     android:weightSum="10">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbarSave"
+    <!--<android.support.v7.widget.Toolbar-->
+        <!--android:id="@+id/toolbarSave"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="?attr/actionBarSize"-->
+        <!--android:background="?attr/colorPrimary"-->
+        <!--app:theme="@style/ToolbarStyle">-->
+
+    <!--</android.support.v7.widget.Toolbar>-->
+
+    <!--<include layout="@layout/content_save_location" />-->
+
+    <ListView
+        android:id="@+id/lvHistory"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        app:theme="@style/ToolbarStyle">
+        android:layout_height="match_parent">
 
-    </android.support.v7.widget.Toolbar>
+    </ListView>
 
-    <include layout="@layout/content_save_location"
-        />
+
 </LinearLayout>
 
