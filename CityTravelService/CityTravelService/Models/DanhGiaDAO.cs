@@ -49,7 +49,7 @@ namespace CityTravelService.Models
         public float getDanhGia(int id)
         {
             connect();
-            string query = "SELECT * FROM DANHGIA WHERE MaTenDiaDiem = " + id;
+            string query = "SELECT * FROM DANHGIA WHERE MaDuLieu = " + id;
             adapter = new SqlDataAdapter(query, connection);
             DataSet dataset = new DataSet();
             adapter.Fill(dataset);
@@ -64,13 +64,16 @@ namespace CityTravelService.Models
                 dem++;
             }
             disconnect();
+            if (dem == 0)
+                return 0;
             return (tong / dem);
+            
         }
 
-        public List<DanhGia> getDanhGia(string email, int id)
+        public List<DanhGia> getDanhGia(int IdUser, int id)
         {
             connect();
-            string query = "SELECT * FROM DANHGIA WHERE Email = '" + email + "' AND MaTenDiaDiem = " + id;
+            string query = "SELECT * FROM DANHGIA WHERE IdUser = '" + IdUser + "' AND MaDuLieu = " + id;
             adapter = new SqlDataAdapter(query, connection);
             DataSet dataset = new DataSet();
             adapter.Fill(dataset);
@@ -88,8 +91,8 @@ namespace CityTravelService.Models
         protected override object GetDataFromDataRow(DataTable dt, int i)
         {
             DanhGia dg = new DanhGia();
-            dg.Email = dt.Rows[i]["Email"].ToString();
-            dg.IDAddress = (int)dt.Rows[i]["MaTenDiaDiem"];
+            dg.IdUser = dt.Rows[i].IsNull("IdUser")? 0 : (int)dt.Rows[i]["IdUser"];
+            dg.IDMaDL = dt.Rows[i].IsNull("MaDuLieu") ? 0 : (int)dt.Rows[i]["MaDuLieu"];
             dg.Rate = (dt.Rows[i].IsNull("DanhGia") == true) ? 0.0f : (float)(double)dt.Rows[i]["DanhGia"];
 
             return (object)dg;
@@ -100,8 +103,8 @@ namespace CityTravelService.Models
             try
             {
                 connect();
-                string insertCommand = "INSERT INTO DANHGIA (Email, MaTenDiaDiem, DanhGia) VALUES('"
-                    + dg.Email + "', " + dg.IDAddress + ", " + dg.Rate + ")";
+                string insertCommand = "INSERT INTO DANHGIA (IdUser, MaDuLieu, DanhGia) VALUES('"
+                    + dg.IdUser + "', " + dg.IDMaDL + ", " + dg.Rate + ")";
                 executeNonQuery(insertCommand);
                 disconnect();
                 return true;
@@ -118,7 +121,7 @@ namespace CityTravelService.Models
             {
                 connect();
                 string updateCommand = "UPDATE DANHGIA SET DanhGia = " + dg.Rate +
-                    " WHERE Email = '" + dg.Email + "' AND MaTenDiaDiem = " + dg.IDAddress;
+                    " WHERE IdUser = " + dg.IdUser + " AND MaDuLieu = " + dg.IDMaDL;
                 executeNonQuery(updateCommand);
                 disconnect();
                 return true;
@@ -129,14 +132,12 @@ namespace CityTravelService.Models
             }
         }
 
-        public void deleteDanhGia(string email, int id)
+        public void deleteDanhGia(int IdUser, int id)
         {
             connect();
-            string deleteCommand = "DELETE FROM DANHGIA WHERE Email = '" + email + "' AND MaTenDiaDiem = " + id;
+            string deleteCommand = "DELETE FROM DANHGIA WHERE IdUser = " + IdUser + " AND MaDuLieu = " + id;
             executeNonQuery(deleteCommand);
             disconnect();
         }
-
-        
     }
 }
