@@ -33,11 +33,11 @@ public class HistoryActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_history);
+      //  setContentView(R.layout.activity_history);
 
-        lvHistory = (ListView) findViewById(R.id.lvHistory);
+    //    lvHistory = (ListView) findViewById(R.id.lvHistory);
 
-        listHistory = new ArrayList<HistoryLikeDTO>();
+       listHistory = new ArrayList<HistoryLikeDTO>();
 
         //mở kết nối với database
         historyLikeDAO = new HistoryLikeDAO(this);

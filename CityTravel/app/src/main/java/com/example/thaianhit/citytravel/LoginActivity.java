@@ -106,18 +106,7 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        if (authenticate() == true) {
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-            startActivityForResult(intent, REQUEST_SIGNUP);
-        }
-    }
 
-    public boolean authenticate() {
-        return accountLocalStore.GetUserLoogedIn();
-    }
 
     public class LoginAsyntask extends AsyncTask<Call, Void, Account> {
         ProgressDialog pDialog = new ProgressDialog(LoginActivity.this,

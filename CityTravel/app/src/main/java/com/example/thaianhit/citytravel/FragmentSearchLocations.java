@@ -80,10 +80,10 @@ public class FragmentSearchLocations extends AppCompatActivity {
         // Setting the LayoutManager.
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        DataRecyclerSearch a = new DataRecyclerSearch("Bệnh viện", "Nodescription", "10");
-        DataRecyclerSearch b = new DataRecyclerSearch("ATM", "Nodescription", "10");
-        DataRecyclerSearch c = new DataRecyclerSearch("Trường học", "Nodescription", "10");
-        DataRecyclerSearch d = new DataRecyclerSearch("Khách sạn", "Nodescription", "10");
+        DataRecyclerSearch a=new DataRecyclerSearch("9.0","861/90C Trần Xuân Soạn, P.Tân Hưng, Q.7",(float)1.5,"Khách sạn","","Khách sạn xanh");
+        DataRecyclerSearch b=new DataRecyclerSearch("9.0","861/90C Trần Xuân Soạn, P.Tân Hưng, Q.7",(float)1.5,"Khách sạn","","Khách sạn xanh");
+        DataRecyclerSearch c=new DataRecyclerSearch("9.0","861/90C Trần Xuân Soạn, P.Tân Hưng, Q.7",(float)1.5,"Khách sạn","","Khách sạn xanh");
+        DataRecyclerSearch d=new DataRecyclerSearch("9.0","861/90C Trần Xuân Soạn, P.Tân Hưng, Q.7",(float)1.5,"Khách sạn","","Khách sạn xanh");
         listData.add(a);
         listData.add(b);
         listData.add(c);

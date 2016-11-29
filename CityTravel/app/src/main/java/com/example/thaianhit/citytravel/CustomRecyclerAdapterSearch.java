@@ -13,8 +13,11 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.thaianhit.citytravel.CustomRecyclerAdapterSearch.RecyclerViewHolder;
 
 import java.util.ArrayList;
@@ -49,6 +52,15 @@ public class CustomRecyclerAdapterSearch extends RecyclerView.Adapter<RecyclerVi
     @Override
     public void onBindViewHolder(RecyclerViewHolder holder, final int position) {
         holder.name_location.setText(listData.get(position).getName());
+        holder.category.setText(listData.get(position).getCategory());
+        holder.text_address.setText(listData.get(position).getAddress());
+        holder.nearme.setText( String.valueOf(listData.get(position).getNearme()));
+         holder.text_rating.setText(listData.get(position).getRating());
+        Glide.with(context)
+                .load(R.drawable.hotel)
+                .override(60,60)
+                .centerCrop()
+                .into(holder.photo_location);
         setAnimation(holder.container,position);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,9 +82,10 @@ public class CustomRecyclerAdapterSearch extends RecyclerView.Adapter<RecyclerVi
         // If the bound view wasn't previously displayed on screen, it's animated
         if (position > lastPosition)
         {
-            Animation animation = AnimationUtils.loadAnimation(context, R.anim.push_left_right);
-            viewToAnimate.startAnimation(animation);
-            lastPosition = position;
+            viewToAnimate.animate().cancel();
+            viewToAnimate.setTranslationY(100);
+            viewToAnimate.setAlpha(0);
+            viewToAnimate.animate().alpha(1.0f).translationY(0).setDuration(300).setStartDelay(position * 100);
         }
     }
 
@@ -93,18 +106,21 @@ public class CustomRecyclerAdapterSearch extends RecyclerView.Adapter<RecyclerVi
 
         public ImageView photo_location;
         public TextView name_location;
-        public TextView discriptionlocation;
-        public ImageView ratinglocation;
         public TextView text_rating;
-        LinearLayout container;
+        public  TextView text_address;
+        public TextView nearme;
+        public TextView category;
+        RelativeLayout container;
         public RecyclerViewHolder(View itemView) {
             super(itemView);
-            container=(LinearLayout) itemView.findViewById(R.id.recyclersearch);
+            container=(RelativeLayout)itemView.findViewById(R.id.recyclersearch);
             photo_location=(ImageView)itemView.findViewById(R.id.photo_location);
             name_location=(TextView)itemView.findViewById(R.id.name_location);
-            discriptionlocation=(TextView)itemView.findViewById(R.id.description_location);
-            ratinglocation=(ImageView)itemView.findViewById(R.id.rating_location);
+            category=(TextView)itemView.findViewById(R.id.category);
             text_rating=(TextView)itemView.findViewById(R.id.text_rating);
+            text_address = (TextView)itemView.findViewById(R.id.tv_address);
+            nearme = (TextView)itemView.findViewById(R.id.near_me);
+
         }
 
         // remove item when click button delete

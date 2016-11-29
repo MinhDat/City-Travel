@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:weightSum="10">
+    android:layout_height="match_parent">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbarSave"
@@ -15,7 +14,6 @@
 
     </android.support.v7.widget.Toolbar>
 
-    <include layout="@layout/content_save_location"
-        />
+    <include layout="@layout/content_save_location" />
 </LinearLayout>
 

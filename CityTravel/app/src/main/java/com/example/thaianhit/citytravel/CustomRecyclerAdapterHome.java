@@ -45,14 +45,16 @@ public class CustomRecyclerAdapterHome extends RecyclerView.Adapter<RecyclerView
         View itemView = inflater.inflate(R.layout.item_recycler_home, viewGroup, false);
         return new RecyclerViewHolder(itemView);
     }
+
     public void setAnimation(View viewToAnimate, int position)
     {
         // If the bound view wasn't previously displayed on screen, it's animated
         if (position > lastPosition)
         {
-            Animation animation = AnimationUtils.loadAnimation(context, R.anim.push_left_right);
-            viewToAnimate.startAnimation(animation);
-            lastPosition = position;
+            viewToAnimate.animate().cancel();
+            viewToAnimate.setTranslationY(100);
+            viewToAnimate.setAlpha(0);
+            viewToAnimate.animate().alpha(1.0f).translationY(0).setDuration(300).setStartDelay(position * 100);
         }
     }
     @Override
