@@ -117,6 +117,37 @@
 </div>
 </div>
     </div>
+    <div id="menu4" class="tab-pane fade">
+    <div class="container" ng-controller="binhluanController">
+<div class="col-xs-6">
+    <h2>Comment Management</h2>
+<p>In this Page, you can Manage all of comment of User </p>
+
+<table class="table">
+<thread>
+<tr>
+<th>Email</th>
+<th>Comment detail</th>
+<th>Time comment</th>
+<th>Remark</th>
+<th></th>
+</tr>
+</thread>
+<tbody>
+<tr ng-repeat = "binhluan in binhluans">
+<td>{{binhluan.Email}}</td>
+<td>{{binhluan.NoiDung}}</td>
+<td>{{binhluan.ThoiGian}}</td>
+<td>{{binhluan.TrangThai}}</td>
+<td><button type="button" ng-click="Cancelcomment(binhluan.MaBinhLuan,binhluan.TrangThai)" class="btn btn-primary">Cancel</button></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+    </div>
+
         </div>
     </div>
 </body>

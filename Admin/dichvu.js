@@ -82,4 +82,34 @@ refresh();
   });
 
 
+app.controller('binhluanController',function($scope,$http,$log){
+var refresh=function(){
+         $http.get("http://citytravel-2.apphb.com/api/binhluan")
+  .then(function(response) {
+    console.log(response.data);
+      $scope.binhluans = response.data;
+  });
+};
+refresh();
+
+$scope.Cancelcomment = function(mabinhluan,trangthai){
+  console.log(mabinhluan);
+  console.log(trangthai);
+  $scope.binhluans.trangthai=0;
+   $http.put('http://citytravel-2.apphb.com/api/binhluan/' + mabinhluan,$scope.binhluans).then(function(response){
+           console.log(response);
+            refresh();
+        });
+}
+
+});
+
+
+
+
+
+
+
+
+
 

@@ -1,0 +1,140 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Log In - factoryworkx</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+   <script src="js/bootstrap.min.js"></script>
+  <script src="js/jquery-2.1.1.js"></script>
+  <style type="text/css">
+  
+  .underline{
+  height:30pt;
+  background-color:#91aaba;
+  }
+ 
+  .underlinedfooter{
+  font-size: 21px;
+  
+  }
+
+  
+  .FooterHeight{
+  font-size: 22px;
+  }
+  
+  .fett{
+  font-weight: bold;
+  }
+  
+  .col-sm-4.center{
+  text-align: center;
+  padding-top: 20px;
+  }
+ 
+	
+	.bild{
+		position: absolute;
+	   left: 10%;
+	  
+	 }
+      login well{
+          position: absolute;z-index:2;margin-left:750px;margin-top: 100px;
+          
+      }
+      
+    
+	
+	
+	
+  
+  </style>
+</head>
+
+<body ng-app="loginapp" ng-controller="logincontroller">
+
+<div class="container-fluid">
+	<div class="col-sm-4"></div>
+	<div class="col-sm-4 center"><h3 class="fett">City Travel</h3> </div>
+	<div class="col-sm-4"></div>
+	
+</div>
+
+
+<div class="container-fluid underline"></div>
+
+<div class="container">
+	<h2 class="text-center fett">Admin Management</h2>
+	<h3 class="text-center fett">Đăng Nhập dưới quyền Admin</h3></br>
+</div>
+<div style="position:relative">
+<div class="container">
+<img style="z-index=1; margin-right:100px;width:83%;position:absolute" src="img/industry40_neu.png" class="img-responsive">
+    </div>
+<div>
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+      <div class="login well" style="position: absolute;z-index:2;margin-top:100px">
+          <div id="alertModal" class="modal fade">  
+            <div class="modal-dialog">  
+                <div class="modal-content">  
+                    <!-- dialog body -->  
+                    <div class="modal-body">  
+                        <button type="button" id="btn" value="Close" class="close" data-dismiss="modal">×</button>  
+                        {{msg}}  
+                    </div>  
+                    <!-- dialog buttons -->  
+                    <div class="modal-footer">  
+                        <button type="button" ng-click="alertmsg()" class="btn btn-primary">OK</button>  
+                    </div>  
+                </div>  
+            </div>
+            </div>
+                <p class="text-center caption">Log in with your user account</p>
+                <form class="form-horizontal" method="POST" action="login-action.php">
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="email"><small>UserID</small> </label>
+                        <div class="col-sm-10">
+                            <input type="email" class="form-control" ng-model="input.Email" name="email">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2" for="pwd"><small>Password</small></label>
+                        <div class="col-sm-10">
+                            <input type="password" class="form-control" ng-model="input.Password" name="password"><span><img class="eye" src="img/InputShowPassword.png"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <div class="checkbox">
+                                <label><input type="checkbox">Stay logged in</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="submit" class="btn btn-default btnstyle" ng-click="dangnhap" name="submit"><span><img src="img/Action_OK.png" style="height: 1.6em; vertical-align:middle"></span> Login</button>
+                        </div>
+                        <div id="divLoading" style="margin: 0px; padding: 0px; position: fixed; right: 0px; top: 0px; width: 100%; height: 100%; background-color: #666666; z-index: 30001; opacity: .8; filter: alpha(opacity=70); display: none">  
+                                            <p style="position: absolute; top: 30%; left: 45%; color: White;">  
+                                                please wait...</p>  
+                                        </div>  
+                    </div>
+                </form>
+            </div>
+    </div>
+    <div class="col-md-4">
+    </div>
+    </div>
+    
+    </div>
+
+</body>
+</html>
+<script src="login.js"></script>
