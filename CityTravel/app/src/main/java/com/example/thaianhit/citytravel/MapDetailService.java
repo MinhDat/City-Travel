@@ -27,11 +27,9 @@ public class MapDetailService extends AppCompatActivity implements OnMapReadyCal
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map_detail_service);
-
         intent = getIntent();
         tbDetail = (Toolbar) findViewById(R.id.tbMapDetailService);
         tbDetail.setTitle("Map detail service");
-
         setSupportActionBar(tbDetail);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -42,7 +40,6 @@ public class MapDetailService extends AppCompatActivity implements OnMapReadyCal
                 .findFragmentById(R.id.gg_map);
         mapFragment.getMapAsync(this);
     }
-
     void addMarker(LatLng position)
     {
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(position, 16));
@@ -65,8 +62,8 @@ public class MapDetailService extends AppCompatActivity implements OnMapReadyCal
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
         int id = item.getItemId();
         Intent intentMap, chooser=null;
         float lat = (float) 10.751242;

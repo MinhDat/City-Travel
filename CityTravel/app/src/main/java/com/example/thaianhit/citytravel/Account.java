@@ -10,6 +10,8 @@ import com.google.gson.annotations.SerializedName;
  */
 
 public class Account {
+    @SerializedName("IdUser")
+    private int id;
     @SerializedName("Email")
     private String email;
     @SerializedName("PassWord")
@@ -31,7 +33,12 @@ public class Account {
     @SerializedName("Role")
     private String role;
 
-    public Account(String email, String picture, String address, String birth, int gender, String phone, String firsrName, String lastName, String password,String role) {
+
+
+
+
+    public Account(int id,String email, String picture, String address, String birth, int gender, String phone, String firsrName, String lastName, String password, String role) {
+        this.id = id;
         this.email = email;
         this.picture = picture;
         this.address = address;
@@ -43,7 +50,19 @@ public class Account {
         this.password = password;
         this.role = role;
     }
+    public Account(String email, String picture, String address, String birth, int gender, String phone, String firsrName, String lastName, String password, String role) {
 
+        this.email = email;
+        this.picture = picture;
+        this.address = address;
+        this.birth = birth;
+        this.gender = gender;
+        this.phone = phone;
+        this.firstName = firsrName;
+        this.lastName = lastName;
+        this.password = password;
+        this.role = role;
+    }
     public String getEmail() {
         return email;
     }
@@ -123,5 +142,13 @@ public class Account {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

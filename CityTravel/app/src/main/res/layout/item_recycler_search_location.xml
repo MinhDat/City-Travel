@@ -3,24 +3,20 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:focusable="true"
     android:paddingLeft="16dp"
     android:paddingRight="16dp"
     android:id="@+id/recyclersearch"
     android:paddingTop="10dp"
     android:paddingBottom="10dp"
     android:clickable="true"
-    android:background="?android:attr/selectableItemBackground"
-    android:orientation="vertical">
-
+    android:background="?android:attr/selectableItemBackground">
     <android.support.v7.widget.AppCompatImageView app:srcCompat="@drawable/hotel"
     android:id="@+id/photo_location"
     android:layout_width="60dp"
     android:layout_height="60dp"
     android:layout_alignParentLeft="true"
     android:layout_alignParentTop="true"
-    android:layout_marginRight="16dp"
-     />
+    android:layout_marginRight="10dp"/>
     <TextView
         android:text="1.Quán phở"
         android:id="@+id/name_location"
@@ -85,15 +81,15 @@
     <RelativeLayout
         android:id="@+id/view_point"
         android:background="@drawable/shape"
-        android:layout_width="23dp"
+        android:layout_width="30dp"
         android:layout_alignParentRight="true"
-        android:layout_height="23dp"
+        android:layout_height="30dp"
         android:gravity="center">
         <TextView
             android:text="8.5"
             android:id="@+id/text_rating"
             android:layout_width="wrap_content"
-            android:textSize="9sp"
+            android:textSize="12sp"
             android:textColor="@android:color/white"
             android:layout_height="wrap_content" />
     </RelativeLayout>
