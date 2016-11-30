@@ -10,40 +10,40 @@
             <li><a data-toggle="tab" ui-sref="/binhluan" data-target="binhluan">Comment Management</a></li>
             <li><button type="button" class="btn btn-info" ui-sref="/" data-target="">Log Out</button></li>
         </ul> 
-       
+        
     <div class="tab-pane fade in active">
-        <div class="container" ng-controller="dichvuController">
+        <div class="container" ng-controller="tendiadiemController">
                 <div class="col-xs-6">
-                    <h2>Service Management</h2>
-                    <p>In this Page, you can Manage all of thing relate about Service of Places</p>
+                    <h2>Places Management</h2>
+                    <p>In this Page, you can Manage all of places</p>
                     <fieldset>
                        
                             <div class="col-xs-6 col-sm-4">
-                                <input type="text" class="form-control" id="tID" ng-model="text.ID" required placeholder="Service ID">
+                                <input type="text" class="form-control" id="tID" ng-model="text.MaTenDiaDiem" required placeholder="Place ID">
                             </div>
                             <div class="col-xs-6 col-sm-4">
-                                <input type="text" class="form-control" ng-model="text.Name" required placeholder="Service Name">
+                                <input type="text" class="form-control" ng-model="text.TenDiaDiem1" required placeholder="Place Name">
                             </div>
                             <div class="col-xs-6 col-sm-4">
-                                 <button type="button" id="btnadd" ng-click="adddichvu()" class="btn btn-primary">Add</button>
-                                <button type="button" id="btnupdate" ng-click="updatedichvu()" class="btn btn-primary">Update</button>
+                                 <button type="button" id="btnadd" ng-click="addtendiadiem()" class="btn btn-primary">Add</button>
+                                <button type="button" id="btnupdate" ng-click="updatetendiadiem()" class="btn btn-primary">Update</button>
                             </div>
                         </fieldset>
                         <table class="table">
                             <thread>
                                 <tr>
-                                    <th>Service ID</th>
-                                    <th>Name of Service</th>
+                                    <th>Place ID</th>
+                                    <th>Name of Place</th>
                                     <th></th>
                                     <th></th>
                                 </tr>
                             </thread>
                             <tbody>
-                                <tr ng-repeat="dichvu in dichvus">
-                                    <td>{{dichvu.ID}}</td>
-                                    <td>{{dichvu.Name}}</td>
-                                    <td><button type="button" ng-click="deletedichvu(dichvu.ID)" class="btn btn-primary">Delete</button></td>
-                                    <td><button type="button" ng-click="editdichvu(dichvu.ID)" class="btn btn-primary">Edit</button></td>
+                                <tr ng-repeat="tendiadiem in tendiadiems">
+                                    <td>{{tendiadiem.MaTenDiaDiem}}</td>
+                                    <td>{{tendiadiem.TenDiaDiem1}}</td>
+                                    <td><button type="button" ng-click="deletetendiadiem(tendiadiem.MaTenDiaDiem)" class="btn btn-primary">Delete</button></td>
+                                    <td><button type="button" ng-click="edittendiadiem(tendiadiem.MaTenDiaDiem)" class="btn btn-primary">Edit</button></td>
                                 </tr>
                             </tbody>
 

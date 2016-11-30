@@ -132,6 +132,67 @@ console.log("hello");
     }]);
 
 
+app.controller('tendiadiemController',['$scope','$http','$location','$log','$state','UserInfo',function($scope,$http,$location,$log,$state,UserInfo){
+    var refresh=function(){
+        $http({
+                    method: 'GET',
+                    url: 'http://citytravel-2.apphb.com/api/tendiadiem'
+                }).then(function successCallback(response) {
+                    $scope.tendiadiems=response.data;
+                }, function errorCallback(response) {
+                });
+             };
+
+refresh(); 
+$scope.addtendiadiem = function(){
+console.log("hello");
+  console.log($scope.text);
+  document.getElementById('btnupdate').disabled = true;
+  if ($scope.text == "")
+      {
+          confirm("Bạn chưa nhập hoặc nhập thiếu dữ liệu");
+      }
+  else
+      {
+          $http.post('http://citytravel-2.apphb.com/api/tendiadiem',$scope.text).then(function(response){
+             console.log(response);
+             refresh();
+          });
+      }
+};
+
+    
+     $scope.deletetendiadiem = function(id){
+        console.log(id);
+        $http.delete('http://citytravel-2.apphb.com/api/tendiadiem/'+id,id).then(function(response){
+            refresh();
+        });
+    };
+    
+    $scope.edittendiadiem = function(id) {
+        console.log(id);
+        document.getElementById('tID').disabled = true;
+        document.getElementById('btnadd').disabled = true;
+        document.getElementById('btnupdate').disabled = false;
+          $http.get('http://citytravel-2.apphb.com/api/tendiadiem/'+id,id).then(function(response){
+            console.log(response);
+            $scope.text = response.data[0];
+         });
+    };
+    
+     $scope.updatetendiadiem = function(){
+        document.getElementById('tID').disabled = false;
+        document.getElementById('btnadd').disabled = false;
+        document.getElementById('btnupdate').disabled = false;
+        console.log($scope.text);
+        $http.put('http://citytravel-2.apphb.com/api/tendiadiem/' + $scope.text.MaTenDiaDiem, $scope.text).then(function(response){
+           console.log(response);
+            refresh();
+        });
+    };
+    }]);
+
+
 app.controller('taikhoanController',['$scope','$http','$location','$log','$state','UserInfo',function($scope,$http,$location,$log,$state,UserInfo){
    var refresh=function(){
          $http.get("http://citytravel-2.apphb.com/api/taikhoan")
@@ -188,6 +249,10 @@ app.config(['$stateProvider','$urlRouterProvider','$locationProvider',
                     url: '/binhluan',
                     templateUrl: "/ProjectMain/dichvu/binhluan.html",
                     controller: "binhluanController"
+                }).state("/tendiadiem", {
+                    url: '/tendiadiem',
+                    templateUrl: "/ProjectMain/dichvu/diadiem.html",
+                    controller: "tendiadiemController"
                 }).state("/taikhoan", {
                     url: '/taikhoan',
                     templateUrl: "/ProjectMain/dichvu/taikhoan.html",
