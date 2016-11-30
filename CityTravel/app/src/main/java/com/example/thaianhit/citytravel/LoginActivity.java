@@ -1,5 +1,6 @@
 package com.example.thaianhit.citytravel;
 
+import com.facebook.FacebookSdk;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -32,6 +33,7 @@ import retrofit2.Response;
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
     private static final int REQUEST_SIGNUP = 0;
+
 
     AccountLocalStore accountLocalStore;
     @Bind(R.id.input_email)

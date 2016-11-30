@@ -95,4 +95,6 @@
     <string name="title_activity_history">History</string>
     <string name="title_activity_maps_google">Map</string>
     <string name="title_activity_maps">Map</string>
+    <!--Login with FB-->
+    <string name="facebook_app_id">1198981100193227</string>
 </resources>
