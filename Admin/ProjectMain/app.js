@@ -29,12 +29,14 @@ app.controller('LoginController',['$scope','$http','$location','$log','$state','
                         url: 'http://citytravel-2.apphb.com/api/TaiKhoan',
                         params: {
                             email:$scope.email,
-                            password:$scope.password}
+                            password:$scope.password,
+                            provider:'Local'
+                          }
                     }).then(function successCallback(response) {
                         if(response.data)
                         {
                             UserInfo.user.Address=response.data.Address;
-                            UserInfo.user.Birth= moment(response.data.Birth).format('DD/MM/YYYY');
+                            UserInfo.user.Birth=moment(response.data.Birth).format('DD/MM/YYYY');
                             UserInfo.user.Email=response.data.Email;
                             UserInfo.user.FirtName=response.data.FirtName;
                             UserInfo.user.IdUser=response.data.IdUser;
@@ -132,6 +134,67 @@ console.log("hello");
     }]);
 
 
+app.controller('tendiadiemController',['$scope','$http','$location','$log','$state','UserInfo',function($scope,$http,$location,$log,$state,UserInfo){
+    var refresh=function(){
+        $http({
+                    method: 'GET',
+                    url: 'http://citytravel-2.apphb.com/api/tendiadiem'
+                }).then(function successCallback(response) {
+                    $scope.tendiadiems=response.data;
+                }, function errorCallback(response) {
+                });
+             };
+
+refresh(); 
+$scope.addtendiadiem = function(){
+console.log("hello");
+  console.log($scope.text);
+  document.getElementById('btnupdate').disabled = true;
+  if ($scope.text == "")
+      {
+          confirm("Bạn chưa nhập hoặc nhập thiếu dữ liệu");
+      }
+  else
+      {
+          $http.post('http://citytravel-2.apphb.com/api/tendiadiem',$scope.text).then(function(response){
+             console.log(response);
+             refresh();
+          });
+      }
+};
+
+    
+     $scope.deletetendiadiem = function(id){
+        console.log(id);
+        $http.delete('http://citytravel-2.apphb.com/api/tendiadiem/'+id,id).then(function(response){
+            refresh();
+        });
+    };
+    
+    $scope.edittendiadiem = function(id) {
+        console.log(id);
+        document.getElementById('tID').disabled = true;
+        document.getElementById('btnadd').disabled = true;
+        document.getElementById('btnupdate').disabled = false;
+          $http.get('http://citytravel-2.apphb.com/api/tendiadiem/'+id,id).then(function(response){
+            console.log(response);
+            $scope.text = response.data[0];
+         });
+    };
+    
+     $scope.updatetendiadiem = function(){
+        document.getElementById('tID').disabled = false;
+        document.getElementById('btnadd').disabled = false;
+        document.getElementById('btnupdate').disabled = false;
+        console.log($scope.text);
+        $http.put('http://citytravel-2.apphb.com/api/tendiadiem/' + $scope.text.MaTenDiaDiem, $scope.text).then(function(response){
+           console.log(response);
+            refresh();
+        });
+    };
+    }]);
+
+
 app.controller('taikhoanController',['$scope','$http','$location','$log','$state','UserInfo',function($scope,$http,$location,$log,$state,UserInfo){
    var refresh=function(){
          $http.get("http://citytravel-2.apphb.com/api/taikhoan")
@@ -160,15 +223,20 @@ app.controller('binhluanController',['$scope','$http','$location','$log','$state
 };
 refresh();
 
-$scope.Cancelcomment = function(mabinhluan,trangthai){
+$scope.approvedcomment = function(mabinhluan){
   console.log(mabinhluan);
-  console.log(trangthai);
-  $scope.binhluans.trangthai=0;
-   $http.put('http://citytravel-2.apphb.com/api/binhluan/' + mabinhluan,$scope.binhluans).then(function(response){
+   $http.put('http://citytravel-2.apphb.com/api/binhluan/' + bl,mabinhluan).then(function(response){
            console.log(response);
             refresh();
         });
 }
+
+  $scope.deletecomment = function(id){
+        console.log(id);
+        $http.delete('http://citytravel-2.apphb.com/api/binhluan/'+id,id).then(function(response){
+            refresh();
+        });
+    };
     }]);
 app.config(['$stateProvider','$urlRouterProvider','$locationProvider',
         function ($stateProvider, $urlRouterProvider,$locationProvider) {
@@ -188,6 +256,10 @@ app.config(['$stateProvider','$urlRouterProvider','$locationProvider',
                     url: '/binhluan',
                     templateUrl: "/ProjectMain/dichvu/binhluan.html",
                     controller: "binhluanController"
+                }).state("/tendiadiem", {
+                    url: '/tendiadiem',
+                    templateUrl: "/ProjectMain/dichvu/diadiem.html",
+                    controller: "tendiadiemController"
                 }).state("/taikhoan", {
                     url: '/taikhoan',
                     templateUrl: "/ProjectMain/dichvu/taikhoan.html",
