@@ -11,6 +11,7 @@ import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -115,11 +116,11 @@ public class EditProfile extends AppCompatActivity implements DatePickerDialog.O
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         int gender = -1;
-        if(edtGender.getText().equals("Male"))
+        if(edtGender.getText().toString().equals("Male"))
         {
             gender = 0;
         }
-        if(edtGender.getText().equals("Female"))
+        if(edtGender.getText().toString().equals("Female"))
         {
             gender = 1;
         }
@@ -128,7 +129,8 @@ public class EditProfile extends AppCompatActivity implements DatePickerDialog.O
                 onBackPressed();
                 break;
             case R.id.action_save:
-                Account accountedit = new Account(account.getEmail(),account.getPicture(),edtAddress.getText().toString(),edtBirthday.getText().toString(),gender,edt_phone.getText().toString(),edt_firstname.getText().toString(),edt_lastname.getText().toString(),account.getPassword(),account.getRole());
+                Log.d("TAGGGG", String.valueOf(account.getId()));
+                Account accountedit = new Account(account.getId(),account.getEmail(),account.getPicture(),edtAddress.getText().toString(),edtBirthday.getText().toString(),gender,edt_phone.getText().toString(),edt_firstname.getText().toString(),edt_lastname.getText().toString(),account.getPassword(),account.getRole());
                 accountLocalStore.StoreUserData(accountedit);
                 EditAsyncTask editAsyncTask = new EditAsyncTask();
                 APIInterface service = ApiClient.getClient(EditProfile.this).create(APIInterface.class);
@@ -200,6 +202,7 @@ public class EditProfile extends AppCompatActivity implements DatePickerDialog.O
                 response = call.execute();
                 return response.body();
             } catch (IOException e) {
+                Log.d("TAGID",e.toString());
                 return false;
             }
         }
@@ -213,10 +216,12 @@ public class EditProfile extends AppCompatActivity implements DatePickerDialog.O
             if(aBoolean == true)
             {
                 Toast.makeText(EditProfile.this,"Change success!",Toast.LENGTH_SHORT).show();
+                Log.d("TAGID","true");
             }
             else
             {
                 Toast.makeText(EditProfile.this,"Change fail!",Toast.LENGTH_SHORT).show();
+                Log.d("TAGID","fail");
             }
         }
     }

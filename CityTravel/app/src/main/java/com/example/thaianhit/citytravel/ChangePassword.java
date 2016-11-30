@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
@@ -73,7 +74,7 @@ public class ChangePassword extends AppCompatActivity {
         }
         ChangeAsyncTask asyncTask = new ChangeAsyncTask();
         APIInterface service = ApiClient.getClient(ChangePassword.this).create(APIInterface.class);
-        Call<Boolean> call = service.ChangePassword(account.getEmail(), edt_oldpassword.getText().toString(),edt_newpassword.getText().toString());
+        Call<Boolean> call = service.ChangePassword(account.getId(), edt_oldpassword.getText().toString(),edt_newpassword.getText().toString());
         asyncTask.execute(call);
 
     }
@@ -130,14 +131,24 @@ public class ChangePassword extends AppCompatActivity {
             if(progressDialog.isShowing()) {
                 progressDialog.dismiss();
             }
-            if(aBoolean == true)
-            {
-                ShowDialog();
+            try {
+                if(aBoolean == true)
+                {
+                    ShowDialog();
+                    Log.d("TAGC","true");
+                }
+                else
+                {
+                    Toast.makeText(ChangePassword.this,"Change fail!",Toast.LENGTH_SHORT).show();
+                    Log.d("TAGC","false");
+                }
             }
-            else
+            catch (Exception e)
             {
                 Toast.makeText(ChangePassword.this,"Change fail!",Toast.LENGTH_SHORT).show();
+                Log.d("TAGC",e.toString());
             }
+
         }
 
         @Override

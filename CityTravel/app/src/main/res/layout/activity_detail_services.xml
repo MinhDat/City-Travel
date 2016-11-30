@@ -43,7 +43,7 @@
                 android:focusableInTouchMode="true"
                 android:gravity="center"
                 android:marqueeRepeatLimit="marquee_forever"
-
+                android:id="@+id/tv_name_place"
                 android:scrollHorizontally="true"
                 android:singleLine="true"
                 android:text="          Khách sạn Ngàn Sao                "
@@ -67,7 +67,7 @@
                 android:layout_weight="2">
 
                 <ImageView
-                    android:id="@+id/imageView2"
+                    android:id="@+id/img_category"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     app:srcCompat="@drawable/ic_hotel" />
@@ -118,7 +118,7 @@
                 <TextView
                     android:id="@+id/txt_detail_address"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:ellipsize="marquee"
                     android:focusable="true"
                     android:focusableInTouchMode="true"
@@ -137,7 +137,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:padding="5dp"
-                    android:text="Dịch vụ: Khách sạn"
+                    android:text="Khách sạn"
                     android:textSize="15dp" />
 
                 <TextView

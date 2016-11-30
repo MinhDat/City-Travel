@@ -23,6 +23,7 @@ public class AccountLocalStore {
         spEditor.putString("lastname",account.getLastName());
         spEditor.putString("password",account.getPassword());
         spEditor.putString("role",account.getRole());
+        spEditor.putInt("id",account.getId());
         spEditor.commit();
     }
     public  Account GetLoggedInUser()
@@ -37,7 +38,8 @@ public class AccountLocalStore {
         String lastname = userLocalDatabase.getString("lastname","");
         String password = userLocalDatabase.getString("password","");
         String role = userLocalDatabase.getString("role","");
-        Account storeAccount = new Account(email,picture,address,birth,gender,phone,firstname,lastname,password,role);
+        int id = userLocalDatabase.getInt("id",-1);
+        Account storeAccount = new Account(id,email,picture,address,birth,gender,phone,firstname,lastname,password,role);
         return storeAccount;
     }
     public void SetUserLoggedIn(boolean loggedIn)

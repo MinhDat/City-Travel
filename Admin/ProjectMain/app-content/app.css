@@ -1,0 +1,30 @@
+﻿.underline{
+  height:30pt;
+  background-color:#91aaba;
+  }
+ 
+  .underlinedfooter{
+  font-size: 21px;
+  
+  }
+
+  .FooterHeight{
+  font-size: 22px;
+  }
+  
+  .fett{
+  font-weight: bold;
+  }
+  
+  .col-sm-4.center{
+  text-align: center;
+  padding-top: 20px;
+  }
+ 
+  .bild{
+        position: absolute;
+       left: 10%;  
+     }
+  .loginwell{
+          position: absolute;z-index:2;margin-left:750px;margin-top: 100px;    
+      }

@@ -153,6 +153,7 @@ public class LoginActivity extends AppCompatActivity {
                         Log.d("Ffff",e.toString());
 
                     }
+                    Log.d("ggg",String.valueOf(account.getId()));
                     accountLocalStore.StoreUserData(account);
                     accountLocalStore.SetUserLoggedIn(true);
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);

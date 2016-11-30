@@ -23,6 +23,7 @@ public class CustomRecyclerAdapterHome extends RecyclerView.Adapter<RecyclerView
     private List<Category> listData = new ArrayList<Category>();
     private int lastPosition = -1;
     private Context context;
+
     public CustomRecyclerAdapterHome(List<Category> listData, Context context) {
         this.listData = listData;
         this.context=context;
@@ -43,6 +44,7 @@ public class CustomRecyclerAdapterHome extends RecyclerView.Adapter<RecyclerView
                                                  int position) {
         LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
         View itemView = inflater.inflate(R.layout.item_recycler_home, viewGroup, false);
+
         return new RecyclerViewHolder(itemView);
     }
 

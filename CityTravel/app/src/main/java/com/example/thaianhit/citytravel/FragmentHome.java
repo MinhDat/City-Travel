@@ -12,15 +12,19 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Response;
 
@@ -32,7 +36,7 @@ public class FragmentHome extends Fragment {
     Toolbar toolbar;
     private View myFragmentView;
     private ProgressDialog pDialog;
-
+    private static final int REQUEST_CODE = 10;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         myFragmentView = inflater.inflate(R.layout.activity_fragment_home, container, false);
@@ -61,13 +65,14 @@ public class FragmentHome extends Fragment {
 
         layoutManager = new LinearLayoutManager(getActivity());
         APIInterface apiService = ApiClient.getClient(getActivity()).create(APIInterface.class);
-            Call<List<Category>> call = apiService.getCategory();
+        Call<List<Category>> call = apiService.getCategory();
         CategoryAsyncTask categoryAsyncTask = new CategoryAsyncTask();
         categoryAsyncTask.execute(call);
 
         return myFragmentView;
     }
-    public class CategoryAsyncTask extends AsyncTask<Call,Void,List<Category>> {
+
+    public class CategoryAsyncTask extends AsyncTask<Call, Void, List<Category>> {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -79,21 +84,30 @@ public class FragmentHome extends Fragment {
         }
 
         @Override
-        protected void onPostExecute(List<Category> categories) {
+        protected void onPostExecute(final List<Category> categories) {
 
             super.onPostExecute(categories);
             if (pDialog.isShowing()) {
                 pDialog.dismiss();
             }
-            if(categories.size() != 0)
-            {
+            if (categories.size() != 0) {
                 recyclerView.setLayoutManager(layoutManager);
                 recyclerView.setAdapter(new CustomRecyclerAdapterHome(categories, getActivity().getApplicationContext()));
+                recyclerView.addOnItemTouchListener(
+                        new RecyclerItemClickListener(getActivity(), recyclerView ,new RecyclerItemClickListener.OnItemClickListener() {
+                            @Override public void onItemClick(View view, int position) {
+                               Intent intent = new Intent(getActivity(),FragmentSearchLocations.class);
+                                intent.putExtra("category",categories.get(position).getName());
+                                startActivityForResult(intent, REQUEST_CODE);
+                            }
 
-            }
-            else
-            {
-                Toast.makeText(getActivity(),"Load fail",Toast.LENGTH_SHORT).show();
+                            @Override public void onLongItemClick(View view, int position) {
+                                // do whatever
+                            }
+                        })
+                );
+            } else {
+                Toast.makeText(getActivity(), "Load fail", Toast.LENGTH_SHORT).show();
             }
 
         }
@@ -101,16 +115,14 @@ public class FragmentHome extends Fragment {
         @Override
         protected List<Category> doInBackground(Call... calls) {
             List<Category> list = new ArrayList<Category>();
-            try
-            {
+            try {
                 Call<List<Category>> call = calls[0];
                 Response<List<Category>> response = call.execute();
                 list.addAll(response.body());
 
                 return list;
-            } catch (Exception e)
-            {
-                Log.d("fffff",e.toString());
+            } catch (Exception e) {
+                Log.d("fffff", e.toString());
                 return list;
             }
 

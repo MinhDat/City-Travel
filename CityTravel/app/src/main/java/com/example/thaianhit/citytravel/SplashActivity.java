@@ -37,7 +37,10 @@ public class SplashActivity extends BaseActivity {
 
         setContentView(R.layout.activity_splash);
         ButterKnife.bind(this);
-        Glide.with(this).load(R.drawable.background2).asBitmap().into(new SimpleTarget<Bitmap>(400, 500) {
+
+        // Hide action bar
+        getSupportActionBar().hide();
+        Glide.with(SplashActivity.this).load(R.drawable.background2).asBitmap().into(new SimpleTarget<Bitmap>(400, 500) {
             @Override
             public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
                 Drawable drawable = new BitmapDrawable(resource);
@@ -46,10 +49,7 @@ public class SplashActivity extends BaseActivity {
                 }
             }
         });
-        accountLocalStore = new AccountLocalStore(this);
-        // Hide action bar
-        getSupportActionBar().hide();
-
+        accountLocalStore = new AccountLocalStore(SplashActivity.this);
         task = new LoadingDataTask(this);
         task.execute();
     }
@@ -100,6 +100,8 @@ public class SplashActivity extends BaseActivity {
             while (System.currentTimeMillis() < endTime) {
                 synchronized (this) {
                     try {
+
+
                         b = authenticate();
                         wait(endTime - System.currentTimeMillis());
                     } catch (InterruptedException e) {
