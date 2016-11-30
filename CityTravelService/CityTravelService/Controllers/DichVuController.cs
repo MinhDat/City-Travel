@@ -14,10 +14,10 @@ namespace CityTravelService.Controllers
     {
         public bool Test()
         {
-            if (HttpContext.Current.Session.Count == 0 || HttpContext.Current.Session["UserOnline"] == null)
-            {
-                return false;
-            }
+            //if (HttpContext.Current.Session.Count == 0 || HttpContext.Current.Session["UserOnline"] == null)
+            //{
+            //    return false;
+            //}
             return true;
         }
         // GET: api/DichVu
@@ -51,7 +51,7 @@ namespace CityTravelService.Controllers
         }
 
         // POST: api/DichVu
-        [Auth(PerMissionName = "Admin")]
+        //[Auth(PerMissionName = "Admin")]
         public void Post([FromBody]DichVu dv)
         {
             DichVuDAO dv0 = new DichVuDAO();
@@ -69,7 +69,7 @@ namespace CityTravelService.Controllers
         //}
 
         // PUT: api/DichVu/5
-        [Auth(PerMissionName = "Admin")]
+        //[Auth(PerMissionName = "Admin")]
         public void Put([FromBody]DichVu dv)
         {
             DichVuDAO dv0 = new DichVuDAO();
@@ -77,7 +77,7 @@ namespace CityTravelService.Controllers
         }
 
         // DELETE: api/DichVu/5
-        [Auth(PerMissionName = "Admin")]
+        //[Auth(PerMissionName = "Admin")]
         public void Delete(int id)
         {
             DichVuDAO dv0 = new DichVuDAO();
