@@ -69,11 +69,11 @@ namespace CityTravelService.Controllers
         // GET: 
         [Route("")]
         [HttpGet]
-        public TaiKhoan Get(string email, string password)
+        public TaiKhoan Get(string email, string password, string provider)
         {
             TaiKhoanDAO tkO = new TaiKhoanDAO();
             TaiKhoan tk;
-            tk = tkO.getTaiKhoan(email, password);
+            tk = tkO.getTaiKhoan(email, password, provider);
             return tk;
         }
         #endregion
@@ -146,6 +146,7 @@ namespace CityTravelService.Controllers
         [HttpPut]
         public bool ForegetPassword(string email)
         {
+            String provider = "local";
             string temp = CreatePassword();
             MailMessage mailMessag = new MailMessage(ConfigurationManager.AppSettings.Get("Email"), email);
             mailMessag.Subject = "Gửi lại mật khẩu";
@@ -154,7 +155,7 @@ namespace CityTravelService.Controllers
             client.Send(mailMessag);
             TaiKhoanDAO tkO = new TaiKhoanDAO();
             TaiKhoan tk = new TaiKhoan();
-            int id = tkO.getTaiKhoan(email);
+            int id = tkO.getTaiKhoan(email, provider);
             tk = tkO.getTaiKhoan(id);
             if (tk==null)
                 return false;
