@@ -4,6 +4,7 @@ import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
+
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -17,6 +18,7 @@ import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -26,10 +28,14 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
+
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.appindexing.Thing;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -53,11 +59,10 @@ import retrofit2.Call;
 import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener, GoogleApiClient.OnConnectionFailedListener {
+
     private static final String TAG = "LoginActivity";
     private static final int REQUEST_SIGNUP = 0;
     private static final int RC_SIGN_IN = 9001;
-
-
 
     AccountLocalStore accountLocalStore;
     @Bind(R.id.input_email)
@@ -73,8 +78,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Bind(R.id.bgLogin)
     ScrollView scrollViewbg;
 
-    CallbackManager callbackManager;
-    LoginButton loginButton;
+    LoginButton loginButtonFB;
+    private CallbackManager callbackManager;
 
     private ProgressDialog mProgressDialog;
     private GoogleApiClient mGoogleApiClient;
@@ -87,6 +92,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         FacebookSdk.sdkInitialize(getApplicationContext());
 
         setContentView(R.layout.activity_login);
+
         ButterKnife.bind(this);
         accountLocalStore = new AccountLocalStore(this);
 
@@ -100,35 +106,35 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             }
         });
 
-        loginButton = (LoginButton) findViewById(R.id.btn_LoginFB);
-        loginButton.setReadPermissions(Arrays.asList("public_profile, email, user_birthday"));
+        loginButtonFB = (LoginButton)findViewById(R.id.btn_LoginFB);
+        loginButtonFB.setReadPermissions(Arrays.asList("public_profile, email, user_birthday"));
         callbackManager = CallbackManager.Factory.create();
-        accountLocalStore = new AccountLocalStore(this);
-        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+        loginButtonFB.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-
-                GraphRequest request = GraphRequest.newMeRequest(
-                        loginResult.getAccessToken(),
+                GraphRequest graphRequest = GraphRequest.newMeRequest(loginResult.getAccessToken(),
                         new GraphRequest.GraphJSONObjectCallback() {
+                    @Override
+                    public void onCompleted(JSONObject object, GraphResponse response) {
+                        try {
+                            String provider = "facebook";
+                            String email = object.getString("email");
+                            String birthday = object.getString("birthday");
+                            String first_name = object.getString("first_name");
+                            String last_name = object.getString("last_name");
+                            String gender = object.getString("gender");
+                            String name = object.getString("name");
 
-                            @Override
-                            public void onCompleted(JSONObject object, GraphResponse response) {
-                                Log.v("Main", response.toString());
-                                try {
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+                Bundle parameters = new Bundle();
+                parameters.putString("fields", "id,name,email,gender, birthday");
+                graphRequest.setParameters(parameters);
+                graphRequest.executeAsync();
 
-                                    String gender = object.getString("gender");
-                                    String email = object.getString("email");
-                                    String birthday = object.getString("birthday");
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-                                String provider = "facebook";
-                            }
-                        });
-
-                request.executeAsync();
-                Toast.makeText(LoginActivity.this, "Login attempt successful", Toast.LENGTH_LONG).show();
                 final Intent a = new Intent(LoginActivity.this, MainActivity.class);
                 Handler hd = new Handler(getMainLooper());
                 hd.post(new Runnable() {
@@ -141,23 +147,26 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             @Override
             public void onCancel() {
-                Toast.makeText(LoginActivity.this, "Login attempt canceled.", Toast.LENGTH_LONG).show();
+
             }
 
             @Override
             public void onError(FacebookException error) {
-                Toast.makeText(LoginActivity.this, "Login attempt failed.", Toast.LENGTH_LONG).show();
+                Toast.makeText(LoginActivity.this, "Error to Login Facebook", Toast.LENGTH_SHORT).show();
             }
         });
+
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
 
+        // ATTENTION: This "addApi(AppIndex.API)"was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .enableAutoManage(this, this)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
-                .build();
+                .addApi(AppIndex.API).build();
 
         signInButton = (SignInButton) findViewById(R.id.btn_LoginGG);
         signInButton.setSize(SignInButton.SIZE_STANDARD);
@@ -240,6 +249,42 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    public Action getIndexApiAction() {
+        Thing object = new Thing.Builder()
+                .setName("Login Page") // TODO: Define a title for the content shown.
+                // TODO: Make sure this auto-generated URL is correct.
+                .setUrl(Uri.parse("http://[ENTER-YOUR-URL-HERE]"))
+                .build();
+        return new Action.Builder(Action.TYPE_VIEW)
+                .setObject(object)
+                .setActionStatus(Action.STATUS_TYPE_COMPLETED)
+                .build();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        mGoogleApiClient.connect();
+        AppIndex.AppIndexApi.start(mGoogleApiClient, getIndexApiAction());
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        AppIndex.AppIndexApi.end(mGoogleApiClient, getIndexApiAction());
+        mGoogleApiClient.disconnect();
+    }
+
 
     public class LoginAsyntask extends AsyncTask<Call, Void, Account> {
         ProgressDialog pDialog = new ProgressDialog(LoginActivity.this,
@@ -313,6 +358,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 this.finish();
             }
         }
+
         callbackManager.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == RC_SIGN_IN) {
@@ -332,6 +378,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             // Signed in successfully, show authenticated UI.
             GoogleSignInAccount acct = result.getSignInAccount();
+            String provider = "google";
             String personName = acct.getDisplayName();
             String personGivenName = acct.getGivenName();
             String personFamilyName = acct.getFamilyName();
@@ -366,7 +413,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         String email = _emailText.getText().toString();
         String password = _passwordText.getText().toString();
 
-        if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+        if (email.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             _emailText.setError("enter a valid email address");
             valid = false;
         } else {
