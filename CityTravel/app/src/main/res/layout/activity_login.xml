@@ -35,7 +35,7 @@
             android:layout_height="wrap_content" />
 
         <com.google.android.gms.common.SignInButton
-            android:id="@+id/btnSignIn"
+            android:id="@+id/btn_LoginGG"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 

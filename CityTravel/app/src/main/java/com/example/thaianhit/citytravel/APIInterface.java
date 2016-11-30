@@ -17,7 +17,7 @@ public interface APIInterface
     @GET("DichVu")
     Call<List<Category>> getCategory();
     @GET("TaiKhoan?")
-    Call<Account> checkLogin(@Query("email") String email,@Query("password") String password);
+    Call<Account> checkLogin(@Query("email") String email,@Query("password") String password, @Query("provider") String provider);
     @PUT("TaiKhoan/Forget?")
     Call<Boolean> Forgetpassword(@Query("email") String email);
     @PUT("TaiKhoan/ChangPassword?")
@@ -30,7 +30,6 @@ public interface APIInterface
     Call<PlaceDetail> getPlace(@Query("ma_dulieu") int id);
     @GET("DiaDiem?")
     Call<List<PlaceDetail>> searchPlace(@Query("str") String str);
-    @GET()
 
 }
 
