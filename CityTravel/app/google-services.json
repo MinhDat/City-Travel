@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "283649100721",
+    "project_id": "firebase-city-travel"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:283649100721:android:8829283e7e17d085",
+        "android_client_info": {
+          "package_name": "com.example.thaianhit.citytravel"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "283649100721-801cf8uhqo7us3facthevbr6apuqkp8l.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.thaianhit.citytravel",
+            "certificate_hash": "98B5B71728A1C068DB0D138F45A756149F7175AF"
+          }
+        },
+        {
+          "client_id": "283649100721-jck4f3i85libvrjh5g4oushlp6rcbmei.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCYQiDQD2I6yNku3WMgOVIB80PhF4tw_sk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
