@@ -31,6 +31,7 @@ import com.bumptech.glide.request.target.SimpleTarget;
 
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
+import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.appindexing.Action;
@@ -43,6 +44,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -82,7 +85,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private CallbackManager callbackManager;
 
     private ProgressDialog mProgressDialog;
-    private GoogleApiClient mGoogleApiClient;
+    public static GoogleApiClient mGoogleApiClient;
     SignInButton signInButton;
 
     @Override
@@ -90,7 +93,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
 
         FacebookSdk.sdkInitialize(getApplicationContext());
-
+        LoginManager.getInstance().logOut();
         setContentView(R.layout.activity_login);
 
         ButterKnife.bind(this);
@@ -428,4 +431,5 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
         return valid;
     }
+
 }

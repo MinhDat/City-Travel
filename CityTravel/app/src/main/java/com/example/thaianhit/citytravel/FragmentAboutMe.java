@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v7.app.AlertDialog;
@@ -15,15 +16,24 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
+import com.facebook.login.LoginManager;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.plus.Plus;
 
 import java.io.IOException;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static com.example.thaianhit.citytravel.LoginActivity.mGoogleApiClient;
+import static com.facebook.FacebookSdk.getApplicationContext;
 
 
 public class FragmentAboutMe extends Fragment {
@@ -97,6 +107,14 @@ public class FragmentAboutMe extends Fragment {
                         "Yes",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
+
+                                LoginManager.getInstance().logOut();
+
+                                if (mGoogleApiClient.isConnected()) {
+                                    Plus.AccountApi.clearDefaultAccount(mGoogleApiClient);
+                                    mGoogleApiClient.disconnect();
+                                    mGoogleApiClient.connect();
+                                }
                                 LogoutAsyncTask logoutAsyncTask = new LogoutAsyncTask();
                                 logoutAsyncTask.execute();
                             }
@@ -132,6 +150,8 @@ public class FragmentAboutMe extends Fragment {
     {
         @Override
         protected Void doInBackground(Void... voids) {
+
+
 
             APIInterface service = ApiClient.getClient(getActivity()).create(APIInterface.class);
             Call<Boolean> call = service.Logout();
