@@ -1,0 +1,29 @@
+{
+  "name": "airlinereservation",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "ThaiSon"
+  ],
+  "license": "ISC",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "app/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.5.8",
+    "angular-animate": "^1.5.8",
+    "angular-route": "^1.5.8",
+    "jquery": "^3.1.1",
+    "animate.css": "^3.5.2",
+    "font-awesome": "fontawesome#^4.6.3",
+    "angular-material": "^1.1.1",
+    "moment": "^2.15.1",
+    "angular-material-data-table": "^0.10.9",
+    "angular-ui-router": "0.3.1"
+  }
+}
