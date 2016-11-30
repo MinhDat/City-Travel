@@ -29,12 +29,14 @@ app.controller('LoginController',['$scope','$http','$location','$log','$state','
                         url: 'http://citytravel-2.apphb.com/api/TaiKhoan',
                         params: {
                             email:$scope.email,
-                            password:$scope.password}
+                            password:$scope.password,
+                            provider:'Local'
+                          }
                     }).then(function successCallback(response) {
                         if(response.data)
                         {
                             UserInfo.user.Address=response.data.Address;
-                            UserInfo.user.Birth= moment(response.data.Birth).format('DD/MM/YYYY');
+                            UserInfo.user.Birth=moment(response.data.Birth).format('DD/MM/YYYY');
                             UserInfo.user.Email=response.data.Email;
                             UserInfo.user.FirtName=response.data.FirtName;
                             UserInfo.user.IdUser=response.data.IdUser;
@@ -221,15 +223,20 @@ app.controller('binhluanController',['$scope','$http','$location','$log','$state
 };
 refresh();
 
-$scope.Cancelcomment = function(mabinhluan,trangthai){
+$scope.approvedcomment = function(mabinhluan){
   console.log(mabinhluan);
-  console.log(trangthai);
-  $scope.binhluans.trangthai=0;
-   $http.put('http://citytravel-2.apphb.com/api/binhluan/' + mabinhluan,$scope.binhluans).then(function(response){
+   $http.put('http://citytravel-2.apphb.com/api/binhluan/' + bl,mabinhluan).then(function(response){
            console.log(response);
             refresh();
         });
 }
+
+  $scope.deletecomment = function(id){
+        console.log(id);
+        $http.delete('http://citytravel-2.apphb.com/api/binhluan/'+id,id).then(function(response){
+            refresh();
+        });
+    };
     }]);
 app.config(['$stateProvider','$urlRouterProvider','$locationProvider',
         function ($stateProvider, $urlRouterProvider,$locationProvider) {
