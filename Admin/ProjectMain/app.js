@@ -176,9 +176,9 @@ console.log("hello");
         document.getElementById('tID').disabled = true;
         document.getElementById('btnadd').disabled = true;
         document.getElementById('btnupdate').disabled = false;
-          $http.get('http://citytravel-2.apphb.com/api/tendiadiem/'+id,id).then(function(response){
+          $http.get('http://citytravel-2.apphb.com/api/tendiadiem?ma_ten_diadiem='+id,id).then(function(response){
             console.log(response);
-            $scope.text = response.data[0];
+            $scope.text = response.data;
          });
     };
     
@@ -215,7 +215,7 @@ refresh();
     }]);
 app.controller('binhluanController',['$scope','$http','$location','$log','$state','UserInfo',function($scope,$http,$location,$log,$state,UserInfo){
    var refresh=function(){
-         $http.get("http://citytravel-2.apphb.com/api/binhluan")
+         $http.get("http://citytravel-2.apphb.com/api/BinhLuanAdmin")
   .then(function(response) {
     console.log(response.data);
       $scope.binhluans = response.data;
@@ -225,7 +225,7 @@ refresh();
 
 $scope.approvedcomment = function(mabinhluan){
   console.log(mabinhluan);
-   $http.put('http://citytravel-2.apphb.com/api/binhluan/' + bl,mabinhluan).then(function(response){
+   $http.put('http://citytravel-2.apphb.com/api/binhluan?id=' + mabinhluan,mabinhluan).then(function(response){
            console.log(response);
             refresh();
         });
@@ -233,11 +233,13 @@ $scope.approvedcomment = function(mabinhluan){
 
   $scope.deletecomment = function(id){
         console.log(id);
-        $http.delete('http://citytravel-2.apphb.com/api/binhluan/'+id,id).then(function(response){
+        $http.delete('http://citytravel-2.apphb.com/api/binhluan?id='+id,id).then(function(response){
             refresh();
         });
     };
     }]);
+
+
 app.config(['$stateProvider','$urlRouterProvider','$locationProvider',
         function ($stateProvider, $urlRouterProvider,$locationProvider) {
             $urlRouterProvider.otherwise('/');
@@ -251,7 +253,7 @@ app.config(['$stateProvider','$urlRouterProvider','$locationProvider',
                     controller: "dichvuController"
                 }).state("/home", {
                     url: '/home',
-                    templateUrl: "/ProjectMain/dichvu/home.html",
+                    templateUrl: "/ProjectMain/dichvu/home.html"
                 }).state("/binhluan", {
                     url: '/binhluan',
                     templateUrl: "/ProjectMain/dichvu/binhluan.html",
