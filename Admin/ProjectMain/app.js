@@ -20,7 +20,18 @@ app.factory("UserInfo", [
             };
             return info;
         }]);
-app.controller('LoginController',['$scope','$http','$location','$log','$state','UserInfo',function($scope,$http,$location,$log,$state,UserInfo)
+app.factory("Auth", function(){
+var user;
+return{
+    setUser : function(aUser){
+        user = aUser;
+    },
+    isLoggedIn : function(){
+        return(user)? user : false;
+    }
+  }
+});
+app.controller('LoginController',['$scope','$http','$location','$log','$state','UserInfo','Auth',function($scope,$http,$location,$log,$state,UserInfo,Auth)
         {
           $scope.SignIn=function(event){
             $scope.dataLoading=true;
@@ -58,7 +69,8 @@ app.controller('LoginController',['$scope','$http','$location','$log','$state','
                               {
                              $scope.message="Login Success";
                               $scope.dataLoading=false;
-                              $state.go("/dichvu"); 
+                              Auth.setUser(UserInfo.user);
+                              $state.go("/home"); 
                               }  
                               else
                               {
@@ -73,7 +85,13 @@ app.controller('LoginController',['$scope','$http','$location','$log','$state','
                     });
                   } 
         }]);
-app.controller('dichvuController',['$scope','$http','$location','$log','$state','UserInfo',function($scope,$http,$location,$log,$state,UserInfo){
+app.controller('dichvuController',['$scope','$http','$location','$log','$state','UserInfo','Auth',function($scope,$http,$location,$log,$state,UserInfo,Auth){
+     if (!Auth.isLoggedIn()) {
+            console.log('DENY');
+           
+             $state.go("/");
+        }
+        
     var refresh=function(){
         $http({
                     method: 'GET',
@@ -134,7 +152,13 @@ console.log("hello");
     }]);
 
 
-app.controller('tendiadiemController',['$scope','$http','$location','$log','$state','UserInfo',function($scope,$http,$location,$log,$state,UserInfo){
+app.controller('tendiadiemController',['$scope','$http','$location','$log','$state','UserInfo','Auth',function($scope,$http,$location,$log,$state,UserInfo,Auth){
+    if (!Auth.isLoggedIn()) {
+            console.log('DENY');
+           
+             $state.go("/");
+        }
+        
     var refresh=function(){
         $http({
                     method: 'GET',
@@ -195,7 +219,13 @@ console.log("hello");
     }]);
 
 
-app.controller('taikhoanController',['$scope','$http','$location','$log','$state','UserInfo',function($scope,$http,$location,$log,$state,UserInfo){
+app.controller('taikhoanController',['$scope','$http','$location','$log','$state','UserInfo','Auth',function($scope,$http,$location,$log,$state,UserInfo,Auth){
+    if (!Auth.isLoggedIn()) {
+            console.log('DENY');
+           
+             $state.go("/");
+        }
+        
    var refresh=function(){
          $http.get("http://citytravel-2.apphb.com/api/taikhoan")
   .then(function(response) {
@@ -213,7 +243,13 @@ refresh();
         });
     };
     }]);
-app.controller('binhluanController',['$scope','$http','$location','$log','$state','UserInfo',function($scope,$http,$location,$log,$state,UserInfo){
+app.controller('binhluanController',['$scope','$http','$location','$log','$state','UserInfo','Auth',function($scope,$http,$location,$log,$state,UserInfo,Auth){
+    if (!Auth.isLoggedIn()) {
+            console.log('DENY');
+           
+             $state.go("/");
+        }
+        
    var refresh=function(){
          $http.get("http://citytravel-2.apphb.com/api/BinhLuanAdmin")
   .then(function(response) {
