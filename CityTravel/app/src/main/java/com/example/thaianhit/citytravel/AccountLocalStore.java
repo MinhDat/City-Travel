@@ -13,6 +13,7 @@ public class AccountLocalStore {
    public void StoreUserData(Account account)
     {
         SharedPreferences.Editor spEditor = userLocalDatabase.edit();
+        spEditor.putString("provider",account.getProvider());
         spEditor.putString("email",account.getEmail());
         spEditor.putString("picture",account.getPicture());
         spEditor.putString("address",account.getAddress());
@@ -28,6 +29,7 @@ public class AccountLocalStore {
     }
     public  Account GetLoggedInUser()
     {
+        String provider = userLocalDatabase.getString("provider","");
         String email = userLocalDatabase.getString("email","");
         String picture = userLocalDatabase.getString("picture","");
         String address = userLocalDatabase.getString("address","");
@@ -39,7 +41,7 @@ public class AccountLocalStore {
         String password = userLocalDatabase.getString("password","");
         String role = userLocalDatabase.getString("role","");
         int id = userLocalDatabase.getInt("id",-1);
-        Account storeAccount = new Account(id,email,picture,address,birth,gender,phone,firstname,lastname,password,role);
+        Account storeAccount = new Account(provider,id,email,picture,address,birth,gender,phone,firstname,lastname,password,role);
         return storeAccount;
     }
     public void SetUserLoggedIn(boolean loggedIn)

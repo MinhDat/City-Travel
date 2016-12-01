@@ -7,7 +7,6 @@ import com.google.gson.annotations.SerializedName;
  */
 
 public class Category {
-    @SerializedName("ID")
     private int id_category;
     @SerializedName("Name")
     private String name_category;

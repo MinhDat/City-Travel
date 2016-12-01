@@ -52,7 +52,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.MyViewHo
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         Comment comment = commentsList.get(position);
-        holder.name.setText(comment.getName());
+        holder.name.setText(comment.getFirst_name() + " " + comment.getLast_name());
         holder.comment.setText(comment.getComment());
         holder.date.setText(comment.getDate().toString());
         Glide.with(context).load(comment.getAvatar()).asBitmap().centerCrop().into(new BitmapImageViewTarget(holder.avatar) {
@@ -68,6 +68,12 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.MyViewHo
 
     @Override
     public int getItemCount() {
-        return commentsList.size();
+        if(commentsList!= null)
+        {
+            return commentsList.size();
+        }
+        else
+            return 0;
+
     }
 }

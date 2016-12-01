@@ -7,7 +7,6 @@ import com.google.gson.annotations.SerializedName;
  */
 
 public class Place {
-    @SerializedName("MaTenDiaDiem")
     int id_place;
     @SerializedName("TenDiaDiem1")
     String name_place;

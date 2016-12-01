@@ -7,7 +7,6 @@ import com.google.gson.annotations.SerializedName;
  */
 
 public class TinhThanh {
-    @SerializedName("MaTinhThanh")
     private int id_tinhthanh;
     @SerializedName("TenTinhThanh")
     private String name_tinhthanh;
@@ -17,7 +16,8 @@ public class TinhThanh {
         this.name_tinhthanh = name_tinhthanh;
     }
 
-    public int getId_tinhthanh() {
+    public int getId_tinhthanh()
+    {
         return id_tinhthanh;
     }
 

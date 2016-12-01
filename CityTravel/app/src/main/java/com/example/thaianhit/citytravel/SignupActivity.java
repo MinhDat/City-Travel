@@ -179,7 +179,7 @@ public class SignupActivity extends AppCompatActivity implements DatePickerDialo
                 .build();
         APIInterface service = retrofit.create(APIInterface.class);
         SignupAsyntask signupAsyntask = new SignupAsyntask();
-        Call<Boolean> call = service.postAccount(new Account(_emailText.getText().toString(), "", "", date.toString(), gender, "", _firstnameText.getText().toString(), _lastnameText.getText().toString(), _passwordText.getText().toString(),"Customer"));
+        Call<Boolean> call = service.postAccount(new Account("local",_emailText.getText().toString(), "", "", date.toString(), gender, "", _firstnameText.getText().toString(), _lastnameText.getText().toString(), _passwordText.getText().toString(),"Customer"));
         signupAsyntask.execute(call);
     }
 

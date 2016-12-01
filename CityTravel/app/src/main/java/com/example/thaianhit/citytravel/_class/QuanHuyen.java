@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName;
  */
 
 public class QuanHuyen {
-    @SerializedName("MaQuanHuyen")
+
     private int id_quanhuyen;
     @SerializedName("TenQuanHuyen")
     private  String name_quanhuyen;

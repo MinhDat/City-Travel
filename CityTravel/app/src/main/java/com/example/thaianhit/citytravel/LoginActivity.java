@@ -91,7 +91,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         FacebookSdk.sdkInitialize(getApplicationContext());
         LoginManager.getInstance().logOut();
         setContentView(R.layout.activity_login);
@@ -120,6 +119,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     @Override
                     public void onCompleted(JSONObject object, GraphResponse response) {
                         try {
+
                             String provider = "facebook";
                             String email = object.getString("email");
                             String birthday = object.getString("birthday");

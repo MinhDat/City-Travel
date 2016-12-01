@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
@@ -20,6 +22,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
+import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.common.api.ResultCallback;
@@ -32,6 +35,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static android.os.Looper.getMainLooper;
 import static com.example.thaianhit.citytravel.LoginActivity.mGoogleApiClient;
 import static com.facebook.FacebookSdk.getApplicationContext;
 
@@ -51,6 +55,7 @@ public class FragmentAboutMe extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
+
         myFragmentView = inflater.inflate(R.layout.activity_fragment_about_me, container, false);
         accountLocalStore = new AccountLocalStore(getActivity());
         img_btn_editPassword = (ImageButton) myFragmentView.findViewById(R.id.img_edit_password);
@@ -108,15 +113,23 @@ public class FragmentAboutMe extends Fragment {
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
 
-                                LoginManager.getInstance().logOut();
 
-                                if (mGoogleApiClient.isConnected()) {
-                                    Plus.AccountApi.clearDefaultAccount(mGoogleApiClient);
-                                    mGoogleApiClient.disconnect();
-                                    mGoogleApiClient.connect();
+//
+//                                if (mGoogleApiClient.isConnected()) {
+//                                    Plus.AccountApi.clearDefaultAccount(mGoogleApiClient);
+//                                    mGoogleApiClient.disconnect();
+//                                    mGoogleApiClient.connect();
+//                                }
+                                if(account.getProvider().equals("local"))
+                                {
+                                    LogoutAsyncTask logoutAsyncTask = new LogoutAsyncTask();
+                                    logoutAsyncTask.execute();
+
                                 }
-                                LogoutAsyncTask logoutAsyncTask = new LogoutAsyncTask();
-                                logoutAsyncTask.execute();
+                                else
+                                {
+                                    LoginManager.getInstance().logOut();
+                                }
                             }
                         });
 
@@ -157,12 +170,13 @@ public class FragmentAboutMe extends Fragment {
             Call<Boolean> call = service.Logout();
 
             try {
-                call.execute();
                 accountLocalStore.ClearUser();
                 Intent intent = new Intent(getActivity(), LoginActivity.class);
                 startActivity(intent);
                 getActivity().overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
                 getActivity().finish();
+                call.execute();
+
             } catch (IOException e) {
                 accountLocalStore.ClearUser();
                 Intent intent = new Intent(getActivity(), LoginActivity.class);

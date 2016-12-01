@@ -32,12 +32,13 @@ public class Account {
     private String picture;
     @SerializedName("Role")
     private String role;
+    @SerializedName("Provider")
+    private String provider;
 
 
 
 
-
-    public Account(int id,String email, String picture, String address, String birth, int gender, String phone, String firsrName, String lastName, String password, String role) {
+    public Account(String provider,int id,String email, String picture, String address, String birth, int gender, String phone, String firsrName, String lastName, String password, String role) {
         this.id = id;
         this.email = email;
         this.picture = picture;
@@ -49,9 +50,19 @@ public class Account {
         this.lastName = lastName;
         this.password = password;
         this.role = role;
+        this.provider = provider;
     }
-    public Account(String email, String picture, String address, String birth, int gender, String phone, String firsrName, String lastName, String password, String role) {
 
+    public String getProvider() {
+        return provider;
+    }
+
+    public void setProvider(String provider) {
+        this.provider = provider;
+    }
+
+    public Account(String provider,String email, String picture, String address, String birth, int gender, String phone, String firsrName, String lastName, String password, String role) {
+        this.provider = provider;
         this.email = email;
         this.picture = picture;
         this.address = address;

@@ -8,6 +8,7 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface APIInterface
@@ -17,7 +18,7 @@ public interface APIInterface
     @GET("DichVu")
     Call<List<Category>> getCategory();
     @GET("TaiKhoan?")
-    Call<Account> checkLogin(@Query("email") String email,@Query("password") String password, @Query("provider") String provider);
+    Call<Account> checkLogin(@Query("email") String email,@Query("password") String password ,@Query("provider") String provider);
     @PUT("TaiKhoan/Forget?")
     Call<Boolean> Forgetpassword(@Query("email") String email);
     @PUT("TaiKhoan/ChangPassword?")
@@ -30,6 +31,8 @@ public interface APIInterface
     Call<PlaceDetail> getPlace(@Query("ma_dulieu") int id);
     @GET("DiaDiem?")
     Call<List<PlaceDetail>> searchPlace(@Query("str") String str);
+    @GET("BinhLuanKH/{id}")
+    Call<List<Comment>> getComment (@Path("id") int id);
 
 }
 

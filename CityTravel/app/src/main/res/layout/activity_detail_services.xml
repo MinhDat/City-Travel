@@ -202,10 +202,7 @@
                 android:background="@android:color/white"
                 android:orientation="vertical">
 
-                <include
-                    layout="@layout/activity_maps"
-                    android:layout_width="match_parent"
-                    android:layout_height="180dp" />
+               <include layout="@layout/activity_maps" android:layout_height="180dp" android:layout_width="match_parent"/>
 
                 <RelativeLayout
                     android:id="@+id/bt_direction"

@@ -130,7 +130,7 @@ public class EditProfile extends AppCompatActivity implements DatePickerDialog.O
                 break;
             case R.id.action_save:
                 Log.d("TAGGGG", String.valueOf(account.getId()));
-                Account accountedit = new Account(account.getId(),account.getEmail(),account.getPicture(),edtAddress.getText().toString(),edtBirthday.getText().toString(),gender,edt_phone.getText().toString(),edt_firstname.getText().toString(),edt_lastname.getText().toString(),account.getPassword(),account.getRole());
+                Account accountedit = new Account("local",account.getId(),account.getEmail(),account.getPicture(),edtAddress.getText().toString(),edtBirthday.getText().toString(),gender,edt_phone.getText().toString(),edt_firstname.getText().toString(),edt_lastname.getText().toString(),account.getPassword(),account.getRole());
                 accountLocalStore.StoreUserData(accountedit);
                 EditAsyncTask editAsyncTask = new EditAsyncTask();
                 APIInterface service = ApiClient.getClient(EditProfile.this).create(APIInterface.class);

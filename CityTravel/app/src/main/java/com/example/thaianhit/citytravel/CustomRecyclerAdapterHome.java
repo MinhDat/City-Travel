@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.thaianhit.citytravel.CustomRecyclerAdapterHome.RecyclerViewHolder;
 
 import java.util.ArrayList;
@@ -62,6 +63,11 @@ public class CustomRecyclerAdapterHome extends RecyclerView.Adapter<RecyclerView
     @Override
     public void onBindViewHolder(RecyclerViewHolder viewHolder, int position) {
         viewHolder.txtName.setText(listData.get(position).getName());
+        Glide.with(context)
+                .load(listData.get(position).getPicture())
+                .override(60,60)
+                .centerCrop()
+                .into(viewHolder.img_icon);
         setAnimation(viewHolder.container,position);
     }
 
@@ -81,7 +87,6 @@ public class CustomRecyclerAdapterHome extends RecyclerView.Adapter<RecyclerView
             View.OnClickListener {
 
         public TextView txtName;
-        public TextView txtDescription;
         public ImageView img_icon;
         LinearLayout container;
         public RecyclerViewHolder(View itemView) {
