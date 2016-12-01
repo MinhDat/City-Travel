@@ -106,6 +106,7 @@ public class DetailServices extends AppCompatActivity implements OnMapReadyCallb
 
         if (extras != null) {
             id_place = extras.getInt("id");
+            //id_category = extras.
             APIInterface apiService = ApiClient.getClient(this).create(APIInterface.class);
             Call<PlaceDetail> call = apiService.getPlace(id_place);
             CategoryAsyncTask categoryAsyncTask = new CategoryAsyncTask();
@@ -147,10 +148,8 @@ public class DetailServices extends AppCompatActivity implements OnMapReadyCallb
         btn_detail_save.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                PlaceLikeDTO placeLikeDTO = new PlaceLikeDTO();
-                if (b == true) {
-
-                    placeLikeDTO.set_id(1);
+                    PlaceLikeDTO placeLikeDTO = new PlaceLikeDTO();
+                    placeLikeDTO.set_id(id_place);
                     placeLikeDTO.setTenDiaDiem(tv_name_place.getText().toString());
                     placeLikeDTO.setTenDichVu(txt_detail_dichvu.getText().toString());
                     //Lay gio he thong
@@ -165,26 +164,40 @@ public class DetailServices extends AppCompatActivity implements OnMapReadyCallb
                     placeLikeDTO.setTenDiaChi(txt_detail_address.getText().toString());
                     placeLikeDTO.setHinhAnhDichVu("");
                     placeLikeDTO.setDiemDanhGia(txt_detail_rating.getText().toString());
+                    if (b == true) {
+                        PlaceLikeDAO placeLikeDAO = new PlaceLikeDAO(getApplication());
+                        placeLikeDAO.open();
 
-                    PlaceLikeDAO placeLikeDAO = new PlaceLikeDAO(getApplication());
-                    placeLikeDAO.open();
+                        List<PlaceLikeDTO> ls = placeLikeDAO.GetListPlaceLike();
 
-                    boolean kiemtra = placeLikeDAO.AddHistoryLike(placeLikeDTO);
-                    placeLikeDAO.close();
-                    if (kiemtra)
-                        Toast.makeText(DetailServices.this, "Đã thêm vào Lịch sử yêu thích",Toast.LENGTH_LONG).show();
-                    else
-                        Toast.makeText(DetailServices.this, "Chưa thêm vào Lịch sử yêu thích", Toast.LENGTH_SHORT).show();
-                    b = false;
-                }else {
-                    PlaceLikeDAO placeLikeDAO = new PlaceLikeDAO(getApplication());
-                    placeLikeDAO.open();
 
-                    placeLikeDAO.DeleteItemHistoryLike(placeLikeDTO);
-                    placeLikeDAO.close();
-                    Toast.makeText(DetailServices.this, "Đã hủy yêu thích", Toast.LENGTH_LONG).show();
-                    b = true;
-                }
+
+                        boolean flat = true;
+                        if(ls != null) {
+                            for (PlaceLikeDTO o : ls) {
+                                if (o.getTenDiaDiem().toString().equals(placeLikeDTO.getTenDiaDiem().toString()) == true) {
+                                    flat = false;
+                                }
+                            }
+                        }
+
+                        boolean kiemtra = false;
+                        if(flat == true)
+                            kiemtra = placeLikeDAO.AddPlaceLike(placeLikeDTO);
+                        placeLikeDAO.close();
+                        if (kiemtra)
+                            Toast.makeText(DetailServices.this, "Đã thêm vào Địa điểm yêu thích", Toast.LENGTH_LONG).show();
+                        else
+                            Toast.makeText(DetailServices.this, "Chưa thêm được Địa điểm yêu thích", Toast.LENGTH_SHORT).show();
+                    } else {
+                        PlaceLikeDAO placeLikeDAO = new PlaceLikeDAO(getApplication());
+                        placeLikeDAO.open();
+                        List<PlaceLikeDTO> ls = placeLikeDAO.GetListPlaceLike();
+                        boolean c = placeLikeDAO.DeleteItemPlaceLike(placeLikeDTO);
+                        placeLikeDAO.close();
+                        Toast.makeText(DetailServices.this, "Đã hủy Địa điểm yêu thích", Toast.LENGTH_LONG).show();
+                    }
+
             }
         });
     }
@@ -277,6 +290,19 @@ public class DetailServices extends AppCompatActivity implements OnMapReadyCallb
                 CameraPosition cameraPosition = new CameraPosition.Builder().target(sydney).zoom(14.0f).build();
                 CameraUpdate cameraUpdate = CameraUpdateFactory.newCameraPosition(cameraPosition);
                 mMap.moveCamera(cameraUpdate);
+
+                PlaceLikeDAO placeLikeDAO = new PlaceLikeDAO(getApplication());
+                placeLikeDAO.open();
+
+                List<PlaceLikeDTO> ls = placeLikeDAO.GetListPlaceLike();
+                placeLikeDAO.close();
+
+                for(PlaceLikeDTO o : ls) {
+                    if(o.getTenDiaDiem().toString().equals(placeDetail.getPlace().getName_place().toString()) == true) {
+                        btn_detail_save.setChecked(true);
+                    }
+                }
+
             } catch (Exception e) {
                 Toast.makeText(DetailServices.this, "Load fail", Toast.LENGTH_SHORT).show();
                 Log.d("TGGG", e.toString());

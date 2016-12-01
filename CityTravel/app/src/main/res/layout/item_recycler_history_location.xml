@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <android.support.v7.widget.AppCompatImageView app:srcCompat="@drawable/hotel"
+        android:id="@+id/photo_location"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="10dp"/>
+    <TextView
+        android:text="1.Quán phở"
+        android:id="@+id/name_location"
+        android:layout_toRightOf="@id/photo_location"
+        android:layout_width="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:layout_marginTop="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/label_category"
+        android:layout_toRightOf="@id/photo_location"
+        android:layout_below="@id/name_location"
+        android:textColor="@android:color/darker_gray"
+        android:text="Cotegory: "
+        android:textSize="12sp" />
+    <TextView
+        android:layout_marginTop="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/category"
+        android:layout_toRightOf="@id/label_category"
+        android:layout_below="@id/name_location"
+        android:textColor="@android:color/darker_gray"
+        android:text="Khách sạn"
+        android:layout_marginRight="20dp"
+        android:textSize="12sp"
+        />
+    <TextView
+        android:layout_marginTop="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/label_note"
+        android:layout_toRightOf="@id/photo_location"
+        android:layout_below="@id/category"
+        android:textColor="@android:color/darker_gray"
+        android:text="Date: "
+        android:textSize="12sp" />
+    <TextView
+        android:layout_marginTop="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_date"
+        android:layout_marginRight="20dp"
+        android:layout_toRightOf="@id/label_note"
+        android:layout_below="@id/category"
+        android:textColor="@android:color/darker_gray"
+        android:text="1/12/2016"
+        android:textSize="12sp" />
+    <TextView
+        android:layout_marginTop="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_address"
+        android:layout_below="@id/tv_date"
+        android:text="861/90C Trần Xuân Soạn, P.Tân Hưng, Q.7"
+        android:textSize="15sp" />
+    <RelativeLayout
+        android:id="@+id/view_point"
+        android:background="@drawable/shape"
+        android:layout_width="30dp"
+        android:layout_alignParentRight="true"
+        android:layout_height="30dp"
+        android:gravity="center">
+        <TextView
+            android:text="8.5"
+            android:id="@+id/text_rating"
+            android:layout_width="wrap_content"
+            android:textSize="12sp"
+            android:textColor="@android:color/white"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+</RelativeLayout>

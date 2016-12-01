@@ -27,7 +27,7 @@ public class DatabaseHistoryHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        String query = "CREATE TABLE "+ TABLE_HISTORY + " (" + HISTORY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + HISTORY_TENDIADIEM + " TEXT, " + HISTORY_TENDICHVU + " TEXT, " + HISTORY_THOIGIANLIKE + " TEXT, " + HISTORY_DIACHI + " TEXT, " + HISTORY_HINHANHDICHVU + " TEXT, " + HISTORY_DIEMDANHGIA +" TEXT);";
+        String query = "CREATE TABLE "+ TABLE_HISTORY + " (" + HISTORY_ID + " INTEGER PRIMARY KEY, " + HISTORY_TENDIADIEM + " TEXT, " + HISTORY_TENDICHVU + " TEXT, " + HISTORY_THOIGIANLIKE + " TEXT, " + HISTORY_DIACHI + " TEXT, " + HISTORY_HINHANHDICHVU + " TEXT, " + HISTORY_DIEMDANHGIA +" TEXT);";
         sqLiteDatabase.execSQL(query);
 
     }

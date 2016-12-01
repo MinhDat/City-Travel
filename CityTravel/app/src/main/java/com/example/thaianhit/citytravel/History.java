@@ -15,10 +15,11 @@ import java.util.List;
 
 public class History  extends Fragment {
     private RecyclerView recyclerView;
-    private CustomRecyclerAdapterHistory adapter;
+    private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
-    private List<DataRecyclerSearch> listData = new ArrayList<DataRecyclerSearch>();
+    private List<HistoryLikeDTO> listData = new ArrayList<HistoryLikeDTO>();
     private View myFragmentView;
+    HistoryLikeDAO historyLikeDAO;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -32,15 +33,14 @@ public class History  extends Fragment {
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
-        DataRecyclerSearch a=new DataRecyclerSearch("9.0","861/90C Trần Xuân Soạn, P.Tân Hưng, Q.7",(float)1.5,"Khách sạn","","Khách sạn xanh");
-        DataRecyclerSearch b=new DataRecyclerSearch("9.0","861/90C Trần Xuân Soạn, P.Tân Hưng, Q.7",(float)1.5,"Khách sạn","","Khách sạn xanh");
-        DataRecyclerSearch c=new DataRecyclerSearch("9.0","861/90C Trần Xuân Soạn, P.Tân Hưng, Q.7",(float)1.5,"Khách sạn","","Khách sạn xanh");
-        DataRecyclerSearch d=new DataRecyclerSearch("9.0","861/90C Trần Xuân Soạn, P.Tân Hưng, Q.7",(float)1.5,"Khách sạn","","Khách sạn xanh");
-        listData.add(a);
-        listData.add(b);
-        listData.add(c);
-        listData.add(d);
-        adapter = new CustomRecyclerAdapterHistory(listData,getActivity());
+
+        historyLikeDAO = new HistoryLikeDAO(getActivity());
+        historyLikeDAO.open();
+
+        listData = historyLikeDAO.GetListHistoryLike();
+        historyLikeDAO.close();
+
+        adapter = new HistoryAdater(listData,getActivity());
         recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
         recyclerView.setAdapter(adapter);
         return myFragmentView;

@@ -49,7 +49,7 @@ public class SaveLocation  extends Fragment {
         placeLikeDAO = new PlaceLikeDAO(getActivity());
         placeLikeDAO.open();
 
-        listPlace = placeLikeDAO.GetListHistoryLike();
+        listPlace = placeLikeDAO.GetListPlaceLike();
         placeLikeDAO.close();
         // specify an adapter (see also next example)
         mAdapter = new SaveLocationAdapter(listPlace, getActivity());

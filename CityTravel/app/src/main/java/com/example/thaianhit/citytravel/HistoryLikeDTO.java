@@ -4,9 +4,11 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 /**
- * Created by hamin on 01-Dec-16.
+ * Created by HuuBao on 27-Nov-16.
  */
-public class PlaceLikeDTO implements Parcelable{
+
+public class HistoryLikeDTO implements Parcelable {
+
     int _id;
     String tenDiaDiem;
     String tenDichVu;
@@ -88,10 +90,10 @@ public class PlaceLikeDTO implements Parcelable{
         dest.writeString(this.diemDanhGia);
     }
 
-    public PlaceLikeDTO() {
+    public HistoryLikeDTO() {
     }
 
-    protected PlaceLikeDTO(Parcel in) {
+    protected HistoryLikeDTO(Parcel in) {
         this._id = in.readInt();
         this.tenDiaDiem = in.readString();
         this.tenDichVu = in.readString();

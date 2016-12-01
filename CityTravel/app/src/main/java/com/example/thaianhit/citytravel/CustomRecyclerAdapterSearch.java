@@ -48,6 +48,7 @@ public class CustomRecyclerAdapterSearch extends RecyclerView.Adapter<CustomRecy
             text_rating = (TextView) itemView.findViewById(R.id.text_rating);
             text_address = (TextView) itemView.findViewById(R.id.tv_address);
             nearme = (TextView) itemView.findViewById(R.id.near_me);
+
         }
     }
     @Override

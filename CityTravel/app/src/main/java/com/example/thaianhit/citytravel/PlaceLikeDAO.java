@@ -9,41 +9,41 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by HuuBao on 27-Nov-16.
+ * Created by hamin on 01-Dec-16.
  */
 
 public class PlaceLikeDAO {
-
     SQLiteDatabase database;
-    DatabaseHistoryHelper databaseHistoryHelper;
-    String[] columHistory = {DatabaseHistoryHelper.HISTORY_ID, DatabaseHistoryHelper.HISTORY_TENDIADIEM
-            , DatabaseHistoryHelper.HISTORY_TENDICHVU, DatabaseHistoryHelper.HISTORY_THOIGIANLIKE
-            , DatabaseHistoryHelper.HISTORY_DIACHI, DatabaseHistoryHelper.HISTORY_HINHANHDICHVU
-            , DatabaseHistoryHelper.HISTORY_DIEMDANHGIA};
+    DatabasePlaceHelper databasePlaceHelper;
+//    String[] columPlace = {DatabasePlaceHelper.HISTORY_ID, DatabasePlaceHelper.HISTORY_TENDIADIEM
+//            , DatabasePlaceHelper.HISTORY_TENDICHVU, DatabasePlaceHelper.HISTORY_THOIGIANLIKE
+//            , DatabasePlaceHelper.HISTORY_DIACHI, DatabasePlaceHelper.HISTORY_HINHANHDICHVU
+//            , DatabasePlaceHelper.HISTORY_DIEMDANHGIA};
 
     public PlaceLikeDAO(Context context) {
-        databaseHistoryHelper = new DatabaseHistoryHelper(context);
+        databasePlaceHelper = new DatabasePlaceHelper(context);
     }
 
     public void open() {
-        database = databaseHistoryHelper.getWritableDatabase();
+        database = databasePlaceHelper.getWritableDatabase();
     }
 
     public void close() {
-        databaseHistoryHelper.close();
+        databasePlaceHelper.close();
     }
 
-    public boolean AddHistoryLike(PlaceLikeDTO history) {
+    public boolean AddPlaceLike(PlaceLikeDTO place) {
         ContentValues contentValues = new ContentValues();
-//        contentValues.put(DatabaseHistoryHelper.TABLE_HISTORY);//id nhân viên tự tăng
-        contentValues.put(DatabaseHistoryHelper.HISTORY_TENDIADIEM, history.getTenDiaDiem().toString());
-        contentValues.put(DatabaseHistoryHelper.HISTORY_TENDICHVU, history.getTenDichVu().toString());
-        contentValues.put(DatabaseHistoryHelper.HISTORY_THOIGIANLIKE, history.getThoiGianLike().toString());
-        contentValues.put(DatabaseHistoryHelper.HISTORY_DIACHI, history.getTenDiaChi().toString());
-        contentValues.put(DatabaseHistoryHelper.HISTORY_HINHANHDICHVU, history.getHinhAnhDichVu().toString());
-        contentValues.put(DatabaseHistoryHelper.HISTORY_DIEMDANHGIA, history.getDiemDanhGia().toString());
+//        contentValues.put(DatabasePlaceHelper.TABLE_PLACE);//id nhân viên tự tăng
+        contentValues.put(DatabasePlaceHelper.PLACE_ID, place.get_id());
+        contentValues.put(DatabasePlaceHelper.PLACE_TENDIADIEM, place.getTenDiaDiem().toString());
+        contentValues.put(DatabasePlaceHelper.PLACE_TENDICHVU, place.getTenDichVu().toString());
+        contentValues.put(DatabasePlaceHelper.PLACE_THOIGIANLIKE, place.getThoiGianLike().toString());
+        contentValues.put(DatabasePlaceHelper.PLACE_DIACHI, place.getTenDiaChi().toString());
+        contentValues.put(DatabasePlaceHelper.PLACE_HINHANHDICHVU, place.getHinhAnhDichVu().toString());
+        contentValues.put(DatabasePlaceHelper.PLACE_DIEMDANHGIA, place.getDiemDanhGia().toString());
 
-        long id_diadiem = database.insert(DatabaseHistoryHelper.TABLE_HISTORY, null, contentValues);
+        long id_diadiem = database.insert(DatabasePlaceHelper.TABLE_PLACE, null, contentValues);
 
         if (id_diadiem != 0) {
             return true;
@@ -52,54 +52,53 @@ public class PlaceLikeDAO {
         }
     }
 
-    public List<PlaceLikeDTO> GetListHistoryLike(){
-        List<PlaceLikeDTO> dsHistoryLike = new ArrayList<PlaceLikeDTO>();
-//        Cursor cursor = database.query(DatabaseHistoryHelper.TABLE_HISTORY,columHistory
+    public List<PlaceLikeDTO> GetListPlaceLike(){
+        List<PlaceLikeDTO> dsPlaceLike = new ArrayList<PlaceLikeDTO>();
+//        Cursor cursor = database.query(DatabasePlaceHelper.TABLE_HISTORY,columPlace
 //                ,null,null,null,null,null);
 
-        String query = "SELECT * FROM " + DatabaseHistoryHelper.TABLE_HISTORY;
+        String query = "SELECT * FROM " + DatabasePlaceHelper.TABLE_PLACE;
         Cursor cursor = database.rawQuery(query, null);
         cursor.moveToFirst();
 
         while(!cursor.isAfterLast()){
             //Lấy giá trị dữ liệu trong bảng CSDL
-            int id_history = cursor.getInt(cursor.getColumnIndex(DatabaseHistoryHelper.HISTORY_ID));
-            String tendiadiem_history = cursor.getString(cursor.getColumnIndex(DatabaseHistoryHelper.HISTORY_TENDIADIEM));
-            String tendichvu_history = cursor.getString(cursor.getColumnIndex(DatabaseHistoryHelper.HISTORY_TENDICHVU));
-            String thoigianlike_history = cursor.getString(cursor.getColumnIndex(DatabaseHistoryHelper.HISTORY_THOIGIANLIKE));
-            String tendiachi_history = cursor.getString(cursor.getColumnIndex(DatabaseHistoryHelper.HISTORY_DIACHI));
-            String hinhanhdichvu_history = cursor.getString(cursor.getColumnIndex(DatabaseHistoryHelper.HISTORY_HINHANHDICHVU));
-            String diemdanhgia_history = cursor.getString(cursor.getColumnIndex(DatabaseHistoryHelper.HISTORY_DIEMDANHGIA));
+            int id_place = cursor.getInt(cursor.getColumnIndex(DatabasePlaceHelper.PLACE_ID));
+            String tendiadiem_place = cursor.getString(cursor.getColumnIndex(DatabasePlaceHelper.PLACE_TENDIADIEM));
+            String tendichvu_place = cursor.getString(cursor.getColumnIndex(DatabasePlaceHelper.PLACE_TENDICHVU));
+            String thoigianlike_place = cursor.getString(cursor.getColumnIndex(DatabasePlaceHelper.PLACE_THOIGIANLIKE));
+            String tendiachi_place = cursor.getString(cursor.getColumnIndex(DatabasePlaceHelper.PLACE_DIACHI));
+            String hinhanhdichvu_place = cursor.getString(cursor.getColumnIndex(DatabasePlaceHelper.PLACE_HINHANHDICHVU));
+            String diemdanhgia_place = cursor.getString(cursor.getColumnIndex(DatabasePlaceHelper.PLACE_DIEMDANHGIA));
 
             //Tạo đối tượng
-            PlaceLikeDTO historyLikeDTO = new PlaceLikeDTO();
+            PlaceLikeDTO placeLikeDTO = new PlaceLikeDTO();
 
             //Gán thuộc tính cho các đối tượng
-            historyLikeDTO.set_id(id_history);
-            historyLikeDTO.setTenDiaDiem(tendiadiem_history);
-            historyLikeDTO.setTenDichVu(tendichvu_history);
-            historyLikeDTO.setThoiGianLike(thoigianlike_history);
-            historyLikeDTO.setTenDiaChi(tendiachi_history);
-            historyLikeDTO.setHinhAnhDichVu(hinhanhdichvu_history);
-            historyLikeDTO.setDiemDanhGia(diemdanhgia_history);
+            placeLikeDTO.set_id(id_place);
+            placeLikeDTO.setTenDiaDiem(tendiadiem_place);
+            placeLikeDTO.setTenDichVu(tendichvu_place);
+            placeLikeDTO.setThoiGianLike(thoigianlike_place);
+            placeLikeDTO.setTenDiaChi(tendiachi_place);
+            placeLikeDTO.setHinhAnhDichVu(hinhanhdichvu_place);
+            placeLikeDTO.setDiemDanhGia(diemdanhgia_place);
 
             //Đổ dữ liệu vào DS lịch sử
-            dsHistoryLike.add(historyLikeDTO);
+            dsPlaceLike.add(placeLikeDTO);
 
             //di chuyển con trỏ đến vị trí tiếp theo để đọc dữ liệu
             cursor.moveToNext();
         }
 
-        return dsHistoryLike;
+        return dsPlaceLike;
     }
 
-    public boolean DeleteItemHistoryLike(PlaceLikeDTO history){
-        int kt = database.delete(DatabaseHistoryHelper.TABLE_HISTORY, DatabaseHistoryHelper.HISTORY_ID + " = " + history.get_id(),null);
+    public boolean DeleteItemPlaceLike(PlaceLikeDTO place){
+        int kt = database.delete(DatabasePlaceHelper.TABLE_PLACE, DatabasePlaceHelper.PLACE_ID + " = " + place.get_id(),null);
         if(kt != 0){
             return true;
         }else{
             return false;
         }
     }
-
 }

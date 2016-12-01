@@ -14,25 +14,24 @@ import android.widget.Toast;
 import java.util.List;
 
 /**
- * Created by hamin on 30-Nov-16.
+ * Created by hamin on 01-Dec-16.
  */
 
-public class SaveLocationAdapter extends RecyclerView.Adapter<SaveLocationAdapter.ViewHolder> {
-    List<PlaceLikeDTO> mDataset;
+public class HistoryAdater extends RecyclerView.Adapter<HistoryAdater.ViewHolder>{
+    List<HistoryLikeDTO> mDataset;
     Context mContext;
-    private static final int REQUEST_CODE = 10;
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
     // you provide access to all the views for a data item in a view holder
     public void removeAt(int position) {
-        PlaceLikeDAO placeLikeDAO = new PlaceLikeDAO(mContext);
-        placeLikeDAO.open();
+        HistoryLikeDAO historyLikeDAO = new HistoryLikeDAO(mContext);
+        historyLikeDAO.open();
 
-        boolean kiemtra = placeLikeDAO.DeleteItemPlaceLike(mDataset.get(position));
+        boolean kiemtra = historyLikeDAO.DeleteItemHistoryLike(mDataset.get(position));
         if (kiemtra)
             Toast.makeText(mContext, "Đã xóa thành công địa điểm yêu thích",Toast.LENGTH_LONG).show();
-        placeLikeDAO.close();
+        historyLikeDAO.close();
 
         mDataset.remove(position);
         notifyItemRemoved(position);
@@ -92,27 +91,27 @@ public class SaveLocationAdapter extends RecyclerView.Adapter<SaveLocationAdapte
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public SaveLocationAdapter(List<PlaceLikeDTO> myDataset, Context myContext) {
+    public HistoryAdater(List<HistoryLikeDTO> myDataset, Context myContext) {
         mDataset = myDataset;
         this.mContext = myContext;
     }
 
     // Create new views (invoked by the layout manager)
     @Override
-    public SaveLocationAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
-                                                        int viewType) {
+    public HistoryAdater.ViewHolder onCreateViewHolder(ViewGroup parent,
+                                                             int viewType) {
 
         // create a new view
         View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_recycler_save_location, parent, false);
+                .inflate(R.layout.item_recycler_history_location, parent, false);
         // set the view's size, margins, paddings and layout parameters
-        ViewHolder vh = new SaveLocationAdapter.ViewHolder(v);
+        HistoryAdater.ViewHolder vh = new HistoryAdater.ViewHolder(v);
         return vh;
     }
 
     // Replace the contents of a view (invoked by the layout manager)
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(HistoryAdater.ViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
         holder.name_location.setText(mDataset.get(position).getTenDiaDiem());
