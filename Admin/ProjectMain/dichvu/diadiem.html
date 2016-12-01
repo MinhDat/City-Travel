@@ -26,7 +26,7 @@
                             </div>
                             <div class="col-xs-6 col-sm-4">
                                  <button type="button" id="btnadd" ng-click="addtendiadiem()" class="btn btn-primary">Add</button>
-                                <button type="button" id="btnupdate" ng-click="updatetendiadiem()" class="btn btn-primary">Update</button>
+                                <button type="button" id="btnupdate" ng-click="updatetendiadiem()" class="btn btn-success">Update</button>
                             </div>
                         </fieldset>
                         <table class="table">
@@ -42,7 +42,7 @@
                                 <tr ng-repeat="tendiadiem in tendiadiems">
                                     <td>{{tendiadiem.MaTenDiaDiem}}</td>
                                     <td>{{tendiadiem.TenDiaDiem1}}</td>
-                                    <td><button type="button" ng-click="deletetendiadiem(tendiadiem.MaTenDiaDiem)" class="btn btn-primary">Delete</button></td>
+                                    <td><button type="button" ng-click="deletetendiadiem(tendiadiem.MaTenDiaDiem)" class="btn btn-danger">Delete</button></td>
                                     <td><button type="button" ng-click="edittendiadiem(tendiadiem.MaTenDiaDiem)" class="btn btn-primary">Edit</button></td>
                                 </tr>
                             </tbody>

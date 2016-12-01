@@ -105,7 +105,7 @@ console.log("hello");
     
      $scope.deletedichvu = function(id){
         console.log(id);
-        $http.delete('http://citytravel-2.apphb.com/api/dichvu/'+id,id).then(function(response){
+        $http.delete('http://citytravel-2.apphb.com/api/dichvu?id='+id,id).then(function(response){
             refresh();
         });
     };
@@ -115,7 +115,7 @@ console.log("hello");
         document.getElementById('tID').disabled = true;
         document.getElementById('btnadd').disabled = true;
         document.getElementById('btnupdate').disabled = false;
-          $http.get('http://citytravel-2.apphb.com/api/dichvu/'+id,id).then(function(response){
+          $http.get('http://citytravel-2.apphb.com/api/dichvu?id='+id,id).then(function(response){
             console.log(response);
             $scope.text = response.data[0];
          });
@@ -126,7 +126,7 @@ console.log("hello");
         document.getElementById('btnadd').disabled = false;
         document.getElementById('btnupdate').disabled = false;
         console.log($scope.text);
-        $http.put('http://citytravel-2.apphb.com/api/dichvu/' + $scope.text.ID, $scope.text).then(function(response){
+        $http.put('http://citytravel-2.apphb.com/api/dichvu?id=' + $scope.text.ID, $scope.text).then(function(response){
            console.log(response);
             refresh();
         });
@@ -206,9 +206,9 @@ app.controller('taikhoanController',['$scope','$http','$location','$log','$state
 
 refresh();
 
-  $scope.deletetaikhoan = function(email){
-        console.log(email);
-        $http.delete('http://citytravel-2.apphb.com/api/taikhoan/'+email,email).then(function(response){
+  $scope.deletetaikhoan = function(id){
+        console.log(id);
+        $http.delete('http://citytravel-2.apphb.com/api/taikhoan?id='+id,id).then(function(response){
             refresh();
         });
     };
