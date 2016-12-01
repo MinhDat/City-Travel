@@ -1,7 +1,6 @@
 package com.example.thaianhit.citytravel;
 
 
-import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -21,12 +20,13 @@ import android.widget.Toast;
 
 import com.arlib.floatingsearchview.FloatingSearchView;
 import com.arlib.floatingsearchview.suggestions.model.SearchSuggestion;
-
 import com.example.thaianhit.citytravel._class.PlaceDetail;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 import retrofit2.Call;
@@ -289,6 +289,32 @@ public class FragmentSearchLocations extends AppCompatActivity {
                         new RecyclerItemClickListener(FragmentSearchLocations.this, recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
                             @Override
                             public void onItemClick(View view, int position) {
+                                HistoryLikeDTO historyLikeDTO = new HistoryLikeDTO();
+                                historyLikeDTO.set_id(placeDetails.get(position).getPlace().getId_place());
+                                historyLikeDTO.setTenDiaDiem(placeDetails.get(position).getPlace().getName_place());
+                                historyLikeDTO.setTenDichVu(placeDetails.get(position).getCategory().getName_category());
+                                //Lay gio he thong
+                                Date thoiGian = new Date();
+
+                                //Khai bao dinh dang ngay thang
+                                SimpleDateFormat dinhDangThoiGian = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss ");
+
+                                //parse ngay thang sang dinh dang va chuyen thanh string.
+                                String hienThiThoiGian = dinhDangThoiGian.format(thoiGian.getTime());
+                                historyLikeDTO.setThoiGianLike(hienThiThoiGian);
+                                historyLikeDTO.setTenDiaChi("Số " + placeDetails.get(position).getSonha() +",đường " + placeDetails.get(position).getDuong().getName_duong() +", "+ placeDetails.get(position).getPhuong().getName_phuong() + ", " + placeDetails.get(position).getQuanhuyen().getName_quanhuyen() + ", " + placeDetails.get(position).getTinhthanh().getName_tinhthanh() + ".");
+                                historyLikeDTO.setHinhAnhDichVu("");
+                                historyLikeDTO.setDiemDanhGia(String.valueOf(placeDetails.get(position).getDanhgia()));
+
+                                HistoryLikeDAO historyLikeDAO = new HistoryLikeDAO(getApplication());
+                                historyLikeDAO.open();
+
+                                boolean kiemtra = historyLikeDAO.AddHistoryLike(historyLikeDTO);
+                                historyLikeDAO.close();
+                                if (kiemtra)
+                                    Toast.makeText(FragmentSearchLocations.this, "Đã thêm vào Lịch sử",Toast.LENGTH_LONG).show();
+                                else
+                                    Toast.makeText(FragmentSearchLocations.this, "Chưa thêm vào Lịch sử", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(FragmentSearchLocations.this, DetailServices.class);
                                 intent.putExtra("id", placeDetails.get(position).getId_placedetail());
                                 startActivityForResult(intent, REQUEST_CODE);

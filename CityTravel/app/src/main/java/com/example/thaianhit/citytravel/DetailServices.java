@@ -142,7 +142,7 @@ public class DetailServices extends AppCompatActivity implements OnMapReadyCallb
         recyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
         recyclerView.setAdapter(commentAdapter);
         recyclerView.setFocusable(false);
-        preparePlaceData();
+        //preparePlaceData();
 
         btn_detail_save = (ToggleButton) findViewById(R.id.btn_detail_save);
         btn_detail_save.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -244,13 +244,13 @@ public class DetailServices extends AppCompatActivity implements OnMapReadyCallb
         return super.onOptionsItemSelected(item);
     }
 
-    private void preparePlaceData() {
-        Comment comment = new Comment("Dũng", "15/06/2016", "http://www.wn.com.vn/timthumb.php?src=http://www.wn.com.vn/product_images/x/971/anh-girl-xinh-full-hd(1)__70218.jpg&w=1000&h=606&zc=1", "Glide includes a flexible API that allows developers to plug in to almost any network stack. ");
-        commentList.add(comment);
-        comment = new Comment("Dũng Trương Như", "11/01/2016", "http://toananhdep.com/wp-content/uploads/2015/12/tuyen-tap-nhung-hinh-anh-girl-xinh-dang-yeu-nhat-viet-nam-9.jpg", "Glide's primary focus is on making scrolling any kind of a list of images as smooth and fast as possible, but Glide is also effective for almost any case where you need to fetch, resize, and display a remote image.");
-        commentList.add(comment);
-        commentAdapter.notifyDataSetChanged();
-    }
+//    private void preparePlaceData() {
+//        Comment comment = new Comment("Dũng", "15/06/2016", "http://www.wn.com.vn/timthumb.php?src=http://www.wn.com.vn/product_images/x/971/anh-girl-xinh-full-hd(1)__70218.jpg&w=1000&h=606&zc=1", "Glide includes a flexible API that allows developers to plug in to almost any network stack. ");
+//        commentList.add(comment);
+//        comment = new Comment("Dũng Trương Như", "11/01/2016", "http://toananhdep.com/wp-content/uploads/2015/12/tuyen-tap-nhung-hinh-anh-girl-xinh-dang-yeu-nhat-viet-nam-9.jpg", "Glide's primary focus is on making scrolling any kind of a list of images as smooth and fast as possible, but Glide is also effective for almost any case where you need to fetch, resize, and display a remote image.");
+//        commentList.add(comment);
+//        commentAdapter.notifyDataSetChanged();
+//    }
 
     public class CategoryAsyncTask extends AsyncTask<Call, Void, PlaceDetail> {
         @Override
