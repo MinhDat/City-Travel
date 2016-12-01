@@ -1,14 +1,11 @@
 package com.example.thaianhit.citytravel;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -16,13 +13,13 @@ import java.util.List;
  * Created by HuuBao on 28-Nov-16.
  */
 
-public class CustomHistoryAdapter extends ArrayAdapter<HistoryLikeDTO> {
+public class CustomHistoryAdapter extends ArrayAdapter<PlaceLikeDTO> {
 
     Context context;
     int resource;
-    List<HistoryLikeDTO> objects;
+    List<PlaceLikeDTO> objects;
 
-    public CustomHistoryAdapter(Context context, int resource, List<HistoryLikeDTO> objects) {
+    public CustomHistoryAdapter(Context context, int resource, List<PlaceLikeDTO> objects) {
         super(context, resource, objects);
 
         this.context = context;

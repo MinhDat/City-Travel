@@ -2,14 +2,12 @@ package com.example.thaianhit.citytravel;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.ContextMenu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -20,15 +18,15 @@ import java.util.List;
  * Created by HuuBao on 28-Nov-16.
  */
 
-public class HistoryActivity extends AppCompatActivity {
+public class PlaceActivity extends AppCompatActivity {
 
     ListView lvHistory;
 
-    List<HistoryLikeDTO> listHistory;
+    List<PlaceLikeDTO> listHistory;
 
     CustomHistoryAdapter adapter;
 
-    HistoryLikeDAO historyLikeDAO;
+    PlaceLikeDAO historyLikeDAO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,10 +35,10 @@ public class HistoryActivity extends AppCompatActivity {
 
     //    lvHistory = (ListView) findViewById(R.id.lvHistory);
 
-       listHistory = new ArrayList<HistoryLikeDTO>();
+       listHistory = new ArrayList<PlaceLikeDTO>();
 
         //mở kết nối với database
-        historyLikeDAO = new HistoryLikeDAO(this);
+        historyLikeDAO = new PlaceLikeDAO(this);
         historyLikeDAO.open();
 
         listHistory = historyLikeDAO.GetListHistoryLike();
@@ -60,7 +58,7 @@ public class HistoryActivity extends AppCompatActivity {
         String tenDichVu = packageFromCaller.getString("getNameDichVu");
         String tenDiaChi = packageFromCaller.getString("getNameDiaChi");
 
-        HistoryLikeDTO historyLikeDTO = new HistoryLikeDTO();
+        PlaceLikeDTO historyLikeDTO = new PlaceLikeDTO();
         historyLikeDTO.set_id(id);
         historyLikeDTO.setTenDiaDiem(tenDiaDiem);
         historyLikeDTO.setTenDichVu(tenDichVu);
@@ -71,7 +69,7 @@ public class HistoryActivity extends AppCompatActivity {
 
         boolean kiemtra = historyLikeDAO.AddHistoryLike(historyLikeDTO);
         if(kiemtra){
-            Toast.makeText(HistoryActivity.this, "Đã thêm vào Lịch sử yêu thích",Toast.LENGTH_LONG).show();
+            Toast.makeText(PlaceActivity.this, "Đã thêm vào Lịch sử yêu thích",Toast.LENGTH_LONG).show();
             adapter.notifyDataSetChanged();
         }
 
@@ -91,7 +89,7 @@ public class HistoryActivity extends AppCompatActivity {
         switch (item.getItemId()){
             case R.id.itemDelete:
                 AdapterView.AdapterContextMenuInfo menuInfo = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-                HistoryLikeDTO historyDTO = listHistory.get(menuInfo.position);
+                PlaceLikeDTO historyDTO = listHistory.get(menuInfo.position);
                 historyLikeDAO.DeleteItemHistoryLike(historyDTO);
                 adapter.remove(historyDTO);
                 adapter.notifyDataSetChanged();

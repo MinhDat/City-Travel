@@ -14,12 +14,14 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import com.bumptech.glide.Glide;
 import com.example.thaianhit.citytravel._class.PlaceDetail;
@@ -32,7 +34,9 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.Bind;
@@ -72,6 +76,8 @@ public class DetailServices extends AppCompatActivity implements OnMapReadyCallb
     double lngA, lngB;
     int id_place;
     GPSTracker gps;
+
+    ToggleButton btn_detail_save;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -136,6 +142,51 @@ public class DetailServices extends AppCompatActivity implements OnMapReadyCallb
         recyclerView.setAdapter(commentAdapter);
         recyclerView.setFocusable(false);
         preparePlaceData();
+
+        btn_detail_save = (ToggleButton) findViewById(R.id.btn_detail_save);
+        btn_detail_save.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                PlaceLikeDTO placeLikeDTO = new PlaceLikeDTO();
+                if (b == true) {
+
+                    placeLikeDTO.set_id(1);
+                    placeLikeDTO.setTenDiaDiem(tv_name_place.getText().toString());
+                    placeLikeDTO.setTenDichVu(txt_detail_dichvu.getText().toString());
+                    //Lay gio he thong
+                    Date thoiGian = new Date();
+
+                    //Khai bao dinh dang ngay thang
+                    SimpleDateFormat dinhDangThoiGian = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss ");
+
+                    //parse ngay thang sang dinh dang va chuyen thanh string.
+                    String hienThiThoiGian = dinhDangThoiGian.format(thoiGian.getTime());
+                    placeLikeDTO.setThoiGianLike(hienThiThoiGian);
+                    placeLikeDTO.setTenDiaChi(txt_detail_address.getText().toString());
+                    placeLikeDTO.setHinhAnhDichVu("");
+                    placeLikeDTO.setDiemDanhGia(txt_detail_rating.getText().toString());
+
+                    PlaceLikeDAO placeLikeDAO = new PlaceLikeDAO(getApplication());
+                    placeLikeDAO.open();
+
+                    boolean kiemtra = placeLikeDAO.AddHistoryLike(placeLikeDTO);
+                    placeLikeDAO.close();
+                    if (kiemtra)
+                        Toast.makeText(DetailServices.this, "Đã thêm vào Lịch sử yêu thích",Toast.LENGTH_LONG).show();
+                    else
+                        Toast.makeText(DetailServices.this, "Chưa thêm vào Lịch sử yêu thích", Toast.LENGTH_SHORT).show();
+                    b = false;
+                }else {
+                    PlaceLikeDAO placeLikeDAO = new PlaceLikeDAO(getApplication());
+                    placeLikeDAO.open();
+
+                    placeLikeDAO.DeleteItemHistoryLike(placeLikeDTO);
+                    placeLikeDAO.close();
+                    Toast.makeText(DetailServices.this, "Đã hủy yêu thích", Toast.LENGTH_LONG).show();
+                    b = true;
+                }
+            }
+        });
     }
 
     private void showDialogDetail() {
@@ -230,8 +281,6 @@ public class DetailServices extends AppCompatActivity implements OnMapReadyCallb
                 Toast.makeText(DetailServices.this, "Load fail", Toast.LENGTH_SHORT).show();
                 Log.d("TGGG", e.toString());
             }
-
-
         }
 
         @Override
