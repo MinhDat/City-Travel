@@ -193,7 +193,8 @@ namespace CityTravelService.Models
             }
         }
 
-        public bool updateTaiKhoan(TaiKhoan tk)
+
+        public TaiKhoan insert_TaiKhoan(TaiKhoan tk)
         {
             try
             {
@@ -213,6 +214,61 @@ namespace CityTravelService.Models
                     }
                     if (!string.IsNullOrEmpty(arr.Email))
                     {
+                        return null;
+                    }
+                }
+                string insertCommand = "INSERT INTO TAIKHOAN VALUES('" +
+                    tk.Email + "', '" +
+                    tk.PassWord + "', N'" +
+                    tk.LastName + "', N'" +
+                    tk.FirtName + "', N'" +
+                    tk.Phone + "', " +
+                    tk.Sex + ", '" +
+                    tk.Birth.Year + "-" + tk.Birth.Month + "-" + tk.Birth.Day + "', N'" +
+                    tk.Address + "', '" +
+                    tk.Picture + "', '" +
+                    tk.Role + "', '" +
+                    tk.Provider + "')";
+                executeNonQuery(insertCommand);
+                string cmd = "SELECT * FROM TAIKHOAN WHERE Email = '" + tk.Email + "' AND NhaCungCap = '" + tk.Provider + "'";
+                adapter = new SqlDataAdapter(cmd, connection);
+                DataSet ds = new DataSet();
+                adapter.Fill(ds);
+                ArrayList list = ConvertDataSetToArrayList(ds);
+                TaiKhoan taikhoan = new TaiKhoan();
+                foreach (Object o in list)
+                {
+                    taikhoan = (TaiKhoan)o;
+                    break;
+                }
+                disconnect();
+                return taikhoan;
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+        public bool updateTaiKhoan(TaiKhoan tk)
+        {
+            try
+            {
+                connect();
+                if (tk.Provider == "Local")
+                {
+                    string query = "SELECT * FROM TAIKHOAN WHERE Email = '" + tk.Email + "' AND NhaCungCap = '" + tk.Provider + "'";
+                    adapter = new SqlDataAdapter(query, connection);
+                    DataSet dataset = new DataSet();
+                    adapter.Fill(dataset);
+                    ArrayList ls = ConvertDataSetToArrayList(dataset);
+                    TaiKhoan arr = new TaiKhoan();
+                    foreach (Object o in ls)
+                    {
+                        arr = (TaiKhoan)o;
+                        break;
+                    }
+                    if (string.IsNullOrEmpty(arr.Email))
+                    {
                         return false;
                     }
                 }
@@ -226,9 +282,8 @@ namespace CityTravelService.Models
                     "', DiaChi = N'" + tk.Address +
                     "', Hinh = '" + tk.Picture +
                       "', Role = '" + tk.Role + 
-                    "', IdUser = " + tk.IdUser +
-                    "', NhaCungCap = " + tk.Provider +
-                    " WHERE IdUser = " + tk.IdUser;
+                    "', NhaCungCap = '" + tk.Provider +
+                    "' WHERE IdUser = " + tk.IdUser;
                 executeNonQuery(updateCommand);
                 disconnect();
                 return true;

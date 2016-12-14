@@ -85,10 +85,15 @@ namespace CityTravelService.Controllers
         public bool Post([FromBody]TaiKhoan tk)
         {
             TaiKhoanDAO tkO = new TaiKhoanDAO();
-            //tkO.insertTaiKhoan(tk);
-            /*var response = Request.CreateResponse<TaiKhoan>(HttpStatusCode.Created, tk);
-            response.Headers.Location = new System.Uri(Request.RequestUri, "/api/TaiKhoan/" + tk.Email.ToString());*/
             return tkO.insertTaiKhoan(tk);
+        }
+
+        [Route("Insert")]
+        [HttpPost]
+        public TaiKhoan Post_Account([FromBody]TaiKhoan tk)
+        {
+            TaiKhoanDAO tkO = new TaiKhoanDAO();
+            return tkO.insert_TaiKhoan(tk);
         }
         #endregion
 
@@ -103,9 +108,6 @@ namespace CityTravelService.Controllers
                 throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound)); return false;
             }
             TaiKhoanDAO tkO = new TaiKhoanDAO();
-            //tkO.updateTaiKhoan(tk);
-            /*var response = Request.CreateResponse<TaiKhoan>(HttpStatusCode.Created, tk);
-            response.Headers.Location = new System.Uri(Request.RequestUri, "/api/TaiKhoan/" + tk.Email.ToString());*/
             return tkO.updateTaiKhoan(tk);
         }
         [Route("ChangPassword")]
